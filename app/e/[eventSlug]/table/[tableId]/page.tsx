@@ -7,14 +7,16 @@ import { Flag, Lightbulb, LogOut, Send, UsersRound } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { MotionShell } from "@/components/motion-shell";
 import { SecondaryButton } from "@/components/ui/buttons";
-import { demoGuests, demoMessages, demoTables } from "@/lib/demo-data";
+import { demoEvent, demoGuests, demoMessages, demoTables } from "@/lib/demo-data";
 import { containsAbusePlaceholder } from "@/lib/safety";
 import { shortTime } from "@/lib/time";
 import type { ChatMessage } from "@/lib/types";
 
 export default function TablePage() {
   const params = useParams<{ eventSlug: string; tableId: string }>();
-  const table = demoTables.find((item) => item.id === params.tableId) ?? demoTables[0];
+  const eventSlug = params?.eventSlug ?? demoEvent.slug;
+  const tableId = params?.tableId ?? demoTables[0].id;
+  const table = demoTables.find((item) => item.id === tableId) ?? demoTables[0];
   const [messages, setMessages] = useState<ChatMessage[]>([
     { id: "system", sender: "system", body: "This table is temporary. Keep it kind and venue-safe.", createdAt: new Date().toISOString() },
     { id: "t1", sender: "them", body: "Anyone got a favourite track from tonight?", createdAt: new Date().toISOString() },
@@ -57,7 +59,7 @@ export default function TablePage() {
               </SecondaryButton>
               <Link
                 className="tap-highlight inline-flex min-h-10 items-center justify-center rounded-full border border-white/[0.08] px-3 text-venue-muted"
-                href={`/e/${params.eventSlug}/room`}
+                href={`/e/${eventSlug}/room`}
                 aria-label="Leave table"
               >
                 <LogOut size={16} />

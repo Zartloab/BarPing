@@ -1,4 +1,4 @@
-import type { Mode, Vibe } from "@/lib/types";
+import type { GuestEntryChoice, Mode, VenueVibeLevel, Vibe } from "@/lib/types";
 
 export const communityRules =
   "Be normal. Be kind. No harassment, pressure, hate, explicit messages, or creepy behaviour. Staff and moderators can remove anyone.";
@@ -103,3 +103,27 @@ export const hostNudges = [
   "Last 30 minutes. Keep it kind, temporary, and mutual.",
   "If an accepted chat feels right, use Find Me only if both people agree."
 ];
+
+export const guestEntryChoices: { label: GuestEntryChoice; description: string; defaultMode: Mode }[] = [
+  {
+    label: "Join a table",
+    description: "Start with a group prompt and a few open seats.",
+    defaultMode: "Join a table"
+  },
+  {
+    label: "Open to pings",
+    description: "Browse people and allow low-pressure 1:1 pings.",
+    defaultMode: "Open to 1:1 chat"
+  },
+  {
+    label: "Just browsing",
+    description: "Look around first. You can opt into pings later.",
+    defaultMode: "Join a table"
+  }
+];
+
+export const vibeLevelDescriptions: Record<VenueVibeLevel, string> = {
+  Calm: "More tables, fewer 1:1 prompts, Find Me off by default.",
+  Social: "Balanced tables and pings, Find Me on.",
+  Mixer: "More host nudges and table prompts, Find Me on."
+};

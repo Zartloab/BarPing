@@ -19,6 +19,7 @@ import type { ChatMessage, FindMeSession } from "@/lib/types";
 
 export default function ChatPage() {
   const params = useParams<{ eventSlug: string; chatId: string }>();
+  const eventSlug = params?.eventSlug ?? demoEvent.slug;
   const other = demoGuests[1];
   const [messages, setMessages] = useState<ChatMessage[]>(demoMessages);
   const [body, setBody] = useState("");
@@ -43,6 +44,10 @@ export default function ChatPage() {
   }
 
   function requestFindMe() {
+    if (!demoEvent.findMeEnabled) {
+      setError("Find Me is turned off for tonight. You can still chat or meet through a table.");
+      return;
+    }
     setFindMeRequestOpen(true);
   }
 
@@ -75,15 +80,17 @@ export default function ChatPage() {
               <p className="mt-1 text-xs text-venue-muted">Expires in {minutesRemaining(demoEvent.endsAt)} min</p>
             </div>
             <div className="flex gap-2">
-              <SecondaryButton className="min-h-10 px-3" onClick={requestFindMe} aria-label="Find each other">
-                <Lightbulb size={16} />
-              </SecondaryButton>
+              {demoEvent.findMeEnabled ? (
+                <SecondaryButton className="min-h-10 px-3" onClick={requestFindMe} aria-label="Find each other">
+                  <Lightbulb size={16} />
+                </SecondaryButton>
+              ) : null}
               <SecondaryButton className="min-h-10 px-3" aria-label="Report chat">
                 <Flag size={16} />
               </SecondaryButton>
               <Link
                 className="tap-highlight inline-flex min-h-10 items-center justify-center rounded-full border border-white/[0.08] px-3 text-venue-muted"
-                href={`/e/${params.eventSlug}/room`}
+                href={`/e/${eventSlug}/room`}
                 aria-label="Leave chat"
               >
                 <LogOut size={16} />
@@ -98,12 +105,16 @@ export default function ChatPage() {
                 <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-venue-amberSoft">Accepted ping</p>
                 <h2 className="mt-1 font-semibold">Ready to find each other?</h2>
                 <p className="mt-1 text-sm leading-relaxed text-venue-muted">
-                  Find Me only starts after both people agree. Both phones show the same color for 90 seconds.
+                  {demoEvent.findMeEnabled
+                    ? "Find Me only starts after both people agree. Both phones show the same color for 90 seconds."
+                    : "Find Me is turned off for this event. You can still meet through a table or keep chatting."}
                 </p>
               </div>
-              <PrimaryButton className="min-h-10 shrink-0 px-4" onClick={requestFindMe}>
-                Find each other
-              </PrimaryButton>
+              {demoEvent.findMeEnabled ? (
+                <PrimaryButton className="min-h-10 shrink-0 px-4" onClick={requestFindMe}>
+                  Find each other
+                </PrimaryButton>
+              ) : null}
             </div>
           </div>
           {error ? (

@@ -2,6 +2,8 @@
 
 BarPing is a QR-based Social Mode for Venues MVP. It is built as a mobile-first Next.js app with demo mode, venue admin screens, platform admin screens, and a Supabase schema foundation.
 
+V3 frames the product as **Social Night in a Box**: venues pick a reusable template, generate QR/signage assets, run the night from Set up / Live / After controls, and repeat what worked.
+
 ## Run locally
 
 ```bash
@@ -21,6 +23,7 @@ If `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are missing, t
 - `/e/thursday-social-mode/room` live room
 - `/e/thursday-social-mode/chat/demo-chat` temporary chat
 - `/venue/dashboard` venue dashboard and launch kit
+- `/venue/events/new` template-first event creation
 - `/admin` platform admin
 
 ## Supabase
@@ -36,3 +39,11 @@ The first migration lives at `supabase/migrations/202605260001_barping_mvp.sql` 
 - report, ban, announcement, and feedback foundations
 
 `supabase/seed.sql` adds a demo venue, event, and group tables.
+
+V3 adds:
+
+- event templates and template tables
+- in-app asset previews for QR cards, posters, story copy, safety cards, and run sheets
+- venue vibe levels: Calm, Social, Mixer
+- event-level Find Me toggle
+- event recommendation badges for post-event repeat decisions

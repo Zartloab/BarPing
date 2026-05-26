@@ -2,6 +2,9 @@ import type {
   ChatMessage,
   ContactExchange,
   Event,
+  EventAsset,
+  EventRecommendation,
+  EventTemplate,
   EventTable,
   FeedbackResponse,
   FindMeSession,
@@ -47,7 +50,10 @@ export const demoEvent: Event = {
     "Be normal. Be kind. No harassment, pressure, hate, explicit messages, or creepy behaviour. Staff and moderators can remove anyone.",
   isLive: true,
   isClosed: false,
-  qrScans: 38
+  qrScans: 38,
+  templateId: "live-music-social",
+  vibeLevel: "Social",
+  findMeEnabled: true
 };
 
 export const demoGuests: Guest[] = [
@@ -60,7 +66,8 @@ export const demoGuests: Guest[] = [
     note: "Here for the live set.",
     checkedInAt: new Date(now.getTime() - 18 * 60 * 1000).toISOString(),
     expiresAt: end.toISOString(),
-    sharedTopics: ["Music"]
+    sharedTopics: ["Music"],
+    entryChoice: "Open to pings"
   },
   {
     id: "guest-blue-vinyl",
@@ -71,7 +78,8 @@ export const demoGuests: Guest[] = [
     note: "Always open to music recommendations.",
     checkedInAt: new Date(now.getTime() - 14 * 60 * 1000).toISOString(),
     expiresAt: end.toISOString(),
-    sharedTopics: ["Music", "Film"]
+    sharedTopics: ["Music", "Film"],
+    entryChoice: "Join a table"
   },
   {
     id: "guest-amber-signal",
@@ -82,7 +90,8 @@ export const demoGuests: Guest[] = [
     note: "New here, trying to meet people.",
     checkedInAt: new Date(now.getTime() - 11 * 60 * 1000).toISOString(),
     expiresAt: end.toISOString(),
-    sharedTopics: ["Design"]
+    sharedTopics: ["Design"],
+    entryChoice: "Join a table"
   },
   {
     id: "guest-olive-moon",
@@ -93,7 +102,8 @@ export const demoGuests: Guest[] = [
     note: "Looking for art people.",
     checkedInAt: new Date(now.getTime() - 8 * 60 * 1000).toISOString(),
     expiresAt: end.toISOString(),
-    sharedTopics: ["Art"]
+    sharedTopics: ["Art"],
+    entryChoice: "Join a table"
   },
   {
     id: "guest-soft-static",
@@ -103,7 +113,8 @@ export const demoGuests: Guest[] = [
     mode: "Open to 1:1 chat",
     note: "Ask me about terrible movies.",
     checkedInAt: new Date(now.getTime() - 7 * 60 * 1000).toISOString(),
-    expiresAt: end.toISOString()
+    expiresAt: end.toISOString(),
+    entryChoice: "Open to pings"
   },
   {
     id: "guest-velvet-echo",
@@ -113,7 +124,8 @@ export const demoGuests: Guest[] = [
     mode: "Join a table",
     note: "Came for one drink, stayed for the vibe.",
     checkedInAt: new Date(now.getTime() - 4 * 60 * 1000).toISOString(),
-    expiresAt: end.toISOString()
+    expiresAt: end.toISOString(),
+    entryChoice: "Join a table"
   },
   {
     id: "guest-neon-sparrow",
@@ -123,7 +135,8 @@ export const demoGuests: Guest[] = [
     mode: "Open to 1:1 chat",
     note: "Trying the room before the next set.",
     checkedInAt: new Date(now.getTime() - 2 * 60 * 1000).toISOString(),
-    expiresAt: end.toISOString()
+    expiresAt: end.toISOString(),
+    entryChoice: "Just browsing"
   }
 ];
 
@@ -137,7 +150,10 @@ export const demoTables: EventTable[] = [
     prompt: "What track should the room hear next?",
     suggestedTopics: ["Music", "Film"],
     isSpotlighted: true,
-    isActive: true
+    isActive: true,
+    energyLevel: "Active",
+    hostPrompt: "The set just shifted. What should play after this?",
+    isTemplateGenerated: true
   },
   {
     id: "table-new",
@@ -147,7 +163,10 @@ export const demoTables: EventTable[] = [
     memberCount: 4,
     prompt: "What is one place in Sydney worth knowing?",
     suggestedTopics: ["Travel", "Food", "Life"],
-    isActive: true
+    isActive: true,
+    energyLevel: "Warming up",
+    hostPrompt: "Share one local tip you wish you knew earlier.",
+    isTemplateGenerated: true
   },
   {
     id: "table-makers",
@@ -157,7 +176,10 @@ export const demoTables: EventTable[] = [
     memberCount: 7,
     prompt: "What are you making or trying to make?",
     suggestedTopics: ["Art", "Design", "Startups"],
-    isActive: true
+    isActive: true,
+    energyLevel: "Active",
+    hostPrompt: "Pitch the project you have not started yet.",
+    isTemplateGenerated: true
   },
   {
     id: "table-random",
@@ -167,9 +189,185 @@ export const demoTables: EventTable[] = [
     memberCount: 3,
     prompt: "What is your safest controversial opinion?",
     suggestedTopics: ["Random", "Games", "Life"],
-    isActive: true
+    isActive: true,
+    energyLevel: "Quiet",
+    hostPrompt: "Use this table when you do not know what table you want.",
+    isTemplateGenerated: true
   }
 ];
+
+const sharedAssetCopy = {
+  tableQr: "Open to meeting people tonight?\n\nScan to join BarPing.\nNo names. No photos. No pressure.",
+  entrancePoster: "Social Mode is live tonight.\n\nMeet people already here.\nScan the QR at the bar.",
+  barCounter: "Ask the bar about Social Mode.\nScan in, choose a vibe, join a table.",
+  instagramStory: "Tonight: Social Mode is live.\n\nScan in at the bar from 7 PM.\nNo swiping. No photos. No pressure.",
+  safetyCard: "Respect the room.\nNo pressure, harassment, hate, or creepy behaviour.\nYou can ignore, block, or report anytime.",
+  staffScript:
+    "We're running BarPing tonight. Guests scan the QR, choose a vibe, and can join table chats or send low-pressure pings. No photos or real names.",
+  runOfShow:
+    "7:00 PM: QR signs visible, staff briefed.\n7:30 PM: Social Mode starts.\n7:45 PM: First table prompt.\n8:15 PM: Host nudge.\n8:45 PM: Accepted chats may use Find Me if both agree.\n9:15 PM: Final prompt.\n9:30 PM: Feedback opens."
+};
+
+export const demoEventTemplates: EventTemplate[] = [
+  {
+    id: "after-work-mixer",
+    name: "After Work Mixer",
+    eventTitle: "After Work Social",
+    eventType: "Coworking Mixer",
+    description: "A simple social hour for people arriving in ones and twos.",
+    recommendedDurationMinutes: 120,
+    socialWindowOffsetMinutes: 30,
+    socialWindowDurationMinutes: 105,
+    defaultVibeLevel: "Social",
+    findMeDefault: true,
+    tables: [
+      { name: "First Drink", description: "Easy openings and venue recommendations.", prompt: "What should someone order here first?", suggestedTopics: ["Food", "Travel", "Random"], maxMembers: 10, energyLevel: "Warming up" },
+      { name: "Work Stories", description: "Low-stakes chat after the laptop closes.", prompt: "What was the least boring part of your week?", suggestedTopics: ["Life", "Startups"], maxMembers: 10, energyLevel: "Quiet" }
+    ],
+    hostNudges: ["After Work Social is live. Join First Drink if you want an easy start.", "Last call for new table joins in 30 minutes."],
+    assets: sharedAssetCopy
+  },
+  {
+    id: "new-to-town-night",
+    name: "New to Town Night",
+    eventTitle: "New to Sydney Night",
+    eventType: "Social Night",
+    description: "For people new to the city, scene, or venue.",
+    recommendedDurationMinutes: 120,
+    socialWindowOffsetMinutes: 20,
+    socialWindowDurationMinutes: 110,
+    defaultVibeLevel: "Calm",
+    findMeDefault: false,
+    tables: [
+      { name: "New Here", description: "Fresh faces and easy introductions.", prompt: "What brought you to this part of town?", suggestedTopics: ["Travel", "Life", "Food"], maxMembers: 12, energyLevel: "Active" },
+      { name: "Local Tips", description: "Recommendations from people who know the area.", prompt: "What place should everyone try once?", suggestedTopics: ["Food", "Music", "Random"], maxMembers: 10, energyLevel: "Warming up" }
+    ],
+    hostNudges: ["New Here has open seats. Perfect if you just arrived.", "Ask someone for one local tip before the next round."],
+    assets: sharedAssetCopy
+  },
+  {
+    id: "live-music-social",
+    name: "Live Music Social",
+    eventTitle: "Thursday Social Mode",
+    eventType: "Live Music",
+    description: "Turns a live set into a low-pressure shared conversation.",
+    recommendedDurationMinutes: 150,
+    socialWindowOffsetMinutes: 30,
+    socialWindowDurationMinutes: 120,
+    defaultVibeLevel: "Social",
+    findMeDefault: true,
+    tables: [
+      { name: "Music Table", description: "Live set reactions and recommendations.", prompt: "What track should the room hear next?", suggestedTopics: ["Music", "Film"], maxMembers: 10, energyLevel: "Active" },
+      { name: "First Time Here", description: "For anyone new to the venue or band.", prompt: "What made you come out tonight?", suggestedTopics: ["Music", "Life", "Random"], maxMembers: 8, energyLevel: "Warming up" },
+      { name: "After The Set", description: "Keep the chat going after the last song.", prompt: "What was the best moment of the set?", suggestedTopics: ["Music", "Travel"], maxMembers: 12, energyLevel: "Quiet" }
+    ],
+    hostNudges: ["Music Table is active. Share your read on the set.", "First Time Here is the easiest place to start.", "Accepted chats can use Find Me only if both agree."],
+    assets: sharedAssetCopy
+  },
+  {
+    id: "singles-without-swiping",
+    name: "Singles Without Swiping",
+    eventTitle: "Singles Without Swiping",
+    eventType: "Singles Social",
+    description: "A safer singles night where tables lead and pings stay mutual.",
+    recommendedDurationMinutes: 120,
+    socialWindowOffsetMinutes: 20,
+    socialWindowDurationMinutes: 100,
+    defaultVibeLevel: "Calm",
+    findMeDefault: false,
+    tables: [
+      { name: "No Pressure Table", description: "Group chat before any 1:1.", prompt: "What is your ideal low-pressure night out?", suggestedTopics: ["Life", "Food", "Travel"], maxMembers: 10, energyLevel: "Active" },
+      { name: "Conversation Starters", description: "Prompts that are not dating-app coded.", prompt: "What topic can you talk about for too long?", suggestedTopics: ["Books", "Film", "Music"], maxMembers: 10, energyLevel: "Warming up" }
+    ],
+    hostNudges: ["Start with tables. Pings are optional and mutual.", "No pressure is the rule tonight."],
+    assets: sharedAssetCopy
+  },
+  {
+    id: "creative-table-night",
+    name: "Creative Table Night",
+    eventTitle: "Artists & Makers Social",
+    eventType: "Creative Meetup",
+    description: "For artists, designers, musicians, and project people.",
+    recommendedDurationMinutes: 150,
+    socialWindowOffsetMinutes: 20,
+    socialWindowDurationMinutes: 120,
+    defaultVibeLevel: "Mixer",
+    findMeDefault: true,
+    tables: [
+      { name: "Artists & Makers", description: "Projects, ideas, and almost-finished things.", prompt: "What are you making right now?", suggestedTopics: ["Art", "Design", "Music"], maxMembers: 12, energyLevel: "Active" },
+      { name: "Collab Corner", description: "Find people for projects without pitching hard.", prompt: "What skill would you love to trade?", suggestedTopics: ["Startups", "Design", "Art"], maxMembers: 8, energyLevel: "Warming up" }
+    ],
+    hostNudges: ["Artists & Makers is active. Bring a project, not a pitch.", "Collab Corner has open seats."],
+    assets: sharedAssetCopy
+  },
+  {
+    id: "uni-backpacker-night",
+    name: "Uni / Backpacker Night",
+    eventTitle: "New Faces Night",
+    eventType: "Uni Event",
+    description: "Fast, casual, group-first social energy.",
+    recommendedDurationMinutes: 120,
+    socialWindowOffsetMinutes: 15,
+    socialWindowDurationMinutes: 105,
+    defaultVibeLevel: "Mixer",
+    findMeDefault: true,
+    tables: [
+      { name: "Travel Stories", description: "Where people have been and where they are going.", prompt: "What city surprised you most?", suggestedTopics: ["Travel", "Food", "Life"], maxMembers: 12, energyLevel: "Active" },
+      { name: "Games Table", description: "Light conversation and silly questions.", prompt: "What game should this table play verbally?", suggestedTopics: ["Games", "Random"], maxMembers: 10, energyLevel: "Warming up" }
+    ],
+    hostNudges: ["Travel Stories is filling up.", "Games Table is the easiest start if you came alone."],
+    assets: sharedAssetCopy
+  },
+  {
+    id: "quiet-tuesday-social",
+    name: "Quiet Tuesday Social",
+    eventTitle: "Quiet Tuesday Social",
+    eventType: "Social Night",
+    description: "Gentle density for slower nights.",
+    recommendedDurationMinutes: 90,
+    socialWindowOffsetMinutes: 15,
+    socialWindowDurationMinutes: 75,
+    defaultVibeLevel: "Calm",
+    findMeDefault: false,
+    tables: [
+      { name: "Slow Chat", description: "No rush, no performance.", prompt: "What made today decent?", suggestedTopics: ["Life", "Books", "Food"], maxMembers: 8, energyLevel: "Quiet" },
+      { name: "Regulars & New Faces", description: "A soft landing for first-timers.", prompt: "What should someone know about this venue?", suggestedTopics: ["Random", "Music"], maxMembers: 10, energyLevel: "Warming up" }
+    ],
+    hostNudges: ["Slow Chat is open if you want a gentle start.", "No pressure tonight. Tables first."],
+    assets: sharedAssetCopy
+  },
+  {
+    id: "private-function-mixer",
+    name: "Private Function Mixer",
+    eventTitle: "Private Mixer",
+    eventType: "Private Event",
+    description: "For brand activations, team nights, and private socials.",
+    recommendedDurationMinutes: 120,
+    socialWindowOffsetMinutes: 20,
+    socialWindowDurationMinutes: 100,
+    defaultVibeLevel: "Social",
+    findMeDefault: true,
+    tables: [
+      { name: "Introductions", description: "Easy names-free starts for the group.", prompt: "What brought you into the room tonight?", suggestedTopics: ["Life", "Startups", "Random"], maxMembers: 12, energyLevel: "Active" },
+      { name: "Topic Table", description: "A flexible table for the event theme.", prompt: "What question should this event answer?", suggestedTopics: ["Design", "Startups", "Art"], maxMembers: 12, energyLevel: "Warming up" }
+    ],
+    hostNudges: ["Introductions is open for anyone arriving solo.", "Topic Table is live now."],
+    assets: sharedAssetCopy
+  }
+];
+
+export const selectedDemoTemplate = demoEventTemplates.find((template) => template.id === demoEvent.templateId) ?? demoEventTemplates[2];
+
+export const demoEventAssets: EventAsset[] = [
+  { id: "asset-table", eventId: demoEvent.id, kind: "table_qr", title: "Table QR card", copy: selectedDemoTemplate.assets.tableQr },
+  { id: "asset-poster", eventId: demoEvent.id, kind: "entrance_poster", title: "Entrance poster", copy: selectedDemoTemplate.assets.entrancePoster },
+  { id: "asset-counter", eventId: demoEvent.id, kind: "bar_counter", title: "Bar counter sign", copy: selectedDemoTemplate.assets.barCounter },
+  { id: "asset-story", eventId: demoEvent.id, kind: "instagram_story", title: "Instagram story", copy: selectedDemoTemplate.assets.instagramStory },
+  { id: "asset-safety", eventId: demoEvent.id, kind: "safety_card", title: "Safety card", copy: selectedDemoTemplate.assets.safetyCard },
+  { id: "asset-run", eventId: demoEvent.id, kind: "run_sheet", title: "Staff run sheet", copy: selectedDemoTemplate.assets.runOfShow }
+];
+
+export const demoRecommendation: EventRecommendation = "Good pilot signal";
 
 export const demoPings: Ping[] = [
   {

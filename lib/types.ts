@@ -4,6 +4,15 @@ export type PingStatus = "pending" | "accepted" | "ignored" | "blocked";
 export type ReportStatus = "New" | "Reviewing" | "Actioned" | "Dismissed";
 export type SocialWindowStatus = "scheduled" | "active" | "ended";
 export type FindMeStatus = "requested" | "active" | "ended" | "expired" | "reported";
+export type VenueVibeLevel = "Calm" | "Social" | "Mixer";
+export type GuestEntryChoice = "Join a table" | "Open to pings" | "Just browsing";
+export type TableEnergy = "Quiet" | "Warming up" | "Active";
+export type EventRecommendation =
+  | "Good pilot signal"
+  | "Run again with stronger signage"
+  | "Try table-first format"
+  | "Needs host announcement"
+  | "Safety review needed";
 
 export type Venue = {
   id: string;
@@ -28,6 +37,9 @@ export type Event = {
   isLive: boolean;
   isClosed: boolean;
   qrScans: number;
+  templateId?: string;
+  vibeLevel?: VenueVibeLevel;
+  findMeEnabled?: boolean;
 };
 
 export type Guest = {
@@ -40,6 +52,7 @@ export type Guest = {
   checkedInAt: string;
   expiresAt: string;
   sharedTopics?: string[];
+  entryChoice?: GuestEntryChoice;
 };
 
 export type EventTable = {
@@ -52,6 +65,9 @@ export type EventTable = {
   suggestedTopics: string[];
   isSpotlighted?: boolean;
   isActive?: boolean;
+  energyLevel?: TableEnergy;
+  hostPrompt?: string;
+  isTemplateGenerated?: boolean;
 };
 
 export type Ping = {
@@ -150,4 +166,49 @@ export type PilotMetrics = {
   bans: number;
   feltSafePercent: number;
   wouldUseAgainPercent: number;
+};
+
+export type TemplateAssetCopy = {
+  tableQr: string;
+  entrancePoster: string;
+  barCounter: string;
+  instagramStory: string;
+  safetyCard: string;
+  staffScript: string;
+  runOfShow: string;
+};
+
+export type TemplateTable = {
+  name: string;
+  description: string;
+  prompt: string;
+  suggestedTopics: string[];
+  maxMembers: number;
+  energyLevel: TableEnergy;
+};
+
+export type EventTemplate = {
+  id: string;
+  name: string;
+  eventTitle: string;
+  eventType: string;
+  description: string;
+  recommendedDurationMinutes: number;
+  socialWindowOffsetMinutes: number;
+  socialWindowDurationMinutes: number;
+  defaultVibeLevel: VenueVibeLevel;
+  findMeDefault: boolean;
+  tables: TemplateTable[];
+  hostNudges: string[];
+  assets: TemplateAssetCopy;
+};
+
+export type EventAssetKind = "table_qr" | "entrance_poster" | "bar_counter" | "instagram_story" | "safety_card" | "run_sheet";
+
+export type EventAsset = {
+  id: string;
+  eventId: string;
+  kind: EventAssetKind;
+  title: string;
+  copy: string;
 };
