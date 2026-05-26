@@ -17,7 +17,8 @@ export default function VenueEventPage() {
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               <PrimaryLink href={`/e/${demoEvent.slug}`}>Open guest link</PrimaryLink>
               <SecondaryLink href={`/venue/events/${demoEvent.id}/reports`}>View reports</SecondaryLink>
-              <SecondaryLink href={`/venue/events/${demoEvent.id}/qr`}>QR kit</SecondaryLink>
+              <SecondaryLink href={`/venue/events/${demoEvent.id}/setup`}>Setup</SecondaryLink>
+              <SecondaryLink href={`/venue/events/${demoEvent.id}/qr`}>Launch kit</SecondaryLink>
               <SecondaryLink href="/venue/dashboard">Close event</SecondaryLink>
             </div>
           </section>

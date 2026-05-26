@@ -9,6 +9,7 @@ import { QRCard } from "@/components/qr-card";
 import { RunSheetPreview } from "@/components/run-sheet-preview";
 import { PrimaryLink, SecondaryButton } from "@/components/ui/buttons";
 import { vibeLevelDescriptions } from "@/lib/constants";
+import { loadLocalPilotEvent } from "@/lib/venue-pilot";
 import type {
   Event,
   EventAsset,
@@ -56,11 +57,17 @@ export function VenueNightDashboard({
   feedback: FeedbackResponse[];
   recommendation: EventRecommendation;
 }) {
+  const pilot = loadLocalPilotEvent();
+  const activeEvent = pilot.event.id !== event.id ? pilot.event : event;
+  const activeAssets = pilot.event.id !== event.id ? pilot.assets : assets;
+  const activeTables = pilot.event.id !== event.id ? pilot.tables : tables;
+  const activeWindows = pilot.socialWindow ? [pilot.socialWindow] : windows;
   const [tab, setTab] = useState<DashboardTab>("Set up");
-  const [templateId, setTemplateId] = useState(selectedTemplate.id);
-  const [vibeLevel, setVibeLevel] = useState<VenueVibeLevel>(event.vibeLevel ?? selectedTemplate.defaultVibeLevel);
-  const [findMeEnabled, setFindMeEnabled] = useState(event.findMeEnabled ?? selectedTemplate.findMeDefault);
+  const [templateId, setTemplateId] = useState(activeEvent.templateId ?? selectedTemplate.id);
+  const [vibeLevel, setVibeLevel] = useState<VenueVibeLevel>(activeEvent.vibeLevel ?? selectedTemplate.defaultVibeLevel);
+  const [findMeEnabled, setFindMeEnabled] = useState(activeEvent.findMeEnabled ?? selectedTemplate.findMeDefault);
   const activeTemplate = templates.find((template) => template.id === templateId) ?? selectedTemplate;
+  const launchStatus = activeEvent.isClosed ? "Closed" : activeEvent.isLive ? "Live" : "Set up";
 
   return (
     <div>
@@ -68,11 +75,13 @@ export function VenueNightDashboard({
         <div>
           <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-venue-amberSoft">Social Night in a Box</p>
           <h1 className="mt-3 font-serif text-5xl leading-none">{venue.name}</h1>
-          <p className="mt-3 text-venue-muted">{activeTemplate.name} - ready in under five minutes</p>
+          <p className="mt-3 text-venue-muted">{activeTemplate.name} - {launchStatus}</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <PrimaryLink href="/venue/events/new">Create from template</PrimaryLink>
-          <PrimaryLink href={`/e/${event.slug}`}>Preview guest screen</PrimaryLink>
+          <PrimaryLink href={activeEvent.id === event.id ? "/venue/events/new" : `/venue/events/${activeEvent.id}/setup`}>
+            {activeEvent.id === event.id ? "Create night" : "Continue setup"}
+          </PrimaryLink>
+          <PrimaryLink href={`/e/${activeEvent.slug}`}>Preview guest screen</PrimaryLink>
         </div>
       </header>
 
@@ -182,14 +191,14 @@ export function VenueNightDashboard({
             </div>
           </section>
 
-          <AssetGenerator assets={assets} event={{ ...event, title: activeTemplate.eventTitle }} venue={venue} template={activeTemplate} />
+          <AssetGenerator assets={activeAssets} event={{ ...activeEvent, title: activeTemplate.eventTitle }} venue={venue} template={activeTemplate} />
           <RunSheetPreview template={activeTemplate} />
         </div>
       ) : null}
 
       {tab === "Live" ? (
         <div className="grid gap-6">
-          <HostModePanel windows={windows} announcements={announcements} tables={tables} />
+          <HostModePanel event={activeEvent} windows={activeWindows} announcements={announcements} tables={activeTables} />
           <section className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
             <div className="glass-card rounded-[28px] p-5">
               <div className="flex items-center justify-between gap-3">
@@ -197,7 +206,7 @@ export function VenueNightDashboard({
                   <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Live room</p>
                   <h2 className="mt-2 text-xl font-semibold">Active guests</h2>
                 </div>
-                <PrimaryLink href={`/e/${event.slug}/room`}>Open room</PrimaryLink>
+                <PrimaryLink href={`/e/${activeEvent.slug}/room`}>Open room</PrimaryLink>
               </div>
               <div className="mt-5 grid gap-3">
                 {guests.slice(0, 6).map((guest) => (
@@ -229,7 +238,7 @@ export function VenueNightDashboard({
               </div>
             </div>
           </section>
-          <QRCard event={event} />
+          <QRCard event={activeEvent} />
         </div>
       ) : null}
 

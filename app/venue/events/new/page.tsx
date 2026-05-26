@@ -1,24 +1,41 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowRight, Clock, Sparkles } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { MotionShell } from "@/components/motion-shell";
 import { RunSheetPreview } from "@/components/run-sheet-preview";
-import { PrimaryLink, SecondaryLink } from "@/components/ui/buttons";
+import { SecondaryLink } from "@/components/ui/buttons";
 import { vibeLevelDescriptions } from "@/lib/constants";
 import { demoEventTemplates, demoVenue } from "@/lib/demo-data";
+import { createPilotEvent } from "@/lib/venue-pilot";
 import type { EventTemplate, VenueVibeLevel } from "@/lib/types";
 
 export default function NewVenueEventPage() {
+  const router = useRouter();
   const [template, setTemplate] = useState<EventTemplate>(demoEventTemplates[2]);
   const [vibeLevel, setVibeLevel] = useState<VenueVibeLevel>(template.defaultVibeLevel);
   const [findMeEnabled, setFindMeEnabled] = useState(template.findMeDefault);
+  const [isCreating, setIsCreating] = useState(false);
+  const [error, setError] = useState("");
 
   function chooseTemplate(nextTemplate: EventTemplate) {
     setTemplate(nextTemplate);
     setVibeLevel(nextTemplate.defaultVibeLevel);
     setFindMeEnabled(nextTemplate.findMeDefault);
+  }
+
+  async function createNight() {
+    setIsCreating(true);
+    setError("");
+    try {
+      const result = await createPilotEvent(template, vibeLevel, findMeEnabled);
+      router.push(`/venue/events/${result.event.id}/setup`);
+    } catch (nextError) {
+      setError(nextError instanceof Error ? nextError.message : "Could not create the night.");
+      setIsCreating(false);
+    }
   }
 
   return (
@@ -97,11 +114,17 @@ export default function NewVenueEventPage() {
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               <SecondaryLink href="/venue/dashboard">Cancel</SecondaryLink>
-              <PrimaryLink href="/venue/events/event-demo/qr">
+              <button
+                onClick={createNight}
+                disabled={isCreating}
+                className="tap-highlight inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-venue-amber px-5 text-sm font-semibold text-venue-ink shadow-amber transition hover:bg-venue-amberSoft disabled:cursor-not-allowed disabled:opacity-45"
+                type="button"
+              >
                 Create night
                 <ArrowRight size={16} />
-              </PrimaryLink>
+              </button>
             </div>
+            {error ? <p className="mt-4 rounded-2xl bg-venue-danger/10 p-3 text-sm text-venue-danger">{error}</p> : null}
           </div>
 
           <div className="grid gap-6">

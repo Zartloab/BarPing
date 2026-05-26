@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Check, Copy, Download, Loader2, Printer } from "lucide-react";
-import QRCode from "qrcode";
 import type { Event, EventAsset, EventTemplate, Venue } from "@/lib/types";
 import { SecondaryButton } from "@/components/ui/buttons";
+import { buildEventUrl, useQrCodeDataUrl } from "@/components/qr-code";
 
 type ActionState = "idle" | "copy" | "download" | "print";
 
@@ -16,11 +16,6 @@ const assetSizes: Record<EventAsset["kind"], { width: number; height: number }> 
   safety_card: { width: 1200, height: 900 },
   run_sheet: { width: 1400, height: 1800 }
 };
-
-function getBasePath() {
-  if (typeof window === "undefined") return "";
-  return window.location.pathname.startsWith("/BarPing") ? "/BarPing" : "";
-}
 
 function wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) {
   const paragraphs = text.split("\n");
@@ -113,35 +108,16 @@ export function AssetPreview({
   venue: Venue;
   template: EventTemplate;
 }) {
-  const [qrDataUrl, setQrDataUrl] = useState("");
-  const [qrUrl, setQrUrl] = useState(`/e/${event.slug}`);
   const [actionState, setActionState] = useState<ActionState>("idle");
   const [message, setMessage] = useState("");
+  const qrUrl = buildEventUrl(event.slug);
+  const { dataUrl: qrDataUrl, error: qrError } = useQrCodeDataUrl(qrUrl);
   const meta = assetMeta[asset.kind];
   const runSheetItems = asset.copy.split("\n").filter(Boolean);
   const printableCopy = useMemo(
     () => `${asset.title}\n\n${asset.copy}${meta.useQr ? `\n\n${qrUrl}` : ""}`,
     [asset.copy, asset.title, meta.useQr, qrUrl]
   );
-
-  useEffect(() => {
-    const basePath = getBasePath();
-    const path = `${basePath}/e/${event.slug}`;
-    const absoluteUrl = new URL(path, window.location.origin).toString();
-
-    setQrUrl(absoluteUrl);
-    QRCode.toDataURL(absoluteUrl, {
-      errorCorrectionLevel: "M",
-      margin: 2,
-      scale: 9,
-      color: {
-        dark: "#080807",
-        light: "#fff7e8"
-      }
-    })
-      .then(setQrDataUrl)
-      .catch(() => setMessage("Could not generate QR code."));
-  }, [event.slug]);
 
   function showDone(state: Exclude<ActionState, "idle">, successMessage: string) {
     setActionState(state);
@@ -396,7 +372,7 @@ export function AssetPreview({
           Download PNG
         </SecondaryButton>
       </div>
-      {message ? <p className="mt-3 text-sm text-venue-amberSoft">{message}</p> : null}
+      {message || qrError ? <p className="mt-3 text-sm text-venue-amberSoft">{message || qrError}</p> : null}
     </article>
   );
 }
