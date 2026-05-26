@@ -1,0 +1,10 @@
+{
+  "name": "BarPing",
+  "short_name": "BarPing",
+  "description": "Social Mode for Venues",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080807",
+  "theme_color": "#080807",
+  "icons": []
+}

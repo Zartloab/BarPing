@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background: #080807;
+  --font-geist-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-geist-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-instrument-serif: Georgia, "Times New Roman", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: #080807;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(217, 143, 69, 0.2), transparent 34rem),
+    radial-gradient(circle at 100% 20%, rgba(77, 106, 170, 0.15), transparent 26rem),
+    #080807;
+  color: #f7f0e3;
+  font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(217, 143, 69, 0.35);
+}
+
+.scrollbar-warm {
+  scrollbar-color: rgba(217, 143, 69, 0.45) rgba(255, 244, 220, 0.04);
+}
+
+@layer components {
+  .warm-border {
+    border: 1px solid rgba(255, 244, 220, 0.08);
+  }
+
+  .glass-card {
+    border: 1px solid rgba(255, 244, 220, 0.08);
+    background:
+      linear-gradient(145deg, rgba(255, 244, 220, 0.045), rgba(255, 244, 220, 0.015)),
+      #171510;
+    box-shadow: 0 22px 80px rgba(0, 0, 0, 0.3);
+  }
+
+  .tap-highlight {
+    -webkit-tap-highlight-color: rgba(217, 143, 69, 0.18);
+  }
+}
