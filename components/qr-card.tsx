@@ -61,27 +61,27 @@ export function QRCard({ event }: { event: Event }) {
   }
 
   return (
-    <section className="glass-card rounded-[28px] p-5">
+    <section className="venue-panel-flat rounded-[18px] p-4">
       <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Event QR</p>
+        <div className="min-w-0">
+          <p className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-venue-dim">Event QR</p>
           <h2 className="mt-2 text-lg font-semibold text-venue-cream">{event.title}</h2>
           <p className="mt-1 break-all text-sm text-venue-muted">{eventUrl}</p>
         </div>
-        <div className="grid h-28 w-28 shrink-0 place-items-center rounded-2xl bg-venue-cream p-2 text-venue-ink">
+        <div className="grid h-24 w-24 shrink-0 place-items-center rounded-[14px] bg-venue-cream p-2 text-venue-ink">
           <QrCodeImage alt={`QR code for ${event.title}`} value={eventUrl} />
         </div>
       </div>
-      <div className="mt-5 flex flex-wrap gap-2">
-        <SecondaryButton className="min-h-10 px-4" onClick={downloadQr} disabled={!dataUrl}>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <SecondaryButton className="min-h-9 px-3" onClick={downloadQr} disabled={!dataUrl}>
           {dataUrl ? <Download size={16} /> : <Loader2 className="animate-spin" size={16} />}
           Download QR
         </SecondaryButton>
-        <SecondaryButton className="min-h-10 px-4" onClick={printQr} disabled={!dataUrl}>
+        <SecondaryButton className="min-h-9 px-3" onClick={printQr} disabled={!dataUrl}>
           <Printer size={16} />
           Print QR
         </SecondaryButton>
-        <SecondaryButton className="min-h-10 px-4" onClick={copyLink}>
+        <SecondaryButton className="min-h-9 px-3" onClick={copyLink}>
           {copied ? <Check size={16} /> : <Copy size={16} />}
           {copied ? "Copied" : "Copy link"}
         </SecondaryButton>

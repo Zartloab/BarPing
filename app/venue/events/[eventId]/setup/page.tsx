@@ -1,17 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CheckCircle2, Play, Printer, Wand2 } from "lucide-react";
+import { CheckCircle2, Play, Printer, Table2 } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { AssetGenerator } from "@/components/asset-generator";
 import { MotionShell } from "@/components/motion-shell";
 import { QRCard } from "@/components/qr-card";
-import { PrimaryLink, SecondaryButton } from "@/components/ui/buttons";
+import { PrimaryButton, PrimaryLink, SecondaryButton } from "@/components/ui/buttons";
+import { CommandPanel, ConsolePanel, SectionLabel, StageControl, UtilityPanel, VenueConsoleHeader } from "@/components/venue-console";
 import { demoEventTemplates, demoVenue, selectedDemoTemplate } from "@/lib/demo-data";
 import { loadLocalPilotEvent, updatePilotLiveStatus } from "@/lib/venue-pilot";
 import type { Event, SocialWindow } from "@/lib/types";
 
-type SetupStep = "Template" | "Assets" | "Ready to launch";
+type SetupStep = "Template" | "Assets" | "Ready";
 
 export default function EventSetupPage() {
   const local = loadLocalPilotEvent();
@@ -19,10 +20,7 @@ export default function EventSetupPage() {
   const [socialWindow, setSocialWindow] = useState<SocialWindow | null>(local.socialWindow);
   const [step, setStep] = useState<SetupStep>("Template");
   const [message, setMessage] = useState("");
-  const template = useMemo(
-    () => demoEventTemplates.find((item) => item.id === event.templateId) ?? selectedDemoTemplate,
-    [event.templateId]
-  );
+  const template = useMemo(() => demoEventTemplates.find((item) => item.id === event.templateId) ?? selectedDemoTemplate, [event.templateId]);
   const status = event.isClosed ? "Closed" : event.isLive || socialWindow?.status === "active" ? "Live" : "Set up";
 
   async function startNight() {
@@ -34,104 +32,102 @@ export default function EventSetupPage() {
 
   return (
     <AppShell wide>
-      <MotionShell className="py-4">
-        <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-venue-amberSoft">Launch setup</p>
-            <h1 className="mt-3 font-serif text-5xl leading-none">{event.title}</h1>
-            <p className="mt-3 text-venue-muted">{demoVenue.name} - {template.name}</p>
-          </div>
-          <span className="w-fit rounded-full bg-venue-amber/12 px-4 py-2 text-sm font-semibold text-venue-amberSoft">{status}</span>
-        </header>
+      <MotionShell className="grid gap-5 py-2">
+        <VenueConsoleHeader
+          venue={demoVenue}
+          event={event}
+          status={status}
+          summary="Finish the launch checklist, print the kit, then start Social Mode when the room is ready."
+          action={<PrimaryButton onClick={startNight}><Play size={16} />Start Social Mode</PrimaryButton>}
+        />
 
-        <div className="mt-6 grid gap-2 rounded-full border border-white/[0.08] bg-venue-raised p-1 md:grid-cols-3">
-          {(["Template", "Assets", "Ready to launch"] as SetupStep[]).map((item) => (
-            <button
-              key={item}
-              onClick={() => setStep(item)}
-              className={`min-h-11 rounded-full text-sm font-semibold transition ${
-                step === item ? "bg-venue-amber text-venue-ink" : "text-venue-muted hover:text-venue-cream"
-              }`}
-              type="button"
-            >
-              {item}
-            </button>
-          ))}
-        </div>
+        <StageControl<SetupStep> items={["Template", "Assets", "Ready"]} value={step} onChange={setStep} />
 
         {step === "Template" ? (
-          <section className="mt-6 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-            <article className="glass-card rounded-[28px] p-5">
-              <div className="grid h-11 w-11 place-items-center rounded-full bg-venue-amber/12 text-venue-amberSoft">
-                <Wand2 size={20} />
-              </div>
-              <h2 className="mt-4 text-2xl font-semibold">Template recipe</h2>
+          <section className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
+            <CommandPanel>
+              <SectionLabel>Template selected</SectionLabel>
+              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em]">{template.name}</h2>
               <p className="mt-2 text-sm leading-relaxed text-venue-muted">{template.description}</p>
-              <div className="mt-5 grid gap-3">
-                <p className="rounded-2xl bg-white/[0.035] p-3 text-sm text-venue-muted">Vibe: {event.vibeLevel}</p>
-                <p className="rounded-2xl bg-white/[0.035] p-3 text-sm text-venue-muted">Find Me: {event.findMeEnabled ? "On" : "Off"}</p>
-                <p className="rounded-2xl bg-white/[0.035] p-3 text-sm text-venue-muted">Tables: {local.tables.length}</p>
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                <UtilityPanel><p className="text-xs text-venue-dim">Vibe</p><p className="mt-1 font-semibold">{event.vibeLevel}</p></UtilityPanel>
+                <UtilityPanel><p className="text-xs text-venue-dim">Find Me</p><p className="mt-1 font-semibold">{event.findMeEnabled ? "On" : "Off"}</p></UtilityPanel>
+                <UtilityPanel><p className="text-xs text-venue-dim">Assets</p><p className="mt-1 font-semibold">{local.assets.length}</p></UtilityPanel>
               </div>
-            </article>
-            <article className="glass-card rounded-[28px] p-5">
-              <h2 className="text-2xl font-semibold">Generated tables</h2>
-              <div className="mt-5 grid gap-3">
+              <PrimaryLink className="mt-4" href="/venue/events/new">Change recipe</PrimaryLink>
+            </CommandPanel>
+
+            <ConsolePanel>
+              <div className="flex items-center gap-3">
+                <Table2 className="text-venue-amberSoft" size={19} />
+                <div>
+                  <SectionLabel>Generated tables</SectionLabel>
+                  <h2 className="mt-1 text-xl font-semibold">Conversation zones</h2>
+                </div>
+              </div>
+              <div className="mt-4 grid gap-2">
                 {local.tables.map((table) => (
-                  <div key={table.id} className="rounded-[22px] border border-white/[0.08] bg-white/[0.035] p-4">
-                    <p className="font-semibold">{table.name}</p>
-                    <p className="mt-1 text-sm text-venue-muted">{table.description}</p>
-                    <p className="mt-3 rounded-2xl bg-venue-soft p-3 text-sm text-venue-muted">{table.prompt}</p>
-                  </div>
+                  <article key={table.id} className="rounded-[14px] border border-white/[0.08] bg-white/[0.018] px-3 py-2.5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="font-semibold">{table.name}</p>
+                        <p className="mt-0.5 text-sm text-venue-muted">{table.description}</p>
+                      </div>
+                      <span className="rounded-full bg-venue-olive/18 px-2.5 py-1 text-xs text-venue-muted">{table.energyLevel}</span>
+                    </div>
+                    <p className="mt-2 text-sm text-venue-muted">{table.prompt}</p>
+                  </article>
                 ))}
               </div>
-            </article>
+            </ConsolePanel>
           </section>
         ) : null}
 
         {step === "Assets" ? (
-          <div className="mt-6 grid gap-6">
+          <div className="grid gap-5">
+            <CommandPanel>
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <SectionLabel>Launch kit</SectionLabel>
+                  <h2 className="mt-2 text-2xl font-semibold">Print/share assets are ready.</h2>
+                  <p className="mt-1 text-sm text-venue-muted">Every guest-facing asset uses the same live event QR.</p>
+                </div>
+                <PrimaryLink href={`/venue/events/${event.id}/qr`}><Printer size={16} />Open launch kit</PrimaryLink>
+              </div>
+            </CommandPanel>
             <QRCard event={event} />
             <AssetGenerator assets={local.assets} event={event} venue={demoVenue} template={template} />
           </div>
         ) : null}
 
-        {step === "Ready to launch" ? (
-          <section className="mt-6 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-            <article className="glass-card rounded-[28px] p-5">
-              <div className="grid h-12 w-12 place-items-center rounded-full bg-venue-amber/12 text-venue-amberSoft">
+        {step === "Ready" ? (
+          <section className="grid gap-5 lg:grid-cols-[1fr_0.85fr]">
+            <CommandPanel>
+              <div className="grid h-11 w-11 place-items-center rounded-full bg-venue-amber/12 text-venue-amberSoft">
                 <CheckCircle2 size={22} />
               </div>
-              <h2 className="mt-4 text-2xl font-semibold">Ready to initiate Social Mode</h2>
-              <p className="mt-2 text-sm leading-relaxed text-venue-muted">
-                Print the launch kit, brief staff, then start the social window when the host announces it.
+              <h2 className="mt-4 text-2xl font-semibold tracking-[-0.02em]">Ready to launch.</h2>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-venue-muted">
+                Place the QR cards, brief staff, then press start when the host announces Social Mode.
               </p>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <SecondaryButton onClick={() => setStep("Assets")}>
-                  <Printer size={16} />
-                  Print launch kit
-                </SecondaryButton>
-                <button
-                  onClick={startNight}
-                  className="tap-highlight inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-venue-amber px-5 text-sm font-semibold text-venue-ink shadow-amber transition hover:bg-venue-amberSoft"
-                  type="button"
-                >
-                  <Play size={16} />
-                  Start Social Mode
-                </button>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <SecondaryButton onClick={() => setStep("Assets")}><Printer size={16} />Print launch kit</SecondaryButton>
+                <PrimaryButton onClick={startNight}><Play size={16} />Start Social Mode</PrimaryButton>
               </div>
-              {message ? <p className="mt-4 rounded-2xl bg-venue-amber/10 p-3 text-sm text-venue-amberSoft">{message}</p> : null}
-            </article>
-            <article className="glass-card rounded-[28px] p-5">
-              <h2 className="text-xl font-semibold">Tonight&apos;s guest link</h2>
-              <div className="mt-5">
+              {message ? <p className="mt-4 rounded-[14px] bg-venue-amber/10 px-3 py-2 text-sm text-venue-amberSoft">{message}</p> : null}
+            </CommandPanel>
+            <ConsolePanel>
+              <SectionLabel>Guest link</SectionLabel>
+              <h2 className="mt-2 text-xl font-semibold">Tonight&apos;s QR</h2>
+              <div className="mt-4">
                 <QRCard event={event} />
               </div>
-              <PrimaryLink className="mt-5" href={`/e/${event.slug}`}>Preview guest entry</PrimaryLink>
-            </article>
+              <PrimaryLink className="mt-4" href={`/e/${event.slug}`}>Preview guest entry</PrimaryLink>
+            </ConsolePanel>
           </section>
         ) : null}
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 border-t border-white/[0.08] pt-4">
           <PrimaryLink href="/venue/dashboard">Back to dashboard</PrimaryLink>
           <PrimaryLink href={`/venue/events/${event.id}/qr`}>Open launch kit</PrimaryLink>
         </div>

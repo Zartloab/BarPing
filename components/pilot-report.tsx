@@ -1,22 +1,39 @@
-import { Activity, Ban, CheckCircle2, MessageCircle, QrCode, ShieldCheck, UsersRound } from "lucide-react";
-import { AdminMetricCard } from "@/components/admin-metric-card";
+import { MessageCircle, QrCode, ShieldCheck, UsersRound } from "lucide-react";
+import { SectionLabel, UtilityPanel } from "@/components/venue-console";
 import type { PilotMetrics } from "@/lib/types";
 
 export function PilotReport({ metrics }: { metrics: PilotMetrics }) {
   return (
-    <section className="glass-card rounded-[28px] p-5">
-      <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Pilot report</p>
-      <h2 className="mt-2 text-2xl font-semibold">Proof the room warmed up.</h2>
-      <p className="mt-2 text-sm text-venue-muted">A venue-facing summary designed to decide whether to run BarPing again.</p>
-      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <AdminMetricCard label="Scan to check-in" value={`${metrics.scanToCheckin}%`} detail={`${metrics.qrScans} scans`} icon={<QrCode size={18} />} />
-        <AdminMetricCard label="Peak active" value={metrics.peakActiveGuests} detail={`${metrics.checkIns} check-ins`} icon={<UsersRound size={18} />} />
-        <AdminMetricCard label="Table joins" value={metrics.tableJoins} detail="Group-first adoption" icon={<Activity size={18} />} />
-        <AdminMetricCard label="Accepted pings" value={metrics.acceptedPings} detail={`${metrics.pingsSent} sent`} icon={<MessageCircle size={18} />} />
-        <AdminMetricCard label="Find Me accepted" value={metrics.findMeAccepted} detail={`${metrics.findMeRequested} requested`} icon={<CheckCircle2 size={18} />} />
-        <AdminMetricCard label="Reports" value={metrics.reports} detail={`${metrics.blocks} blocks, ${metrics.bans} bans`} icon={<Ban size={18} />} />
-        <AdminMetricCard label="Felt safe" value={`${metrics.feltSafePercent}%`} detail="Feedback responses" icon={<ShieldCheck size={18} />} />
-        <AdminMetricCard label="Would use again" value={`${metrics.wouldUseAgainPercent}%`} detail="Pilot signal" icon={<CheckCircle2 size={18} />} />
+    <section className="venue-panel rounded-[20px] p-4 md:p-5">
+      <SectionLabel>After-report</SectionLabel>
+      <div className="mt-2 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold tracking-[-0.02em]">What happened tonight</h2>
+          <p className="mt-1 text-sm text-venue-muted">Owner-friendly signals for deciding whether to repeat the night.</p>
+        </div>
+        <p className="text-sm text-venue-muted">{metrics.feltSafePercent}% felt safe · {metrics.wouldUseAgainPercent}% would use again</p>
+      </div>
+      <div className="mt-5 grid gap-3 md:grid-cols-4">
+        <UtilityPanel>
+          <QrCode size={18} />
+          <p className="mt-3 text-2xl font-semibold">{metrics.qrScans}</p>
+          <p className="text-sm text-venue-muted">{metrics.scanToCheckin}% scan-to-check-in</p>
+        </UtilityPanel>
+        <UtilityPanel>
+          <UsersRound size={18} />
+          <p className="mt-3 text-2xl font-semibold">{metrics.peakActiveGuests}</p>
+          <p className="text-sm text-venue-muted">peak active guests</p>
+        </UtilityPanel>
+        <UtilityPanel>
+          <MessageCircle size={18} />
+          <p className="mt-3 text-2xl font-semibold">{metrics.chatsCreated}</p>
+          <p className="text-sm text-venue-muted">{metrics.acceptedPings} accepted pings</p>
+        </UtilityPanel>
+        <UtilityPanel>
+          <ShieldCheck size={18} />
+          <p className="mt-3 text-2xl font-semibold">{metrics.reports}</p>
+          <p className="text-sm text-venue-muted">{metrics.blocks} blocks · {metrics.bans} bans</p>
+        </UtilityPanel>
       </div>
     </section>
   );

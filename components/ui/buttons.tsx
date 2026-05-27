@@ -11,12 +11,12 @@ type LinkButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 };
 
 const base =
-  "tap-highlight inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-45";
+  "tap-highlight inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-4 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-45";
 
 export function PrimaryButton({ className = "", ...props }: ButtonProps) {
   return (
     <button
-      className={`${base} bg-venue-amber text-venue-ink shadow-amber hover:bg-venue-amberSoft ${className}`}
+      className={`${base} bg-venue-amber text-venue-ink shadow-[0_12px_34px_rgba(217,143,69,0.16)] hover:bg-venue-amberSoft ${className}`}
       {...props}
     />
   );
@@ -25,7 +25,7 @@ export function PrimaryButton({ className = "", ...props }: ButtonProps) {
 export function SecondaryButton({ className = "", ...props }: ButtonProps) {
   return (
     <button
-      className={`${base} warm-border bg-transparent text-venue-cream hover:border-venue-amber/50 hover:bg-venue-amber/10 ${className}`}
+      className={`${base} border border-white/[0.1] bg-white/[0.025] text-venue-cream hover:border-venue-amber/40 hover:bg-venue-amber/10 ${className}`}
       {...props}
     />
   );
@@ -43,7 +43,7 @@ export function DangerButton({ className = "", ...props }: ButtonProps) {
 export function PrimaryLink({ className = "", ...props }: LinkButtonProps) {
   return (
     <Link
-      className={`${base} bg-venue-amber text-venue-ink shadow-amber hover:bg-venue-amberSoft ${className}`}
+      className={`${base} bg-venue-amber text-venue-ink shadow-[0_12px_34px_rgba(217,143,69,0.16)] hover:bg-venue-amberSoft ${className}`}
       {...props}
     />
   );
@@ -52,7 +52,7 @@ export function PrimaryLink({ className = "", ...props }: LinkButtonProps) {
 export function SecondaryLink({ className = "", ...props }: LinkButtonProps) {
   return (
     <Link
-      className={`${base} warm-border bg-transparent text-venue-cream hover:border-venue-amber/50 hover:bg-venue-amber/10 ${className}`}
+      className={`${base} border border-white/[0.1] bg-white/[0.025] text-venue-cream hover:border-venue-amber/40 hover:bg-venue-amber/10 ${className}`}
       {...props}
     />
   );

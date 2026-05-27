@@ -21,9 +21,9 @@ import {
 export default function VenueDashboardPage() {
   return (
     <AppShell wide>
-      <MotionShell className="py-4">
+      <MotionShell className="py-2">
         {isDemoMode() ? (
-          <div className="mb-6 rounded-[24px] border border-venue-amber/30 bg-venue-amber/10 p-4 text-sm text-venue-amberSoft">
+          <div className="mb-4 rounded-[14px] border border-venue-amber/20 bg-venue-amber/10 px-3 py-2 text-sm text-venue-amberSoft">
             Demo mode is active. Supabase env vars are missing, so this dashboard uses local demo data.
           </div>
         ) : null}

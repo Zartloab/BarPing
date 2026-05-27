@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, RotateCcw, Settings2 } from "lucide-react";
+import { Copy, Printer, Radio, RotateCcw, ShieldCheck, UsersRound } from "lucide-react";
 import { AssetGenerator } from "@/components/asset-generator";
 import { HostModePanel } from "@/components/host-mode-panel";
 import { PilotReport } from "@/components/pilot-report";
 import { QRCard } from "@/components/qr-card";
-import { RunSheetPreview } from "@/components/run-sheet-preview";
 import { PrimaryLink, SecondaryButton } from "@/components/ui/buttons";
+import { CommandPanel, ConsolePanel, SafetyPanel, SectionLabel, StageControl, UtilityPanel, VenueConsoleHeader } from "@/components/venue-console";
 import { vibeLevelDescriptions } from "@/lib/constants";
 import { loadLocalPilotEvent } from "@/lib/venue-pilot";
 import type {
@@ -62,84 +62,105 @@ export function VenueNightDashboard({
   const activeAssets = pilot.event.id !== event.id ? pilot.assets : assets;
   const activeTables = pilot.event.id !== event.id ? pilot.tables : tables;
   const activeWindows = pilot.socialWindow ? [pilot.socialWindow] : windows;
-  const [tab, setTab] = useState<DashboardTab>("Set up");
+  const [tab, setTab] = useState<DashboardTab>(activeEvent.isLive ? "Live" : "Set up");
   const [templateId, setTemplateId] = useState(activeEvent.templateId ?? selectedTemplate.id);
   const [vibeLevel, setVibeLevel] = useState<VenueVibeLevel>(activeEvent.vibeLevel ?? selectedTemplate.defaultVibeLevel);
   const [findMeEnabled, setFindMeEnabled] = useState(activeEvent.findMeEnabled ?? selectedTemplate.findMeDefault);
   const activeTemplate = templates.find((template) => template.id === templateId) ?? selectedTemplate;
-  const launchStatus = activeEvent.isClosed ? "Closed" : activeEvent.isLive ? "Live" : "Set up";
+  const status = activeEvent.isClosed ? "Closed" : tab === "After" ? "After" : activeEvent.isLive ? "Live" : "Set up";
 
   return (
-    <div>
-      <header className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-venue-amberSoft">Social Night in a Box</p>
-          <h1 className="mt-3 font-serif text-5xl leading-none">{venue.name}</h1>
-          <p className="mt-3 text-venue-muted">{activeTemplate.name} - {launchStatus}</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
+    <div className="grid gap-5">
+      <VenueConsoleHeader
+        venue={venue}
+        event={{ ...activeEvent, title: activeTemplate.eventTitle }}
+        status={status}
+        summary={
+          activeEvent.isLive
+            ? `${guests.length} guests active. Keep nudges light and tables moving.`
+            : "Choose a night recipe, check the generated setup, then print the launch kit."
+        }
+        action={
           <PrimaryLink href={activeEvent.id === event.id ? "/venue/events/new" : `/venue/events/${activeEvent.id}/setup`}>
-            {activeEvent.id === event.id ? "Create night" : "Continue setup"}
+            {activeEvent.id === event.id ? "Create night" : activeEvent.isLive ? "Open host mode" : "Continue setup"}
           </PrimaryLink>
-          <PrimaryLink href={`/e/${activeEvent.slug}`}>Preview guest screen</PrimaryLink>
-        </div>
-      </header>
+        }
+      />
 
-      <div className="mb-6 grid grid-cols-3 gap-2 rounded-full border border-white/[0.08] bg-venue-raised p-1">
-        {(["Set up", "Live", "After"] as DashboardTab[]).map((item) => (
-          <button
-            key={item}
-            onClick={() => setTab(item)}
-            className={`min-h-11 rounded-full text-sm font-semibold transition ${
-              tab === item ? "bg-venue-amber text-venue-ink" : "text-venue-muted hover:text-venue-cream"
-            }`}
-            type="button"
-          >
-            {item}
-          </button>
-        ))}
+      <div className="flex items-center justify-between gap-3">
+        <StageControl<DashboardTab> items={["Set up", "Live", "After"]} value={tab} onChange={setTab} />
+        <PrimaryLink className="hidden md:inline-flex" href={`/e/${activeEvent.slug}`}>Guest preview</PrimaryLink>
       </div>
 
       {tab === "Set up" ? (
-        <div className="grid gap-6">
-          <section className="glass-card rounded-[28px] p-5">
-            <div className="flex items-start gap-3">
-              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-venue-amber/12 text-venue-amberSoft">
-                <Settings2 size={20} />
-              </div>
+        <div className="grid gap-5">
+          <CommandPanel>
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Step 1</p>
-                <h2 className="mt-1 text-2xl font-semibold">Choose the night.</h2>
-                <p className="mt-2 text-sm text-venue-muted">Templates fill in tables, prompts, staff scripts, QR copy, and the run sheet.</p>
+                <SectionLabel>Launch flow</SectionLabel>
+                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em]">Run a social night in 5 minutes.</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-venue-muted">
+                  Pick a recipe, review the generated tables and assets, then start when the host announces it.
+                </p>
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2">
+                <PrimaryLink href="/venue/events/new">Create night</PrimaryLink>
+                <PrimaryLink href={`/venue/events/${activeEvent.id}/qr`}>
+                  <Printer size={16} />
+                  Print launch kit
+                </PrimaryLink>
               </div>
             </div>
-            <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-              {templates.map((template) => (
-                <button
-                  key={template.id}
-                  onClick={() => {
-                    setTemplateId(template.id);
-                    setVibeLevel(template.defaultVibeLevel);
-                    setFindMeEnabled(template.findMeDefault);
-                  }}
-                  className={`rounded-[24px] border p-4 text-left transition ${
-                    activeTemplate.id === template.id ? "border-venue-amber/60 bg-venue-amber/12" : "border-white/[0.08] bg-white/[0.035]"
-                  }`}
-                  type="button"
-                >
-                  <span className="block font-semibold text-venue-cream">{template.name}</span>
-                  <span className="mt-2 block text-sm leading-relaxed text-venue-muted">{template.description}</span>
-                  <span className="mt-3 block text-xs text-venue-dim">{template.recommendedDurationMinutes} min - {template.tables.length} tables</span>
-                </button>
-              ))}
-            </div>
-          </section>
+          </CommandPanel>
 
-          <section className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-            <div className="glass-card rounded-[28px] p-5">
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Step 2</p>
-              <h2 className="mt-2 text-2xl font-semibold">Tune the room.</h2>
-              <div className="mt-5 grid gap-3">
+          <section className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
+            <ConsolePanel>
+              <div className="flex items-end justify-between gap-3">
+                <div>
+                  <SectionLabel>Choose the night</SectionLabel>
+                  <h2 className="mt-2 text-xl font-semibold">Night recipes</h2>
+                </div>
+                <p className="text-xs text-venue-dim">{templates.length} formats</p>
+              </div>
+              <div className="mt-4 grid gap-2">
+                {templates.map((template) => (
+                  <button
+                    key={template.id}
+                    onClick={() => {
+                      setTemplateId(template.id);
+                      setVibeLevel(template.defaultVibeLevel);
+                      setFindMeEnabled(template.findMeDefault);
+                    }}
+                    className={`rounded-[14px] border px-4 py-3 text-left transition ${
+                      activeTemplate.id === template.id
+                        ? "border-venue-amber/50 bg-venue-amber/10"
+                        : "border-white/[0.08] bg-white/[0.018] hover:border-white/[0.16]"
+                    }`}
+                    type="button"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="font-semibold text-venue-cream">{template.name}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-venue-muted">{template.description}</p>
+                      </div>
+                      <span className="shrink-0 rounded-full bg-white/[0.04] px-2.5 py-1 text-xs text-venue-dim">{template.eventType}</span>
+                    </div>
+                    <p className="mt-2 text-xs text-venue-dim">{template.recommendedDurationMinutes} min · {template.tables.length} tables · {template.defaultVibeLevel}</p>
+                  </button>
+                ))}
+              </div>
+            </ConsolePanel>
+
+            <ConsolePanel>
+              <SectionLabel>Review generated setup</SectionLabel>
+              <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em]">{activeTemplate.eventTitle}</h2>
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <UtilityPanel><p className="text-xs text-venue-dim">Duration</p><p className="mt-1 font-semibold">{activeTemplate.recommendedDurationMinutes} min</p></UtilityPanel>
+                <UtilityPanel><p className="text-xs text-venue-dim">Tables</p><p className="mt-1 font-semibold">{activeTemplate.tables.length}</p></UtilityPanel>
+                <UtilityPanel><p className="text-xs text-venue-dim">Vibe</p><p className="mt-1 font-semibold">{vibeLevel}</p></UtilityPanel>
+                <UtilityPanel><p className="text-xs text-venue-dim">Find Me</p><p className="mt-1 font-semibold">{findMeEnabled ? "On" : "Off"}</p></UtilityPanel>
+              </div>
+              <div className="mt-4 grid gap-2">
                 {(["Calm", "Social", "Mixer"] as VenueVibeLevel[]).map((level) => (
                   <button
                     key={level}
@@ -147,142 +168,119 @@ export function VenueNightDashboard({
                       setVibeLevel(level);
                       setFindMeEnabled(level !== "Calm");
                     }}
-                    className={`rounded-[22px] border p-4 text-left ${
-                      vibeLevel === level ? "border-venue-amber/60 bg-venue-amber/12" : "border-white/[0.08] bg-white/[0.035]"
-                    }`}
+                    className={`rounded-[14px] border px-3 py-2 text-left text-sm ${vibeLevel === level ? "border-venue-amber/45 bg-venue-amber/10" : "border-white/[0.08] bg-white/[0.018]"}`}
                     type="button"
                   >
-                    <span className="block font-semibold">{level}</span>
-                    <span className="mt-1 block text-sm text-venue-muted">{vibeLevelDescriptions[level]}</span>
+                    <span className="font-semibold">{level}</span>
+                    <span className="ml-2 text-venue-muted">{vibeLevelDescriptions[level]}</span>
                   </button>
                 ))}
               </div>
-              <button
-                onClick={() => setFindMeEnabled((value) => !value)}
-                className="mt-5 flex w-full items-center justify-between rounded-[22px] border border-white/[0.08] bg-white/[0.035] p-4 text-left"
-                type="button"
-              >
-                <span>
-                  <span className="block font-semibold">Allow Find Me tonight</span>
-                  <span className="mt-1 block text-sm text-venue-muted">Mutual-only shared color beacon.</span>
-                </span>
-                <span className={`rounded-full px-3 py-1 text-xs ${findMeEnabled ? "bg-venue-amber text-venue-ink" : "bg-white/[0.06] text-venue-muted"}`}>
-                  {findMeEnabled ? "On" : "Off"}
-                </span>
-              </button>
-            </div>
-            <div className="glass-card rounded-[28px] p-5">
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Generated tables</p>
-              <h2 className="mt-2 text-2xl font-semibold">{activeTemplate.eventTitle}</h2>
-              <div className="mt-5 grid gap-3">
-                {activeTemplate.tables.map((table) => (
-                  <article key={table.name} className="rounded-[22px] border border-white/[0.08] bg-white/[0.035] p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <h3 className="font-semibold">{table.name}</h3>
-                        <p className="mt-1 text-sm text-venue-muted">{table.description}</p>
-                      </div>
-                      <span className="rounded-full bg-venue-olive/20 px-3 py-1 text-xs text-venue-muted">{table.energyLevel}</span>
-                    </div>
-                    <p className="mt-3 rounded-2xl bg-venue-soft p-3 text-sm text-venue-muted">{table.prompt}</p>
-                  </article>
-                ))}
+              <div className="mt-4 border-t border-white/[0.08] pt-4">
+                <p className="text-sm font-semibold">Example prompts</p>
+                <div className="mt-2 grid gap-2">
+                  {activeTemplate.tables.slice(0, 3).map((table) => (
+                    <p key={table.name} className="rounded-[14px] bg-black/18 px-3 py-2 text-sm text-venue-muted">
+                      {table.name}: {table.prompt}
+                    </p>
+                  ))}
+                </div>
               </div>
-            </div>
+            </ConsolePanel>
           </section>
 
           <AssetGenerator assets={activeAssets} event={{ ...activeEvent, title: activeTemplate.eventTitle }} venue={venue} template={activeTemplate} />
-          <RunSheetPreview template={activeTemplate} />
         </div>
       ) : null}
 
       {tab === "Live" ? (
-        <div className="grid gap-6">
+        <div className="grid gap-5">
           <HostModePanel event={activeEvent} windows={activeWindows} announcements={announcements} tables={activeTables} />
-          <section className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-            <div className="glass-card rounded-[28px] p-5">
+          <section className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+            <ConsolePanel>
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Live room</p>
+                  <SectionLabel>Room snapshot</SectionLabel>
                   <h2 className="mt-2 text-xl font-semibold">Active guests</h2>
                 </div>
                 <PrimaryLink href={`/e/${activeEvent.slug}/room`}>Open room</PrimaryLink>
               </div>
-              <div className="mt-5 grid gap-3">
+              <div className="mt-4 grid gap-2">
                 {guests.slice(0, 6).map((guest) => (
-                  <div key={guest.id} className="flex items-center justify-between rounded-[22px] bg-white/[0.035] p-3">
+                  <div key={guest.id} className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-[14px] border border-white/[0.07] bg-white/[0.018] px-3 py-2.5">
                     <div>
                       <p className="font-semibold">{guest.alias}</p>
-                      <p className="mt-1 text-xs text-venue-muted">{guest.entryChoice ?? guest.mode} - {guest.vibe}</p>
+                      <p className="mt-0.5 text-xs text-venue-muted">{guest.entryChoice ?? guest.mode} · {guest.topics.slice(0, 2).join(", ")}</p>
                     </div>
-                    <span className="rounded-full bg-venue-olive/20 px-3 py-1 text-xs text-venue-muted">Active</span>
+                    <span className="rounded-full bg-venue-olive/18 px-2.5 py-1 text-xs text-venue-muted">{guest.vibe}</span>
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="glass-card rounded-[28px] p-5">
-              <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Safety</p>
-              <h2 className="mt-2 text-xl font-semibold">Reports and quick actions</h2>
-              <div className="mt-5 grid gap-3">
-                {reports.map((report) => (
-                  <article key={report.id} className="rounded-[22px] border border-white/[0.08] bg-white/[0.035] p-4">
+            </ConsolePanel>
+
+            <SafetyPanel>
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="text-venue-danger" size={20} />
+                <div>
+                  <SectionLabel>Safety</SectionLabel>
+                  <h2 className="mt-1 text-xl font-semibold">Reports</h2>
+                </div>
+              </div>
+              <div className="mt-4 grid gap-3">
+                {reports.length ? reports.map((report) => (
+                  <article key={report.id} className="rounded-[14px] border border-venue-danger/20 bg-black/18 p-3">
                     <p className="font-semibold">{report.reason}</p>
-                    <p className="mt-2 text-sm text-venue-muted">{report.reporterAlias} reported {report.reportedAlias}</p>
+                    <p className="mt-1 text-sm text-venue-muted">{report.reporterAlias} reported {report.reportedAlias}</p>
                     <div className="mt-3 flex flex-wrap gap-2">
-                      <SecondaryButton className="min-h-10 px-3">Warn</SecondaryButton>
-                      <SecondaryButton className="min-h-10 px-3">Event ban</SecondaryButton>
-                      <PrimaryLink href="/venue/events/event-demo/reports">Review</PrimaryLink>
+                      <SecondaryButton className="min-h-9 px-3">Warn</SecondaryButton>
+                      <SecondaryButton className="min-h-9 px-3">Event ban</SecondaryButton>
+                      <PrimaryLink className="min-h-9 px-3" href="/venue/events/event-demo/reports">Review</PrimaryLink>
                     </div>
                   </article>
-                ))}
+                )) : <p className="rounded-[14px] bg-black/18 p-3 text-sm text-venue-muted">No reports so far. Keep an eye on the room while Social Mode is live.</p>}
               </div>
-            </div>
+            </SafetyPanel>
           </section>
-          <QRCard event={activeEvent} />
+          <UtilityPanel>
+            <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
+              <div>
+                <SectionLabel>Event QR utility</SectionLabel>
+                <p className="mt-2 text-sm text-venue-muted">Use this if a table card goes missing or someone asks for the guest link.</p>
+              </div>
+              <QRCard event={activeEvent} />
+            </div>
+          </UtilityPanel>
         </div>
       ) : null}
 
       {tab === "After" ? (
-        <div className="grid gap-6">
-          <section className="glass-card rounded-[28px] p-5">
+        <div className="grid gap-5">
+          <CommandPanel>
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
-                <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Recommendation</p>
-                <h2 className="mt-2 font-serif text-4xl">{recommendation}</h2>
-                <p className="mt-2 text-sm text-venue-muted">
-                  Tables drove the strongest signal. Duplicate this night and keep the host announcement.
-                </p>
+                <SectionLabel>Debrief</SectionLabel>
+                <h2 className="mt-2 text-2xl font-semibold">{recommendation}</h2>
+                <p className="mt-2 text-sm text-venue-muted">Tables were the strongest signal. Keep the host announcement and run this format again.</p>
               </div>
               <div className="flex flex-wrap gap-2">
-                <PrimaryLink href="/venue/events/new">
-                  <RotateCcw size={16} />
-                  Duplicate event
-                </PrimaryLink>
-                <SecondaryButton>
-                  <Copy size={16} />
-                  Export summary
-                </SecondaryButton>
+                <PrimaryLink href="/venue/events/new"><RotateCcw size={16} />Run this again</PrimaryLink>
+                <SecondaryButton><Copy size={16} />Export summary</SecondaryButton>
               </div>
             </div>
+          </CommandPanel>
+
+          <section className="grid gap-3 md:grid-cols-4">
+            <UtilityPanel><UsersRound size={18} /><p className="mt-3 text-2xl font-semibold">{metrics.checkIns}</p><p className="text-sm text-venue-muted">check-ins</p></UtilityPanel>
+            <UtilityPanel><Radio size={18} /><p className="mt-3 text-2xl font-semibold">{metrics.tableJoins}</p><p className="text-sm text-venue-muted">table joins</p></UtilityPanel>
+            <UtilityPanel><p className="text-2xl font-semibold">{metrics.acceptedPings}</p><p className="text-sm text-venue-muted">accepted pings</p></UtilityPanel>
+            <UtilityPanel><p className="text-2xl font-semibold">{metrics.reports}</p><p className="text-sm text-venue-muted">reports</p></UtilityPanel>
           </section>
+
           <PilotReport metrics={metrics} />
-          <section className="grid gap-4 md:grid-cols-3">
-            <div className="glass-card rounded-[24px] p-4">
-              <p className="text-sm text-venue-muted">Feedback responses</p>
-              <p className="mt-3 text-3xl font-semibold">{feedback.length}</p>
-            </div>
-            <div className="glass-card rounded-[24px] p-4">
-              <p className="text-sm text-venue-muted">Average rating</p>
-              <p className="mt-3 text-3xl font-semibold">
-                {(feedback.reduce((sum, item) => sum + item.rating, 0) / feedback.length).toFixed(1)}
-              </p>
-            </div>
-            <div className="glass-card rounded-[24px] p-4">
-              <p className="text-sm text-venue-muted">Table felt easier</p>
-              <p className="mt-3 text-3xl font-semibold">
-                {Math.round((feedback.filter((item) => item.tableFeltEasier).length / feedback.length) * 100)}%
-              </p>
-            </div>
+          <section className="grid gap-3 md:grid-cols-3">
+            <UtilityPanel><p className="text-sm text-venue-muted">Feedback responses</p><p className="mt-3 text-3xl font-semibold">{feedback.length}</p></UtilityPanel>
+            <UtilityPanel><p className="text-sm text-venue-muted">Average rating</p><p className="mt-3 text-3xl font-semibold">{(feedback.reduce((sum, item) => sum + item.rating, 0) / feedback.length).toFixed(1)}</p></UtilityPanel>
+            <UtilityPanel><p className="text-sm text-venue-muted">Table felt easier</p><p className="mt-3 text-3xl font-semibold">{Math.round((feedback.filter((item) => item.tableFeltEasier).length / feedback.length) * 100)}%</p></UtilityPanel>
           </section>
         </div>
       ) : null}

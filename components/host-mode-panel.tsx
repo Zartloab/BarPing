@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Megaphone, Play, Square, Sparkles } from "lucide-react";
+import { Megaphone, Pause, Play, Radio, Square, Star } from "lucide-react";
 import { hostNudges } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/client";
 import { loadLocalPilotEvent, saveLocalPilotEvent, updatePilotLiveStatus } from "@/lib/venue-pilot";
 import type { Event, EventTable, HostAnnouncement, SocialWindow } from "@/lib/types";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
+import { CommandPanel, ConsolePanel, SectionLabel, StatusPill } from "@/components/venue-console";
 
 export function HostModePanel({
   event,
@@ -43,7 +44,7 @@ export function HostModePanel({
     };
 
     setRecentAnnouncements((items) => [announcement, ...items]);
-    setStatusMessage(kind === "last_call" ? "Final call sent." : "Announcement sent.");
+    setStatusMessage(kind === "last_call" ? "Final call sent." : "Nudge sent.");
 
     const supabase = createClient();
     if (supabase) {
@@ -73,37 +74,52 @@ export function HostModePanel({
   }
 
   return (
-    <section className="glass-card rounded-[28px] p-5">
-      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
-        <div>
-          <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Host Mode</p>
-          <h2 className="mt-2 text-2xl font-semibold">Run the social window.</h2>
-          <p className="mt-2 text-sm text-venue-muted">Start the window, nudge tables, and keep the room safe and intentional.</p>
+    <section className="grid gap-5">
+      <CommandPanel>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <div className="flex items-center gap-3">
+              <StatusPill status={isLive ? "Live" : "Paused"} />
+              <SectionLabel>Host control room</SectionLabel>
+            </div>
+            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em]">Social Mode {isLive ? "is live" : "is paused"}.</h2>
+            <p className="mt-1 text-sm text-venue-muted">
+              Guests currently see: join a table, open to pings, or just browse.
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            <PrimaryButton className="px-4" onClick={() => setWindowStatus("active")}>
+              <Play size={16} />
+              Start
+            </PrimaryButton>
+            <SecondaryButton className="px-4" onClick={() => setWindowStatus("ended")}>
+              <Pause size={16} />
+              Pause
+            </SecondaryButton>
+            <SecondaryButton className="border-venue-danger/30 text-venue-danger hover:bg-venue-danger/10" onClick={() => setWindowStatus("closed")}>
+              <Square size={16} />
+              End
+            </SecondaryButton>
+          </div>
         </div>
-        <span className={`rounded-full px-3 py-1 text-xs ${isLive ? "bg-venue-amber/12 text-venue-amberSoft" : "bg-white/[0.04] text-venue-muted"}`}>
-          {isLive ? "Social window live" : "Social window paused"}
-        </span>
-      </div>
+        {statusMessage ? <p className="mt-4 rounded-[14px] bg-venue-amber/10 px-3 py-2 text-sm text-venue-amberSoft">{statusMessage}</p> : null}
+      </CommandPanel>
 
-      <div className="mt-5 grid gap-3 sm:grid-cols-2">
-        <PrimaryButton onClick={() => setWindowStatus("active")}>
-          <Play size={16} />
-          Start window
-        </PrimaryButton>
-        <SecondaryButton onClick={() => setWindowStatus("ended")}>
-          <Square size={16} />
-          Pause window
-        </SecondaryButton>
-      </div>
-
-      <div className="mt-5 grid gap-3 lg:grid-cols-[1fr_0.8fr]">
-        <div className="rounded-[24px] border border-white/[0.08] bg-white/[0.035] p-4">
-          <label className="text-sm text-venue-muted">
-            Announcement
+      <section className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
+        <ConsolePanel>
+          <div className="flex items-center gap-3">
+            <Megaphone className="text-venue-amberSoft" size={19} />
+            <div>
+              <SectionLabel>Send nudge</SectionLabel>
+              <h3 className="mt-1 text-xl font-semibold">Room announcement</h3>
+            </div>
+          </div>
+          <label className="mt-4 block text-sm text-venue-muted">
+            Current text
             <textarea
               value={message}
               onChange={(event) => setMessage(event.target.value)}
-              className="mt-2 min-h-24 w-full resize-none rounded-[20px] border border-white/[0.08] bg-venue-soft p-3 text-sm text-venue-cream outline-none focus:border-venue-amber/60"
+              className="mt-2 min-h-24 w-full resize-none rounded-[14px] border border-white/[0.08] bg-black/20 p-3 text-sm text-venue-cream outline-none focus:border-venue-amber/60"
             />
           </label>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -112,53 +128,61 @@ export function HostModePanel({
                 key={nudge}
                 onClick={() => setMessage(nudge)}
                 type="button"
-                className="rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-xs text-venue-muted"
+                className="min-h-9 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 text-xs text-venue-muted hover:border-venue-amber/35 hover:text-venue-cream"
               >
-                {nudge.slice(0, 28)}...
+                {nudge.slice(0, 34)}...
               </button>
             ))}
           </div>
-          <PrimaryButton className="mt-4 w-full" onClick={() => sendAnnouncement()}>
-            <Megaphone size={16} />
-            Send announcement
-          </PrimaryButton>
-          <SecondaryButton className="mt-3 w-full" onClick={() => sendAnnouncement("last_call", "Final call: Social Mode wraps soon. Join a table or share contact only if both people agree.")}>
-            Final call
-          </SecondaryButton>
-        </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <PrimaryButton onClick={() => sendAnnouncement()}>
+              <Radio size={16} />
+              Send nudge
+            </PrimaryButton>
+            <SecondaryButton onClick={() => sendAnnouncement("last_call", "Final call: Social Mode wraps soon. Join a table or share contact only if both people agree.")}>
+              Final call
+            </SecondaryButton>
+          </div>
+        </ConsolePanel>
 
-        <div className="rounded-[24px] border border-white/[0.08] bg-white/[0.035] p-4">
-          <p className="text-sm text-venue-muted">Spotlight a table prompt</p>
-          <div className="mt-3 grid gap-2">
+        <ConsolePanel>
+          <div className="flex items-center gap-3">
+            <Star className="text-venue-amberSoft" size={19} />
+            <div>
+              <SectionLabel>Spotlight table</SectionLabel>
+              <h3 className="mt-1 text-xl font-semibold">Active conversation zone</h3>
+            </div>
+          </div>
+          <div className="mt-4 grid gap-2">
             {tables.map((table) => (
               <button
                 key={table.id}
                 onClick={() => spotlightTable(table.id)}
-                className={`rounded-[18px] border p-3 text-left ${
-                  spotlight === table.id ? "border-venue-amber/50 bg-venue-amber/10" : "border-white/[0.08] bg-white/[0.025]"
+                className={`rounded-[14px] border px-3 py-2.5 text-left transition ${
+                  spotlight === table.id ? "border-venue-amber/45 bg-venue-amber/10" : "border-white/[0.08] bg-white/[0.018]"
                 }`}
                 type="button"
               >
-                <span className="flex items-center gap-2 font-semibold text-venue-cream">
-                  {spotlight === table.id ? <Sparkles size={15} /> : null}
-                  {table.name}
+                <span className="flex items-center justify-between gap-3">
+                  <span className="font-semibold text-venue-cream">{table.name}</span>
+                  <span className="rounded-full bg-white/[0.04] px-2 py-0.5 text-xs text-venue-dim">{table.energyLevel ?? "Warming up"}</span>
                 </span>
-                <span className="mt-1 block text-xs text-venue-muted">{table.prompt}</span>
+                <span className="mt-1 block text-xs leading-relaxed text-venue-muted">{table.prompt}</span>
               </button>
             ))}
           </div>
-        </div>
-      </div>
+        </ConsolePanel>
+      </section>
 
-      <div className="mt-5 rounded-[22px] border border-white/[0.08] bg-white/[0.035] p-4">
-        <h3 className="font-semibold">Recent announcements</h3>
-        <div className="mt-3 grid gap-2">
-          {recentAnnouncements.map((announcement) => (
-            <p key={announcement.id} className="rounded-2xl bg-venue-soft p-3 text-sm text-venue-muted">{announcement.body}</p>
-          ))}
+      <ConsolePanel className="p-3 md:p-4">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div>
+            <SectionLabel>Recent announcements</SectionLabel>
+            <p className="mt-1 text-sm text-venue-muted">{recentAnnouncements[0]?.body ?? "No nudges sent yet."}</p>
+          </div>
+          <p className="text-xs text-venue-dim">{recentAnnouncements.length} total</p>
         </div>
-      </div>
-      {statusMessage ? <p className="mt-4 rounded-2xl bg-venue-amber/10 p-3 text-sm text-venue-amberSoft">{statusMessage}</p> : null}
+      </ConsolePanel>
     </section>
   );
 }
