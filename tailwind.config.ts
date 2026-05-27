@@ -10,18 +10,18 @@ const config: Config = {
     extend: {
       colors: {
         venue: {
-          ink: "#FFFFFF",
-          raised: "#F7F7F2",
-          card: "#FFFFFF",
-          soft: "#E5E1D8",
-          cream: "#181D26",
-          muted: "#454A54",
-          dim: "#767B84",
-          amber: "#181D26",
-          amberSoft: "#2A303A",
-          olive: "#16381F",
-          blue: "#3167B8",
-          danger: "#AA2D00"
+          ink: "var(--bp-canvas)",
+          raised: "var(--bp-surface-2)",
+          card: "var(--bp-surface-1)",
+          soft: "var(--bp-surface-4)",
+          cream: "var(--bp-ink)",
+          muted: "var(--bp-ink-muted)",
+          dim: "var(--bp-ink-subtle)",
+          amber: "var(--bp-primary)",
+          amberSoft: "var(--bp-primary-hover)",
+          olive: "var(--bp-olive)",
+          blue: "var(--bp-cobalt)",
+          danger: "var(--bp-danger)"
         }
       },
       boxShadow: {

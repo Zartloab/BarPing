@@ -7,7 +7,9 @@ import { AssetGenerator } from "@/components/asset-generator";
 import { MotionShell } from "@/components/motion-shell";
 import { QRCard } from "@/components/qr-card";
 import { PrimaryButton, PrimaryLink, SecondaryButton } from "@/components/ui/buttons";
+import { VenueGuide } from "@/components/venue-guide";
 import { CommandPanel, ConsolePanel, SectionLabel, StageControl, UtilityPanel, VenueConsoleHeader } from "@/components/venue-console";
+import { VenueThemeToggle } from "@/components/venue-theme-toggle";
 import { demoEventTemplates, demoVenue, selectedDemoTemplate } from "@/lib/demo-data";
 import { loadLocalPilotEvent, updatePilotLiveStatus } from "@/lib/venue-pilot";
 import type { Event, SocialWindow } from "@/lib/types";
@@ -41,7 +43,18 @@ export default function EventSetupPage() {
           action={<PrimaryButton onClick={startNight}><Play size={16} />Start Social Mode</PrimaryButton>}
         />
 
-        <StageControl<SetupStep> items={["Template", "Assets", "Ready"]} value={step} onChange={setStep} />
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <StageControl<SetupStep> items={["Template", "Assets", "Ready"]} value={step} onChange={setStep} />
+          <div className="flex gap-2">
+            <VenueGuide compact />
+            <VenueThemeToggle />
+          </div>
+        </div>
+
+        <section className="rounded-[12px] border border-venue-soft bg-venue-card p-4">
+          <p className="text-xs font-medium text-venue-dim">Simple version</p>
+          <p className="mt-1 text-base font-medium">Check what was generated, print the launch kit, then press Start Social Mode only when staff and QR signs are ready.</p>
+        </section>
 
         {step === "Template" ? (
           <section className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">

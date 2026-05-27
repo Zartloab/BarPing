@@ -5,7 +5,9 @@ import { AssetGenerator } from "@/components/asset-generator";
 import { MotionShell } from "@/components/motion-shell";
 import { QRCard } from "@/components/qr-card";
 import { PrimaryLink, SecondaryLink } from "@/components/ui/buttons";
+import { VenueGuide } from "@/components/venue-guide";
 import { CommandPanel, ConsolePanel, SectionLabel, VenueConsoleHeader } from "@/components/venue-console";
+import { VenueThemeToggle } from "@/components/venue-theme-toggle";
 import { demoEventTemplates, demoVenue, selectedDemoTemplate } from "@/lib/demo-data";
 import { loadLocalPilotEvent } from "@/lib/venue-pilot";
 
@@ -23,6 +25,11 @@ export default function EventQrPage() {
           summary="Print cards for the room, download the story asset, and keep the QR utility handy."
           action={<PrimaryLink href={`/venue/events/${event.id}/setup`}>Back to setup</PrimaryLink>}
         />
+
+        <div className="flex flex-wrap justify-end gap-2">
+          <VenueGuide compact />
+          <VenueThemeToggle />
+        </div>
 
         <section className="grid gap-5 lg:grid-cols-[0.78fr_1.22fr]">
           <div className="grid gap-5">

@@ -12,7 +12,7 @@ export function StatusPill({ status }: { status: "Set up" | "Live" | "After" | "
           ? "border-venue-olive/25 bg-[#dfece0] text-venue-olive"
           : danger
             ? "border-venue-danger/25 bg-[#f6d4c7] text-venue-danger"
-            : "border-venue-soft bg-white text-venue-muted"
+            : "border-venue-soft bg-venue-card text-venue-muted"
       }`}
     >
       {live ? <span className="h-1.5 w-1.5 rounded-full bg-venue-olive" /> : null}
@@ -35,7 +35,7 @@ export function VenueConsoleHeader({
   action: ReactNode;
 }) {
   return (
-    <header className="border-b border-venue-soft bg-white py-4">
+    <header className="border-b border-venue-soft bg-venue-ink py-4">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-3">
@@ -67,7 +67,7 @@ export function StageControl<T extends string>({
           key={item}
           onClick={() => onChange(item)}
           className={`min-h-9 rounded-[9px] px-4 text-sm font-medium transition ${
-            value === item ? "bg-white text-venue-cream shadow-[0_1px_6px_rgba(24,29,38,0.08)]" : "text-venue-muted hover:text-venue-cream"
+            value === item ? "bg-venue-card text-venue-cream shadow-[0_1px_6px_rgba(24,29,38,0.08)]" : "text-venue-muted hover:text-venue-cream"
           }`}
           type="button"
         >

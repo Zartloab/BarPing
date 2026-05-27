@@ -7,7 +7,9 @@ import { HostModePanel } from "@/components/host-mode-panel";
 import { PilotReport } from "@/components/pilot-report";
 import { QRCard } from "@/components/qr-card";
 import { PrimaryLink, SecondaryButton } from "@/components/ui/buttons";
+import { VenueGuide } from "@/components/venue-guide";
 import { CommandPanel, ConsolePanel, SafetyPanel, SectionLabel, StageControl, UtilityPanel, VenueConsoleHeader } from "@/components/venue-console";
+import { VenueThemeToggle } from "@/components/venue-theme-toggle";
 import { vibeLevelDescriptions } from "@/lib/constants";
 import { loadLocalPilotEvent } from "@/lib/venue-pilot";
 import type {
@@ -91,12 +93,43 @@ export function VenueNightDashboard({
         }
       />
 
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <StageControl<DashboardTab> items={["Set up", "Live", "After"]} value={tab} onChange={setTab} />
-        <PrimaryLink className="hidden md:inline-flex" href={`/e/${activeEvent.slug}`}>
-          Guest preview
-        </PrimaryLink>
+        <div className="flex flex-wrap gap-2">
+          <VenueGuide />
+          <VenueThemeToggle />
+          <PrimaryLink className="hidden md:inline-flex" href={`/e/${activeEvent.slug}`}>
+            Guest preview
+          </PrimaryLink>
+        </div>
       </div>
+
+      <section className="rounded-[12px] border border-venue-soft bg-venue-card p-4">
+        <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-center">
+          <div>
+            <p className="text-xs font-medium text-venue-dim">What to do now</p>
+            <p className="mt-1 text-base font-medium text-venue-cream">
+              {tab === "Set up"
+                ? "Choose the recipe, print the launch kit, then start when the room is ready."
+                : tab === "Live"
+                  ? "Use this screen as the host control room: nudge, spotlight, watch safety."
+                  : "Review what worked, then duplicate the event if it is worth repeating."}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {tab === "Set up" ? (
+              <>
+                <PrimaryLink href="/venue/events/new">Create night</PrimaryLink>
+                <PrimaryLink href={`/venue/events/${activeEvent.id}/qr`}>Print kit</PrimaryLink>
+              </>
+            ) : tab === "Live" ? (
+              <PrimaryLink href={`/e/${activeEvent.slug}/room`}>Open guest room</PrimaryLink>
+            ) : (
+              <PrimaryLink href="/venue/events/new">Run this again</PrimaryLink>
+            )}
+          </div>
+        </div>
+      </section>
 
       {tab === "Set up" ? (
         <div className="grid gap-5">

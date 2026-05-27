@@ -5,6 +5,7 @@ import { Mail, ShieldCheck } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { MotionShell } from "@/components/motion-shell";
 import { PrimaryButton, PrimaryLink, SecondaryLink } from "@/components/ui/buttons";
+import { VenueThemeToggle } from "@/components/venue-theme-toggle";
 import { createClient } from "@/lib/supabase/client";
 
 export default function VenueLoginPage() {
@@ -37,6 +38,9 @@ export default function VenueLoginPage() {
   return (
     <AppShell>
       <MotionShell className="flex min-h-[calc(100dvh-2.5rem)] flex-col justify-center">
+        <div className="absolute right-5 top-5">
+          <VenueThemeToggle />
+        </div>
         <div className="grid h-12 w-12 place-items-center rounded-[12px] bg-venue-raised text-venue-cream">
           <ShieldCheck size={22} />
         </div>

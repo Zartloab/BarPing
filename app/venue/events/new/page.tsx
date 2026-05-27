@@ -6,7 +6,9 @@ import { ArrowRight, Clock, FileText, Printer, Table2 } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { MotionShell } from "@/components/motion-shell";
 import { PrimaryButton, SecondaryLink } from "@/components/ui/buttons";
+import { VenueGuide } from "@/components/venue-guide";
 import { CommandPanel, ConsolePanel, SectionLabel, StageControl, UtilityPanel, VenueConsoleHeader } from "@/components/venue-console";
+import { VenueThemeToggle } from "@/components/venue-theme-toggle";
 import { vibeLevelDescriptions } from "@/lib/constants";
 import { demoEvent, demoEventTemplates, demoVenue } from "@/lib/demo-data";
 import { createPilotEvent } from "@/lib/venue-pilot";
@@ -52,7 +54,18 @@ export default function NewVenueEventPage() {
           action={<PrimaryButton onClick={() => setStep("Create")}>Create night</PrimaryButton>}
         />
 
-        <StageControl<CreateStep> items={["Template", "Review", "Create"]} value={step} onChange={setStep} />
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <StageControl<CreateStep> items={["Template", "Review", "Create"]} value={step} onChange={setStep} />
+          <div className="flex gap-2">
+            <VenueGuide compact />
+            <VenueThemeToggle />
+          </div>
+        </div>
+
+        <section className="rounded-[12px] border border-venue-soft bg-venue-card p-4">
+          <p className="text-xs font-medium text-venue-dim">Simple version</p>
+          <p className="mt-1 text-base font-medium">Pick a template that sounds closest to the bar night. BarPing fills in the tables, signs, nudges, and run sheet.</p>
+        </section>
 
         <section className="grid gap-5 lg:grid-cols-[1fr_0.82fr]">
           <ConsolePanel>

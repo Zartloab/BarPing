@@ -206,7 +206,7 @@ export function AssetPreview({
   }
 
   const qrBlock = meta.useQr ? (
-    <div className="grid h-28 w-28 shrink-0 place-items-center rounded-[10px] border border-venue-soft bg-white p-2 text-venue-cream">
+    <div className="qr-surface grid h-28 w-28 shrink-0 place-items-center rounded-[10px] border border-venue-soft bg-white p-2 text-venue-cream">
       {qrDataUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img alt={`QR code for ${event.title}`} className="h-24 w-24" src={qrDataUrl} />
@@ -217,7 +217,7 @@ export function AssetPreview({
   ) : null;
 
   return (
-    <article className="rounded-[12px] border border-venue-soft bg-white p-4">
+    <article className="rounded-[12px] border border-venue-soft bg-venue-card p-4">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h3 className="text-lg font-medium text-venue-cream">{asset.title}</h3>

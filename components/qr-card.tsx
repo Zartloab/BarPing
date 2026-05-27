@@ -68,7 +68,7 @@ export function QRCard({ event }: { event: Event }) {
           <h2 className="mt-2 text-lg font-medium text-venue-cream">{event.title}</h2>
           <p className="mt-1 break-all text-sm text-venue-muted">{eventUrl}</p>
         </div>
-        <div className="grid h-24 w-24 shrink-0 place-items-center rounded-[10px] border border-venue-soft bg-white p-2 text-venue-cream">
+        <div className="qr-surface grid h-24 w-24 shrink-0 place-items-center rounded-[10px] border border-venue-soft bg-white p-2 text-venue-cream">
           <QrCodeImage alt={`QR code for ${event.title}`} value={eventUrl} />
         </div>
       </div>

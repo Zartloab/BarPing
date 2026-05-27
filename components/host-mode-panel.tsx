@@ -87,19 +87,24 @@ export function HostModePanel({
               Guests currently see: join a table, open to pings, or just browse.
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-2">
-            <PrimaryButton className="px-4" onClick={() => setWindowStatus("active")}>
-              <Play size={16} />
-              Start
-            </PrimaryButton>
-            <SecondaryButton className="px-4" onClick={() => setWindowStatus("ended")}>
-              <Pause size={16} />
-              Pause
-            </SecondaryButton>
-            <SecondaryButton className="border-venue-danger/30 text-venue-danger hover:bg-venue-danger/10" onClick={() => setWindowStatus("closed")}>
-              <Square size={16} />
-              End
-            </SecondaryButton>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {isLive ? (
+              <>
+                <SecondaryButton className="px-4" onClick={() => setWindowStatus("ended")}>
+                  <Pause size={16} />
+                  Pause Social Mode
+                </SecondaryButton>
+                <SecondaryButton className="border-venue-danger/30 text-venue-danger hover:bg-venue-danger/10" onClick={() => setWindowStatus("closed")}>
+                  <Square size={16} />
+                  Close night
+                </SecondaryButton>
+              </>
+            ) : (
+              <PrimaryButton className="px-4 sm:col-span-2" onClick={() => setWindowStatus("active")}>
+                <Play size={16} />
+                Start Social Mode
+              </PrimaryButton>
+            )}
           </div>
         </div>
         {statusMessage ? <p className="mt-4 rounded-[10px] bg-white/10 px-3 py-2 text-sm text-white">{statusMessage}</p> : null}
