@@ -21,11 +21,11 @@ export function AssetGenerator({
   if (!activeAsset) return null;
 
   return (
-    <section className="venue-panel rounded-[20px] p-4 md:p-5">
+    <section className="venue-panel rounded-[12px] p-4 md:p-5">
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-venue-dim">Launch kit</p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em]">Print and share the night.</h2>
+          <p className="text-xs font-medium text-venue-dim">Launch kit</p>
+          <h2 className="mt-2 text-2xl font-medium tracking-[-0.01em]">Print and share the night.</h2>
           <p className="mt-1 text-sm text-venue-muted">
             Generated from the selected recipe, venue name, event QR, and safety copy.
           </p>
@@ -37,10 +37,10 @@ export function AssetGenerator({
           <button
             key={asset.id}
             onClick={() => setActiveAssetId(asset.id)}
-            className={`min-h-9 shrink-0 rounded-full border px-3 text-sm ${
+            className={`min-h-9 shrink-0 rounded-[999px] border px-3 text-sm ${
               activeAsset.id === asset.id
-                ? "border-venue-amber/50 bg-venue-amber/12 text-venue-amberSoft"
-                : "border-white/[0.08] bg-white/[0.025] text-venue-muted"
+                ? "border-venue-cream bg-venue-cream text-white"
+                : "border-venue-soft bg-white text-venue-muted"
             }`}
             type="button"
           >

@@ -7,15 +7,15 @@ export function StatusPill({ status }: { status: "Set up" | "Live" | "After" | "
 
   return (
     <span
-      className={`inline-flex min-h-7 items-center gap-2 rounded-full border px-3 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.12em] ${
+      className={`inline-flex min-h-7 items-center gap-2 rounded-[999px] border px-3 font-mono text-[0.62rem] font-medium uppercase tracking-[0.12em] ${
         live
-          ? "border-venue-amber/35 bg-venue-amber/12 text-venue-amberSoft"
+          ? "border-venue-olive/25 bg-[#dfece0] text-venue-olive"
           : danger
-            ? "border-venue-danger/30 bg-venue-danger/10 text-venue-danger"
-            : "border-white/[0.1] bg-white/[0.035] text-venue-muted"
+            ? "border-venue-danger/25 bg-[#f6d4c7] text-venue-danger"
+            : "border-venue-soft bg-white text-venue-muted"
       }`}
     >
-      {live ? <span className="h-1.5 w-1.5 rounded-full bg-venue-amber" /> : null}
+      {live ? <span className="h-1.5 w-1.5 rounded-full bg-venue-olive" /> : null}
       {status}
     </span>
   );
@@ -35,15 +35,15 @@ export function VenueConsoleHeader({
   action: ReactNode;
 }) {
   return (
-    <header className="venue-panel-flat rounded-[24px] px-4 py-4 md:px-5">
+    <header className="border-b border-venue-soft bg-white py-4">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-3">
-            <p className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-venue-dim">{venue.name}</p>
+            <p className="text-sm font-medium text-venue-muted">{venue.name}</p>
             <StatusPill status={status} />
           </div>
-          <h1 className="mt-2 truncate text-2xl font-semibold tracking-[-0.02em] text-venue-cream md:text-3xl">{event.title}</h1>
-          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-venue-muted">{summary}</p>
+          <h1 className="mt-2 truncate text-2xl font-medium tracking-[-0.01em] text-venue-cream md:text-[2rem]">{event.title}</h1>
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-venue-muted">{summary}</p>
         </div>
         <div className="shrink-0">{action}</div>
       </div>
@@ -61,13 +61,13 @@ export function StageControl<T extends string>({
   onChange: (value: T) => void;
 }) {
   return (
-    <div className="inline-grid grid-cols-3 rounded-full border border-white/[0.08] bg-black/20 p-1">
+    <div className="inline-grid grid-cols-3 rounded-[12px] border border-venue-soft bg-venue-raised p-1">
       {items.map((item) => (
         <button
           key={item}
           onClick={() => onChange(item)}
-          className={`min-h-9 rounded-full px-4 text-sm font-semibold transition ${
-            value === item ? "bg-venue-cream text-venue-ink" : "text-venue-muted hover:text-venue-cream"
+          className={`min-h-9 rounded-[9px] px-4 text-sm font-medium transition ${
+            value === item ? "bg-white text-venue-cream shadow-[0_1px_6px_rgba(24,29,38,0.08)]" : "text-venue-muted hover:text-venue-cream"
           }`}
           type="button"
         >
@@ -79,21 +79,21 @@ export function StageControl<T extends string>({
 }
 
 export function ConsolePanel({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <section className={`venue-panel rounded-[20px] p-4 md:p-5 ${className}`}>{children}</section>;
+  return <section className={`venue-panel rounded-[12px] p-4 md:p-5 ${className}`}>{children}</section>;
 }
 
 export function CommandPanel({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <section className={`venue-command rounded-[20px] p-4 md:p-5 ${className}`}>{children}</section>;
+  return <section className={`venue-command rounded-[12px] p-4 md:p-5 ${className}`}>{children}</section>;
 }
 
 export function UtilityPanel({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <section className={`venue-panel-flat rounded-[18px] p-4 ${className}`}>{children}</section>;
+  return <section className={`venue-panel-flat rounded-[12px] p-4 ${className}`}>{children}</section>;
 }
 
 export function SafetyPanel({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <section className={`venue-safety rounded-[20px] p-4 md:p-5 ${className}`}>{children}</section>;
+  return <section className={`venue-safety rounded-[12px] p-4 md:p-5 ${className}`}>{children}</section>;
 }
 
 export function SectionLabel({ children }: { children: ReactNode }) {
-  return <p className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-venue-dim">{children}</p>;
+  return <p className="text-xs font-medium text-venue-dim">{children}</p>;
 }

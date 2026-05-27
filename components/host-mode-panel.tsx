@@ -82,7 +82,7 @@ export function HostModePanel({
               <StatusPill status={isLive ? "Live" : "Paused"} />
               <SectionLabel>Host control room</SectionLabel>
             </div>
-            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em]">Social Mode {isLive ? "is live" : "is paused"}.</h2>
+            <h2 className="mt-2 text-2xl font-medium tracking-[-0.01em]">Social Mode {isLive ? "is live" : "is paused"}.</h2>
             <p className="mt-1 text-sm text-venue-muted">
               Guests currently see: join a table, open to pings, or just browse.
             </p>
@@ -102,16 +102,16 @@ export function HostModePanel({
             </SecondaryButton>
           </div>
         </div>
-        {statusMessage ? <p className="mt-4 rounded-[14px] bg-venue-amber/10 px-3 py-2 text-sm text-venue-amberSoft">{statusMessage}</p> : null}
+        {statusMessage ? <p className="mt-4 rounded-[10px] bg-white/10 px-3 py-2 text-sm text-white">{statusMessage}</p> : null}
       </CommandPanel>
 
       <section className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
         <ConsolePanel>
           <div className="flex items-center gap-3">
-            <Megaphone className="text-venue-amberSoft" size={19} />
+            <Megaphone className="text-venue-danger" size={19} />
             <div>
               <SectionLabel>Send nudge</SectionLabel>
-              <h3 className="mt-1 text-xl font-semibold">Room announcement</h3>
+              <h3 className="mt-1 text-xl font-medium">Room announcement</h3>
             </div>
           </div>
           <label className="mt-4 block text-sm text-venue-muted">
@@ -119,7 +119,7 @@ export function HostModePanel({
             <textarea
               value={message}
               onChange={(event) => setMessage(event.target.value)}
-              className="mt-2 min-h-24 w-full resize-none rounded-[14px] border border-white/[0.08] bg-black/20 p-3 text-sm text-venue-cream outline-none focus:border-venue-amber/60"
+              className="mt-2 min-h-24 w-full resize-none rounded-[10px] border border-venue-soft bg-white p-3 text-sm text-venue-cream outline-none focus:border-venue-blue/60"
             />
           </label>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -128,7 +128,7 @@ export function HostModePanel({
                 key={nudge}
                 onClick={() => setMessage(nudge)}
                 type="button"
-                className="min-h-9 rounded-full border border-white/[0.08] bg-white/[0.025] px-3 text-xs text-venue-muted hover:border-venue-amber/35 hover:text-venue-cream"
+                className="min-h-9 rounded-[999px] border border-venue-soft bg-white px-3 text-xs text-venue-muted hover:border-venue-cream/25 hover:text-venue-cream"
               >
                 {nudge.slice(0, 34)}...
               </button>
@@ -147,10 +147,10 @@ export function HostModePanel({
 
         <ConsolePanel>
           <div className="flex items-center gap-3">
-            <Star className="text-venue-amberSoft" size={19} />
+            <Star className="text-venue-danger" size={19} />
             <div>
               <SectionLabel>Spotlight table</SectionLabel>
-              <h3 className="mt-1 text-xl font-semibold">Active conversation zone</h3>
+              <h3 className="mt-1 text-xl font-medium">Active conversation zone</h3>
             </div>
           </div>
           <div className="mt-4 grid gap-2">
@@ -158,14 +158,14 @@ export function HostModePanel({
               <button
                 key={table.id}
                 onClick={() => spotlightTable(table.id)}
-                className={`rounded-[14px] border px-3 py-2.5 text-left transition ${
-                  spotlight === table.id ? "border-venue-amber/45 bg-venue-amber/10" : "border-white/[0.08] bg-white/[0.018]"
+                className={`rounded-[10px] border px-3 py-2.5 text-left transition ${
+                  spotlight === table.id ? "border-venue-cream bg-venue-raised" : "border-venue-soft bg-white"
                 }`}
                 type="button"
               >
                 <span className="flex items-center justify-between gap-3">
-                  <span className="font-semibold text-venue-cream">{table.name}</span>
-                  <span className="rounded-full bg-white/[0.04] px-2 py-0.5 text-xs text-venue-dim">{table.energyLevel ?? "Warming up"}</span>
+                  <span className="font-medium text-venue-cream">{table.name}</span>
+                  <span className="rounded-[999px] bg-[#dfece0] px-2 py-0.5 text-xs text-venue-olive">{table.energyLevel ?? "Warming up"}</span>
                 </span>
                 <span className="mt-1 block text-xs leading-relaxed text-venue-muted">{table.prompt}</span>
               </button>

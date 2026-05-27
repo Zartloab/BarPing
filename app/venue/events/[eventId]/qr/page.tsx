@@ -28,14 +28,14 @@ export default function EventQrPage() {
           <div className="grid gap-5">
             <CommandPanel>
               <SectionLabel>Print studio</SectionLabel>
-              <h1 className="mt-2 text-2xl font-semibold tracking-[-0.02em]">Launch kit for tonight.</h1>
-              <p className="mt-2 text-sm leading-relaxed text-venue-muted">
+              <h1 className="mt-2 text-2xl font-medium tracking-[-0.01em]">Launch kit for tonight.</h1>
+              <p className="mt-2 text-sm leading-6 text-venue-muted">
                 Six venue-ready assets generated from the selected recipe. Guest-facing assets share the same scannable event QR.
               </p>
               <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-                <div className="rounded-[14px] bg-black/18 px-3 py-2"><p className="text-lg font-semibold">3</p><p className="text-xs text-venue-muted">print signs</p></div>
-                <div className="rounded-[14px] bg-black/18 px-3 py-2"><p className="text-lg font-semibold">1</p><p className="text-xs text-venue-muted">story</p></div>
-                <div className="rounded-[14px] bg-black/18 px-3 py-2"><p className="text-lg font-semibold">1</p><p className="text-xs text-venue-muted">run sheet</p></div>
+                <div className="rounded-[10px] bg-white/10 px-3 py-2"><p className="text-lg font-medium">3</p><p className="text-xs text-venue-muted">print signs</p></div>
+                <div className="rounded-[10px] bg-white/10 px-3 py-2"><p className="text-lg font-medium">1</p><p className="text-xs text-venue-muted">story</p></div>
+                <div className="rounded-[10px] bg-white/10 px-3 py-2"><p className="text-lg font-medium">1</p><p className="text-xs text-venue-muted">run sheet</p></div>
               </div>
             </CommandPanel>
             <ConsolePanel>

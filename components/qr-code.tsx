@@ -14,6 +14,16 @@ export function buildEventUrl(slug: string) {
   return new URL(`${getAppBasePath()}/e/${slug}`, window.location.origin).toString();
 }
 
+export function useEventUrl(slug: string) {
+  const [url, setUrl] = useState(`/e/${slug}`);
+
+  useEffect(() => {
+    setUrl(buildEventUrl(slug));
+  }, [slug]);
+
+  return url;
+}
+
 export function useQrCodeDataUrl(value: string) {
   const [dataUrl, setDataUrl] = useState("");
   const [error, setError] = useState("");

@@ -10,23 +10,23 @@ const config: Config = {
     extend: {
       colors: {
         venue: {
-          ink: "#080807",
-          raised: "#11100D",
-          card: "#171510",
-          soft: "#1F1C15",
-          cream: "#F7F0E3",
-          muted: "#B8AA92",
-          dim: "#776D5E",
-          amber: "#D98F45",
-          amberSoft: "#F0B46A",
-          olive: "#7C8061",
-          blue: "#4D6AAA",
-          danger: "#D96B5F"
+          ink: "#FFFFFF",
+          raised: "#F7F7F2",
+          card: "#FFFFFF",
+          soft: "#E5E1D8",
+          cream: "#181D26",
+          muted: "#454A54",
+          dim: "#767B84",
+          amber: "#181D26",
+          amberSoft: "#2A303A",
+          olive: "#16381F",
+          blue: "#3167B8",
+          danger: "#AA2D00"
         }
       },
       boxShadow: {
-        amber: "0 18px 60px rgba(217,143,69,0.16)",
-        soft: "0 22px 80px rgba(0,0,0,0.36)"
+        amber: "0 12px 34px rgba(24,29,38,0.12)",
+        soft: "0 18px 54px rgba(24,29,38,0.08)"
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)", "Inter", "system-ui", "sans-serif"],

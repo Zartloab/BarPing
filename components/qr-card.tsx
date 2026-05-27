@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Check, Copy, Download, Loader2, Printer } from "lucide-react";
 import type { Event } from "@/lib/types";
 import { SecondaryButton } from "@/components/ui/buttons";
-import { buildEventUrl, QrCodeImage, useQrCodeDataUrl } from "@/components/qr-code";
+import { QrCodeImage, useEventUrl, useQrCodeDataUrl } from "@/components/qr-code";
 
 function slugify(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -12,7 +12,7 @@ function slugify(value: string) {
 
 export function QRCard({ event }: { event: Event }) {
   const [copied, setCopied] = useState(false);
-  const eventUrl = buildEventUrl(event.slug);
+  const eventUrl = useEventUrl(event.slug);
   const { dataUrl } = useQrCodeDataUrl(eventUrl);
 
   async function copyLink() {
@@ -37,13 +37,13 @@ export function QRCard({ event }: { event: Event }) {
         <head>
           <title>${event.title} QR</title>
           <style>
-            body { background: #080807; color: #fff7e8; font-family: Arial, sans-serif; margin: 0; padding: 48px; }
-            main { border: 1px solid #3d3427; border-radius: 28px; padding: 48px; }
-            .kicker { color: #ffbd66; font-size: 13px; font-weight: 700; letter-spacing: 8px; text-transform: uppercase; }
-            h1 { font-family: Georgia, serif; font-size: 56px; margin: 28px 0 8px; }
-            p { color: #c6b899; font-size: 22px; }
-            img { width: 240px; height: 240px; border-radius: 24px; background: #fff7e8; padding: 20px; margin-top: 36px; }
-            .url { color: #82765f; font-size: 13px; letter-spacing: 4px; overflow-wrap: anywhere; text-transform: uppercase; }
+            body { background: #fff; color: #181d26; font-family: Arial, sans-serif; margin: 0; padding: 48px; }
+            main { border: 1px solid #e5e1d8; border-radius: 16px; padding: 48px; }
+            .kicker { color: #aa2d00; font-size: 13px; font-weight: 700; letter-spacing: 4px; }
+            h1 { font-family: Georgia, serif; font-size: 56px; font-weight: 400; margin: 28px 0 8px; }
+            p { color: #454a54; font-size: 22px; }
+            img { width: 240px; height: 240px; border-radius: 12px; background: #fff; border: 1px solid #e5e1d8; padding: 20px; margin-top: 36px; }
+            .url { color: #767b84; font-size: 13px; letter-spacing: 2px; overflow-wrap: anywhere; text-transform: uppercase; }
           </style>
         </head>
         <body>
@@ -61,14 +61,14 @@ export function QRCard({ event }: { event: Event }) {
   }
 
   return (
-    <section className="venue-panel-flat rounded-[18px] p-4">
+    <section className="venue-panel-flat rounded-[12px] p-4">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <p className="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-venue-dim">Event QR</p>
-          <h2 className="mt-2 text-lg font-semibold text-venue-cream">{event.title}</h2>
+          <p className="text-xs font-medium text-venue-dim">Event QR</p>
+          <h2 className="mt-2 text-lg font-medium text-venue-cream">{event.title}</h2>
           <p className="mt-1 break-all text-sm text-venue-muted">{eventUrl}</p>
         </div>
-        <div className="grid h-24 w-24 shrink-0 place-items-center rounded-[14px] bg-venue-cream p-2 text-venue-ink">
+        <div className="grid h-24 w-24 shrink-0 place-items-center rounded-[10px] border border-venue-soft bg-white p-2 text-venue-cream">
           <QrCodeImage alt={`QR code for ${event.title}`} value={eventUrl} />
         </div>
       </div>

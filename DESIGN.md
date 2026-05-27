@@ -1,2439 +1,554 @@
 ---
-version: v4
-name: BarPing-design-system
-description: "A premium, mobile-first venue social-night design system for BarPing V4. The system blends cinematic low-lit venue atmosphere with precise operational controls. It is built for a QR-based social night tool where bars can create, print, launch, manage, and repeat a live Social Mode event in minutes. The design avoids dating-app tropes, generic SaaS dashboards, fake QR visuals, neon nightclub styling, and vague 'premium dark mode' clichés. It treats BarPing as a venue pass, host console, launch kit generator, and guest social room."
-product_tagline: "Run a social night in 5 minutes."
-visual_thesis: "A warm, low-lit digital venue pass system: amber bar-light, charcoal surfaces, cream typography, quiet status indicators, tactile QR launch assets, and host controls that feel operational rather than analytical."
-keywords:
-  - venue social mode
-  - QR launch kit
-  - low-pressure social night
-  - dark premium UI
-  - warm nightlife
-  - host console
-  - no swiping
-  - no photos
-  - no GPS
-  - operational simplicity
+version: alpha
+name: Airtable-design-analysis
+description: A sober, editorial workflow-software interface anchored on white canvas and dark-ink type, where brand voltage comes from full-bleed signature cards in coral, dark green, peach, and dark navy that punctuate long-scroll explainer pages. Primary actions use a near-black pill CTA; secondary actions sit in a white outlined button. Type runs Haas Grotesk in modest weights — never bold for its own sake.
+
 colors:
-  canvas: "#080807"
-  canvas_warm: "#0D0B08"
-  surface_1: "#11100D"
-  surface_2: "#171510"
-  surface_3: "#1F1C15"
-  surface_4: "#282318"
-  surface_glass: "rgba(23,21,16,0.78)"
-  hairline: "rgba(255,244,220,0.08)"
-  hairline_strong: "rgba(255,244,220,0.16)"
-  hairline_hot: "rgba(217,143,69,0.36)"
-  ink: "#F7F0E3"
-  ink_muted: "#B8AA92"
-  ink_subtle: "#8E806C"
-  ink_tertiary: "#6E6354"
-  ink_disabled: "#50483C"
-  accent: "#D98F45"
-  accent_soft: "#F0B46A"
-  accent_deep: "#9E5E27"
-  olive: "#7C8061"
-  olive_soft: "#A4A77D"
-  cobalt: "#4D6AAA"
-  cobalt_soft: "#7893D6"
-  success: "#83A66A"
-  warning: "#E0A84F"
-  danger: "#D96B5F"
-  danger_soft: "#F0A79E"
-  qr_dark: "#14110D"
-  qr_light: "#F7F0E3"
-  overlay: "rgba(0,0,0,0.72)"
-  glow_amber: "rgba(217,143,69,0.22)"
-  glow_amber_strong: "rgba(217,143,69,0.34)"
-  glow_blue: "rgba(77,106,170,0.18)"
-  glow_olive: "rgba(124,128,97,0.16)"
+  primary: "#181d26"
+  primary-active: "#0d1218"
+  ink: "#181d26"
+  body: "#333840"
+  muted: "#41454d"
+  hairline: "#dddddd"
+  border-strong: "#9297a0"
+  canvas: "#ffffff"
+  surface-soft: "#f8fafc"
+  surface-strong: "#e0e2e6"
+  surface-dark: "#181d26"
+  surface-dark-elevated: "#1d1f25"
+  signature-coral: "#aa2d00"
+  signature-forest: "#0a2e0e"
+  signature-cream: "#f5e9d4"
+  signature-peach: "#fcab79"
+  signature-mint: "#a8d8c4"
+  signature-yellow: "#f4d35e"
+  signature-mustard: "#d9a441"
+  on-primary: "#ffffff"
+  on-dark: "#ffffff"
+  link: "#1b61c9"
+  link-active: "#1a3866"
+  info: "#254fad"
+  info-border: "#458fff"
+  success: "#006400"
+  success-border: "#39bf45"
+  pricing-ink: "#1d1f25"
+
 typography:
-  display_family: "Instrument Serif, Playfair Display, Georgia, serif"
-  ui_family: "Geist Sans, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
-  mono_family: "Geist Mono, JetBrains Mono, SFMono-Regular, Consolas, ui-monospace, monospace"
-  display_xl:
-    fontSize: "64px"
-    lineHeight: "0.94"
+  display-xl:
+    fontFamily: "Haas Groot Disp, Haas, sans-serif"
+    fontSize: 48px
     fontWeight: 500
-    letterSpacing: "-1.8px"
-  display_lg:
-    fontSize: "48px"
-    lineHeight: "0.98"
+    lineHeight: 1.1
+    letterSpacing: 0
+  display-lg:
+    fontFamily: "Haas Groot Disp, Haas, sans-serif"
+    fontSize: 40px
+    fontWeight: 400
+    lineHeight: 1.2
+    letterSpacing: 0
+  display-md:
+    fontFamily: "Haas Groot Disp, Haas, sans-serif"
+    fontSize: 32px
+    fontWeight: 400
+    lineHeight: 1.2
+    letterSpacing: 0
+  title-lg:
+    fontFamily: "Haas, sans-serif"
+    fontSize: 24px
+    fontWeight: 400
+    lineHeight: 1.35
+    letterSpacing: 0.12px
+  title-md:
+    fontFamily: "Haas Groot Disp, Haas, sans-serif"
+    fontSize: 20px
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: 0
+  title-sm:
+    fontFamily: "Haas, sans-serif"
+    fontSize: 18px
     fontWeight: 500
-    letterSpacing: "-1.2px"
-  display_md:
-    fontSize: "36px"
-    lineHeight: "1.04"
+    lineHeight: 1.4
+    letterSpacing: 0
+  label-md:
+    fontFamily: "Haas, sans-serif"
+    fontSize: 16px
     fontWeight: 500
-    letterSpacing: "-0.8px"
-  headline:
-    fontSize: "28px"
-    lineHeight: "1.12"
-    fontWeight: 600
-    letterSpacing: "-0.6px"
-  card_title:
-    fontSize: "22px"
-    lineHeight: "1.18"
-    fontWeight: 600
-    letterSpacing: "-0.35px"
-  body_lg:
-    fontSize: "18px"
-    lineHeight: "1.5"
+    lineHeight: 1.4
+    letterSpacing: 0
+  button:
+    fontFamily: "Haas, sans-serif"
+    fontSize: 16px
+    fontWeight: 500
+    lineHeight: 1.4
+    letterSpacing: 0
+  body-md:
+    fontFamily: "Haas, sans-serif"
+    fontSize: 14px
     fontWeight: 400
-    letterSpacing: "-0.1px"
-  body:
-    fontSize: "16px"
-    lineHeight: "1.5"
-    fontWeight: 400
-    letterSpacing: "-0.05px"
-  body_sm:
-    fontSize: "14px"
-    lineHeight: "1.45"
-    fontWeight: 400
-    letterSpacing: "0px"
+    lineHeight: 1.25
+    letterSpacing: 0
   caption:
-    fontSize: "12px"
-    lineHeight: "1.35"
+    fontFamily: "Haas, sans-serif"
+    fontSize: 14px
     fontWeight: 500
-    letterSpacing: "0.02em"
-  micro:
-    fontSize: "10px"
-    lineHeight: "1.2"
+    lineHeight: 1.35
+    letterSpacing: 0.16px
+  legal:
+    fontFamily: "Haas, sans-serif"
+    fontSize: 13.12px
     fontWeight: 600
-    letterSpacing: "0.12em"
+    lineHeight: 1.2
+    letterSpacing: 0
+  pricing-display:
+    fontFamily: "Inter Display, system-ui, sans-serif"
+    fontSize: 44.8px
+    fontWeight: 475
+    lineHeight: 1.1
+    letterSpacing: 0
+  pricing-section:
+    fontFamily: "Inter Display, system-ui, sans-serif"
+    fontSize: 28px
+    fontWeight: 475
+    lineHeight: 1.2
+    letterSpacing: 0
+  pricing-card-title:
+    fontFamily: "Inter Display, system-ui, sans-serif"
+    fontSize: 20px
+    fontWeight: 475
+    lineHeight: 1.3
+    letterSpacing: 0
+
+rounded:
+  xs: 2px
+  sm: 6px
+  md: 10px
+  lg: 12px
+  pill: 9999px
+  full: 9999px
+
 spacing:
-  base: "4px"
-  xxs: "4px"
-  xs: "8px"
-  sm: "12px"
-  md: "16px"
-  lg: "20px"
-  xl: "24px"
-  xxl: "32px"
-  xxxl: "48px"
-  section: "72px"
-radius:
-  xs: "6px"
-  sm: "10px"
-  md: "14px"
-  lg: "20px"
-  xl: "28px"
-  xxl: "36px"
-  pill: "999px"
-  full: "9999px"
-layout:
-  mobile_max_width: "430px"
-  desktop_admin_max_width: "1180px"
-  page_padding_mobile: "20px"
-  page_padding_desktop: "32px"
-  touch_target_min: "44px"
-motion:
-  duration_fast: "120ms"
-  duration_base: "180ms"
-  duration_slow: "280ms"
-  easing: "cubic-bezier(0.22, 1, 0.36, 1)"
+  xxs: 4px
+  xs: 8px
+  sm: 12px
+  md: 16px
+  lg: 24px
+  xl: 32px
+  xxl: 48px
+  section: 96px
+
+components:
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.button}"
+    rounded: "{rounded.lg}"
+    padding: 16px 24px
+  button-primary-active:
+    backgroundColor: "{colors.primary-active}"
+    textColor: "{colors.on-primary}"
+    rounded: "{rounded.lg}"
+  button-secondary:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.button}"
+    rounded: "{rounded.lg}"
+    padding: 16px 24px
+  button-secondary-on-dark:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.button}"
+    rounded: "{rounded.lg}"
+    padding: 16px 24px
+  button-legal:
+    backgroundColor: "{colors.link}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.legal}"
+    rounded: "{rounded.xs}"
+    padding: 12px 10px
+  button-icon-circular:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.full}"
+    size: 40px
+  button-pricing-pill:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.pricing-ink}"
+    typography: "{typography.button}"
+    rounded: "{rounded.pill}"
+    padding: 12px 24px
+  text-link:
+    backgroundColor: transparent
+    textColor: "{colors.link}"
+    typography: "{typography.body-md}"
+  top-nav:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body-md}"
+    height: 64px
+  hero-band:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.display-lg}"
+    padding: 96px
+  signature-coral-card:
+    backgroundColor: "{colors.signature-coral}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.display-md}"
+    rounded: "{rounded.lg}"
+    padding: 48px
+  signature-forest-card:
+    backgroundColor: "{colors.signature-forest}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.display-md}"
+    rounded: "{rounded.lg}"
+    padding: 48px
+  hero-card-dark:
+    backgroundColor: "{colors.surface-dark}"
+    textColor: "{colors.on-dark}"
+    typography: "{typography.display-md}"
+    rounded: "{rounded.lg}"
+    padding: 48px
+  feature-card-tabbed:
+    backgroundColor: "{colors.surface-soft}"
+    textColor: "{colors.ink}"
+    typography: "{typography.title-lg}"
+    rounded: "{rounded.lg}"
+    padding: 32px
+  cream-callout-card:
+    backgroundColor: "{colors.signature-cream}"
+    textColor: "{colors.ink}"
+    typography: "{typography.title-lg}"
+    rounded: "{rounded.md}"
+    padding: 24px
+  demo-grid-card:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label-md}"
+    rounded: "{rounded.md}"
+    padding: 16px
+  logo-strip:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.muted}"
+    typography: "{typography.body-md}"
+    padding: 32px
+  article-card:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.title-sm}"
+    rounded: "{rounded.md}"
+    padding: 16px
+  topic-filter-rail:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.body}"
+    typography: "{typography.body-md}"
+    width: 240px
+  text-input:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body-md}"
+    rounded: "{rounded.sm}"
+    padding: 12px 16px
+    height: 44px
+  text-input-focus:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.sm}"
+  pricing-tier-card:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.pricing-ink}"
+    typography: "{typography.pricing-card-title}"
+    rounded: "{rounded.md}"
+    padding: 32px
+  pricing-tier-card-featured:
+    backgroundColor: "{colors.surface-soft}"
+    textColor: "{colors.pricing-ink}"
+    typography: "{typography.pricing-card-title}"
+    rounded: "{rounded.md}"
+    padding: 32px
+  pricing-comparison-row:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.body}"
+    typography: "{typography.body-md}"
+    padding: 12px
+  cta-band-light:
+    backgroundColor: "{colors.surface-strong}"
+    textColor: "{colors.ink}"
+    typography: "{typography.display-md}"
+    rounded: "{rounded.lg}"
+    padding: 48px
+  footer:
+    backgroundColor: "{colors.canvas}"
+    textColor: "{colors.body}"
+    typography: "{typography.body-md}"
+    padding: 64px
 ---
 
-# BarPing V4 DESIGN.md
-
-This file is the design source of truth for BarPing V4.
-
-Before changing any UI, read this file. Do not invent visual style, colours, spacing, component behaviour, copy tone, or layout rules outside this document unless the user explicitly asks for a new design direction.
-
-BarPing V4 is not a generic social app. It is not a dating app. It is not a dashboard-first SaaS product. It is a venue pilot tool that helps a bar run a real social night in minutes.
-
-The design must make the product feel real enough for a venue owner to print the launch kit, start Social Mode, and trust guests to use it safely.
-
----
-
-## 1. Product Understanding
-
-### 1.1 What BarPing V4 is
-
-BarPing V4 is a QR-based venue social-night platform. A venue admin logs in, chooses a night template, reviews the generated event, prints/shares the launch kit, starts Social Mode, manages live room nudges, and views a simple after-report.
-
-The whole product promise is:
-
-> Run a social night in 5 minutes.
-
-The venue flow is:
-
-1. Log in.
-2. Choose a night template.
-3. Review generated night.
-4. Print/share launch assets.
-5. Start Social Mode.
-6. Manage the room.
-7. Close the night.
-8. View after-report.
-9. Run it again.
-
-The guest flow is:
-
-1. Scan QR.
-2. Land on `/e/[eventSlug]`.
-3. See venue/event state.
-4. Join only when Social Mode is live.
-5. Choose one of three simple modes:
-   - Join a table
-   - Open to pings
-   - Just browsing
-6. Use the live room without photos, swiping, GPS, or pressure.
-
-### 1.2 What BarPing V4 is not
-
-BarPing is not:
-
-- a dating app
-- a swipe app
-- an anonymous global chat app
-- a nightlife discovery app
-- a map/location product
-- a heavy analytics SaaS dashboard
-- a gamified flirting app
-- a neon club visual system
-- a fake QR demo UI
-- a crypto-like dark dashboard
-- a product with profile photos
-- a product that exposes precise user location
-
-If a UI decision makes BarPing feel like Tinder, Bumble, Snapchat, Discord, or a generic SaaS template, reject it.
-
----
-
-## 2. Design Thesis
-
-BarPing should feel like a premium digital venue pass combined with a calm host console.
-
-Guest-facing screens should feel like:
-
-- a low-lit bar menu
-- a members-only event pass
-- a warm printed ticket
-- a small social signal inside a venue
-- something temporary, safe, and live
-
-Venue-facing screens should feel like:
-
-- a host control panel
-- a launch checklist
-- a print kit studio
-- an event run sheet
-- a simple operations surface
-
-The overall mood is:
-
-```txt
-warm / low-lit / precise / social / temporary / safe / printed / tactile / live
-```
-
-The design should create trust by reducing ambiguity. Every screen should answer:
-
-- What night is this?
-- Is Social Mode live?
-- What can I do right now?
-- Is this safe?
-- What happens next?
-
----
-
-## 3. Brand Personality
-
-### 3.1 Voice
-
-BarPing speaks like a calm host, not a marketer.
-
-Use copy that is:
-
-- short
-- warm
-- direct
-- low-pressure
-- venue-aware
-- safety-conscious
-- human
-
-Avoid copy that is:
-
-- thirsty
-- romantic by default
-- overly playful
-- hypey
-- corporate
-- vague
-- technical
-
-### 3.2 Example voice
-
-Good:
-
-```txt
-Social Mode is live.
-Meet people already here.
-No swiping. No photos. No pressure.
-Join a table, open to pings, or just browse.
-You can leave anytime.
-```
-
-Bad:
-
-```txt
-Find your perfect match tonight!
-Discover hot singles near you!
-Unlock premium social analytics!
-Your venue engagement solution powered by AI!
-```
-
-### 3.3 Emotional promise
-
-For guests:
-
-> It is safe to be a little more open tonight.
-
-For venues:
-
-> You can run a better social night without becoming an event producer.
-
----
-
-## 4. Visual System Overview
-
-### 4.1 Core visual metaphor
-
-The core visual metaphor is **a digital venue pass under warm bar light**.
-
-Use:
-
-- dark warm backgrounds
-- cream type
-- amber accent lighting
-- charcoal cards
-- printed-ticket surfaces
-- QR-forward layouts
-- subtle status dots
-- tactile chips
-- operational buttons
-
-Do not use:
-
-- bright neon gradients
-- rainbow social app colours
-- glassmorphism everywhere
-- stock avatars
-- hearts/flames/kiss icons
-- large emoji-based UI
-- dating app card stacks
-- fake QR illustrations
-- random grey dashboards
-
-### 4.2 Visual formula
-
-```txt
-Guest screens = cinematic warmth + digital pass cards + safety clarity
-Venue screens = operational precision + launch checklist + premium print studio
-Assets = event poster design + scannable QR clarity + venue-safe copy
-```
-
----
-
-## 5. Colour System
-
-### 5.1 Colour tokens
-
-Use the frontmatter colour tokens exactly. Do not introduce new brand colours unless explicitly requested.
-
-Primary surfaces:
-
-| Token | Value | Use |
-|---|---:|---|
-| `canvas` | `#080807` | Main app background |
-| `canvas_warm` | `#0D0B08` | Warm alternate background |
-| `surface_1` | `#11100D` | Elevated page panels |
-| `surface_2` | `#171510` | Default cards |
-| `surface_3` | `#1F1C15` | Stronger cards / selected states |
-| `surface_4` | `#282318` | High emphasis inner panels |
-
-Text:
-
-| Token | Value | Use |
-|---|---:|---|
-| `ink` | `#F7F0E3` | Primary text |
-| `ink_muted` | `#B8AA92` | Secondary text |
-| `ink_subtle` | `#8E806C` | Metadata, helper text |
-| `ink_tertiary` | `#6E6354` | Low emphasis labels |
-| `ink_disabled` | `#50483C` | Disabled controls |
-
-Accents:
-
-| Token | Value | Use |
-|---|---:|---|
-| `accent` | `#D98F45` | Primary action, live warmth |
-| `accent_soft` | `#F0B46A` | Hover, active glow, QR asset highlights |
-| `accent_deep` | `#9E5E27` | Pressed state, deep amber |
-| `olive` | `#7C8061` | Safety, calm, tables, secondary accents |
-| `cobalt` | `#4D6AAA` | System/host status, links, selected secondary states |
-| `danger` | `#D96B5F` | Reports, blocks, destructive actions |
-
-### 5.2 Colour usage rules
-
-- Amber is the primary action colour. Use it for “Enter tonight,” “Create night,” “Start Social Mode,” and active states.
-- Amber should feel like warm light, not a warning label.
-- Olive is the safety/calm colour. Use it for community rules, safety notices, and table states.
-- Cobalt is for operational/system emphasis, not guest romance.
-- Danger is used only for destructive or safety actions: report, block, ban, close permanently.
-- Do not use bright red for normal errors. Use `danger` on dark with calm copy.
-- Do not use pure white backgrounds in app UI. Print assets may use cream backgrounds.
-- QR codes must always have high contrast. Use `qr_dark` on `qr_light` or black on white when required for scan reliability.
-
-### 5.3 Background glows
-
-Use radial glows sparingly:
-
-```css
-background:
-  radial-gradient(circle at 50% 0%, rgba(217,143,69,0.22), transparent 34%),
-  radial-gradient(circle at 85% 18%, rgba(77,106,170,0.14), transparent 28%),
-  #080807;
-```
-
-Rules:
-
-- Landing pages may use one amber glow and one soft cobalt glow.
-- Live room screens should use less glow; preserve readability.
-- Dashboard screens should use almost no glow.
-- Print assets should not rely on glows behind QR codes.
-
----
-
-## 6. Typography
-
-### 6.1 Font families
-
-Use:
-
-```css
---font-display: "Instrument Serif", "Playfair Display", Georgia, serif;
---font-ui: "Geist Sans", Inter, ui-sans-serif, system-ui, sans-serif;
---font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
-```
-
-If custom fonts are unavailable, use the fallback stack. Do not block UI rendering waiting on fonts.
-
-### 6.2 Typography roles
-
-Display serif:
-
-- landing headlines
-- event poster headlines
-- launch kit previews
-- hero statements
-- emotional guest-facing copy
-
-UI sans:
-
-- buttons
-- forms
-- cards
-- dashboard
-- tables
-- settings
-- body text
-
-Mono:
-
-- status labels
-- event slugs
-- QR labels
-- timestamps
-- tiny operational metadata
-- `LIVE`, `SETUP`, `CLOSED`, `SOCIAL MODE`
-
-### 6.3 Text hierarchy
-
-Use these practical mobile defaults:
-
-| Role | Size | Weight | Family | Use |
-|---|---:|---:|---|---|
-| Display XL | 56–64px | 500 | Serif | Landing hero only |
-| Display LG | 42–48px | 500 | Serif | Asset headlines |
-| Display MD | 32–36px | 500 | Serif | Guest section headings |
-| Headline | 26–28px | 600 | Sans | Dashboard titles |
-| Card title | 20–22px | 600 | Sans | Cards and panels |
-| Body | 16px | 400 | Sans | Main readable text |
-| Body SM | 14px | 400 | Sans | Helper text |
-| Caption | 12px | 500 | Sans/Mono | Metadata |
-| Micro | 10px | 600 | Mono | Status labels |
-
-### 6.4 Typography rules
-
-- Avoid huge blocks of centered body copy.
-- Guest-facing landing pages can center hero text.
-- Dashboard copy should be left-aligned.
-- Use sentence case, not title case, for buttons and labels.
-- Use short line lengths on mobile.
-- Do not use all-caps except mono status labels.
-- Use display serif only where it adds atmosphere. Do not use it for admin tables or form labels.
-
----
-
-## 7. Layout System
-
-### 7.1 Mobile-first rule
-
-The guest experience is mobile-first. The app should look best at 390–430px wide.
-
-Use:
-
-```txt
-Max guest app width: 430px
-Mobile page padding: 20px
-Card padding: 20px
-Section gap: 20–32px
-Touch target minimum: 44px
-```
-
-Desktop should center the mobile guest app in a warm canvas. Do not stretch guest screens awkwardly across desktop.
-
-### 7.2 Venue dashboard layout
-
-Venue admin can use wider screens.
-
-Use:
-
-```txt
-Max admin width: 1180px
-Desktop padding: 32px
-Dashboard cards: 2–3 column max
-Primary action row: always visible near top
-Advanced analytics: hidden until After mode
-```
-
-The dashboard should not feel like a BI product. It should feel like an event console.
-
-### 7.3 Vertical rhythm
-
-Use this order:
-
-1. Status / venue context
-2. Main action
-3. Supporting checklist/cards
-4. Details
-5. Secondary actions
-
-Do not put analytics above the next action.
-
-For example, on the venue dashboard:
-
-Good order:
-
-1. “Next night: New Faces Night”
-2. “Print launch kit” / “Start Social Mode”
-3. Setup checklist
-4. Live status
-5. Recent reports
-
-Bad order:
-
-1. Charts
-2. KPIs
-3. Tables
-4. Tiny start button
-
----
-
-## 8. Elevation and Depth
-
-BarPing uses surface layering, hairlines, and warm glows. It does not rely on heavy shadows.
-
-### 8.1 Elevation levels
+## Overview
+
+Airtable's marketing surfaces are quietly editorial. The base atmosphere is white canvas, dark ink type, generous whitespace, and a near-black pill CTA — nothing is fighting for attention until a section needs to. The brand voltage doesn't come from gradient washes or accent walls; it comes from **full-bleed signature cards** in `{colors.signature-coral}`, `{colors.signature-forest}`, and `{colors.surface-dark}` that punctuate long-scroll explainer pages every two or three screens. Between those signature bands, the page reads like a print magazine: a headline, supporting copy, a small image cluster, then breathing room.
+
+Type voice is Haas Grotesk at modest weights (400 for display, 500 for sub-titles and buttons). Display headlines never go bolder than 500 — emphasis comes from size and color contrast, not from weight. Body copy stays at 14px / 400 throughout. The pricing surface runs its own dialect: **Inter Display** at unusual mid-weights (475 / 575) and **pill-shaped buttons** (`{rounded.pill}`) that don't appear on any other page — a deliberate sub-system signaling "this page is about commercial precision."
+
+**Key Characteristics:**
+- Primary CTA is `{colors.primary}` (near-black ink) with white text and a `{rounded.lg}` (12px) corner — it reads as confident and final, never decorative.
+- Secondary CTA is a `{colors.canvas}` button with `{colors.ink}` text and a hairline outline. The two together form Airtable's signature button pair.
+- Hero is white canvas. There is no atmospheric gradient, no mesh, no background flourish. The brand strength comes from the type and the buttons sitting in clean whitespace.
+- Brand voltage lives in **signature surface cards**: `{colors.signature-coral}`, `{colors.signature-forest}`, and `{colors.surface-dark}` carry full-bleed product callouts every few screens.
+- Demo-card grids carry product UI fragments on `{colors.signature-peach}`, `{colors.signature-mint}`, `{colors.signature-cream}` and other warm pastel surfaces.
+- Section rhythm: white canvas → coral signature card → white body → cream callout band → dark navy CTA → light gray CTA banner → footer. The canvas resets between every signature surface.
+- Border radius is hierarchical: `{rounded.lg}` (12px) for primary CTAs and large signature cards, `{rounded.md}` (10px) for content cards and demo grids, `{rounded.sm}` (6px) for inputs, `{rounded.full}` for icon buttons. Pricing buttons jump to `{rounded.pill}` to mark themselves as a separate dialect.
+- Vertical rhythm is `{spacing.section}` (96px) between major bands — universal across every page.
+
+## Colors
+
+### Brand & Accent
+- **Primary** (`{colors.primary}` — #181d26): The dominant brand color. Used for the primary CTA background, h1/h2 display type, and the `{component.surface-dark}` band. Not "blue, then black" — black IS the primary throughout the marketing system.
+- **Primary Active** (`{colors.primary-active}` — #0d1218): The press state on primary buttons.
+
+### Surface
+- **Canvas** (`{colors.canvas}` — #ffffff): The default page surface; the floor of every editorial body.
+- **Surface Soft** (`{colors.surface-soft}` — #f8fafc): Tabbed feature cards and the featured pricing tier.
+- **Surface Strong** (`{colors.surface-strong}` — #e0e2e6): The light gray "Start building with Airtable" CTA banner near the footer.
+- **Surface Dark** (`{colors.surface-dark}` — #181d26): The dark navy CTA cards used mid-page (for example "The path to 10× every person in your organization").
+- **Surface Dark Elevated** (`{colors.surface-dark-elevated}` — #1d1f25): The articles-page hero base behind the rainbow-stripe overlay.
+- **Hairline** (`{colors.hairline}` — #dddddd): The 1px border tone for input outlines, table dividers, secondary-button outlines.
+
+### Text
+- **Ink** (`{colors.ink}` — #181d26): The strongest text — h1/h2 display type and primary button text-on-light. Same hex as `{colors.primary}` because they are the same role expressed at type and button layers.
+- **Body** (`{colors.body}` — #333840): The default running-text color.
+- **Muted** (`{colors.muted}` — #41454d): Footer links, breadcrumbs, captions.
+- **Border Strong** (`{colors.border-strong}` — #9297a0): The 1px outline color on disabled secondary buttons.
+- **On Primary / On Dark** (`{colors.on-primary}` — #ffffff): The text color on primary buttons and dark surfaces.
+
+### Signature Card Surfaces
+These are the colors that carry Airtable's brand voltage. They appear as full-bleed, full-card surfaces — never as accents on a small element.
+- **Coral** (`{colors.signature-coral}` — #aa2d00): The largest signature card on the homepage ("Production apps in prototype speed"). Full-bleed dark coral with white type.
+- **Forest** (`{colors.signature-forest}` — #0a2e0e): A deep-green signature card used in the homepage demo-grid cluster.
+- **Cream** (`{colors.signature-cream}` — #f5e9d4): The cream callout band ("The path to 10× every person in your organization") — a soft beige surface holding dark type and product UI fragments.
+- **Peach** (`{colors.signature-peach}` — #fcab79), **Mint** (`{colors.signature-mint}` — #a8d8c4), **Yellow** (`{colors.signature-yellow}` — #f4d35e), **Mustard** (`{colors.signature-mustard}` — #d9a441): Demo-card surfaces that carry small product UI fragments inside the multi-card grid sections.
+
+### Semantic
+- **Link** (`{colors.link}` — #1b61c9): Inline body links and anchor text. Darker on press to `{colors.link-active}` (#1a3866). Despite the `--theme_button-background-primary` CSS-variable name, this color is **not** the primary button color — it is the link color.
+- **Info** (`{colors.info}` — #254fad) and **Info Border** (`{colors.info-border}` — #458fff): Inline info badges and focused-input outline.
+- **Success** (`{colors.success}` — #006400) and **Success Border** (`{colors.success-border}` — #39bf45): Confirmation states.
+
+## Typography
+
+### Font Family
+The system runs **Haas / Haas Groot Disp** (Airtable's licensed display + text type). Haas Groot Disp covers display sizes (h1 / h2); Haas Grotesk covers everything 24px and below. The fallback stack walks `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif`.
+
+The pricing surface runs a separate **Inter Display** stack at mid-weights (475 / 575) — a deliberate sub-system signaling commercial precision.
+
+### Hierarchy
+
+| Token | Size | Weight | Line Height | Letter Spacing | Use |
+|---|---|---|---|---|---|
+| `{typography.display-xl}` | 48px | 500 | 1.1 | 0 | Articles page h2 — second-tier editorial headline |
+| `{typography.display-lg}` | 40px | 400 | 1.2 | 0 | Homepage h1 hero |
+| `{typography.display-md}` | 32px | 400 | 1.2 | 0 | Platform-page h2 — feature-section headlines |
+| `{typography.title-lg}` | 24px | 400 | 1.35 | 0.12px | Section titles |
+| `{typography.title-md}` | 20px | 400 | 1.5 | 0 | Sub-section titles in tabbed feature cards |
+| `{typography.title-sm}` | 18px | 500 | 1.4 | 0 | Article-card titles |
+| `{typography.label-md}` | 16px | 500 | 1.4 | 0 | Demo-card titles, list labels |
+| `{typography.button}` | 16px | 500 | 1.4 | 0 | Standard CTA button labels |
+| `{typography.body-md}` | 14px | 400 | 1.25 | 0 | Body copy, footer links, top-nav items |
+| `{typography.caption}` | 14px | 500 | 1.35 | 0.16px | Light captions and meta text |
+| `{typography.legal}` | 13.12px | 600 | 1.2 | 0 | Cookie/legal CTA buttons |
+| `{typography.pricing-display}` | 44.8px | 475 | 1.1 | 0 | Pricing-page h1 |
+| `{typography.pricing-section}` | 28px | 475 | 1.2 | 0 | Pricing-page section heads |
+| `{typography.pricing-card-title}` | 20px | 475 | 1.3 | 0 | Pricing tier card plan name |
+
+### Principles
+The Haas system prefers weight 400 for display sizes — a 40px h1 is **not** bold. Visual emphasis is delegated to size, color contrast, and the signature surface cards. Where the system does want weight, it pivots to 500 (sub-titles, buttons, article titles), never 600 or 700 in the editorial body. The only true bold (600) lives in `{typography.legal}` — a sign that boldness is reserved for terms-of-service surfaces, not marketing.
+
+The pricing-page sub-system uses Inter Display at `font-weight: 475` — a custom mid-weight between regular (400) and medium (500), shipped as a variable font.
+
+### Note on Font Substitutes
+If Haas Groot Disp and Haas Grotesk are unavailable, **Inter Display** (variable) is the closest open-source substitute for both — adjust line-height down by ~5% to match Haas's tighter cap-height. For the pricing sub-system, use Inter Display directly. On macOS / iOS, **system-ui** is sufficient; on Windows, the chain falls through to Segoe UI, which is a usable but slightly cooler substitute.
+
+## Layout
+
+### Spacing System
+- **Base unit:** 4px (all spacing snaps to 4-multiples).
+- **Tokens:** `{spacing.xxs}` 4px · `{spacing.xs}` 8px · `{spacing.sm}` 12px · `{spacing.md}` 16px · `{spacing.lg}` 24px · `{spacing.xl}` 32px · `{spacing.xxl}` 48px · `{spacing.section}` 96px.
+- **Section padding (vertical):** `{spacing.section}` (96px) is the universal vertical rhythm constant — every major editorial band on every page uses 96px top + 96px bottom internal padding.
+- **Card internal padding:** `{spacing.xl}` (32px) for tabbed feature cards and pricing tier cards; `{spacing.xxl}` (48px) inside signature coral / forest / dark cards; `{spacing.lg}` (24px) for cream callouts and demo-grid cards.
+- **Gutters:** `{spacing.lg}` (24px) between cards in 3-up grids; `{spacing.md}` (16px) inside denser logo strips and footer column gutters.
+
+### Grid & Container
+- **Max content width:** ~1280px centered, with `{spacing.xxl}` (48px) horizontal breathing room.
+- **Editorial body:** Single 8/12-column at large breakpoints, collapsing to single-column on mobile.
+- **Demo-card grids:** 3 or 4 columns at desktop, 2 at tablet, 1 at mobile. Card sizes are deliberately uneven within the grid to dodge a uniform "spec sheet" feel.
+- **Logo strip:** 6 monochrome partner logos in a single row at desktop; wraps to 3-up on mobile.
+
+### Whitespace Philosophy
+Airtable uses whitespace as the dominant atmospheric tool. Hero sections sit in 96px+ of pure whitespace above and below the headline + sub-headline pair, with no decoration in that whitespace. The hero is intentionally calm — there is no gradient, no aurora, no atmospheric mesh behind the type. The system trusts whitespace alone to do the framing.
+
+## Elevation & Depth
 
 | Level | Treatment | Use |
 |---|---|---|
-| 0 | Canvas only | Page background |
-| 1 | `surface_1` + hairline | Main containers |
-| 2 | `surface_2` + hairline | Cards |
-| 3 | `surface_3` + strong hairline | Selected cards, modals |
-| 4 | Amber/blue glow + border | Live states, primary selected state |
+| Flat | No shadow, no border | Body sections, top nav, footer |
+| Soft hairline | 1px `{colors.hairline}` border | Inputs, sub-nav rails, comparison-table dividers, secondary buttons |
+| Button rest | Soft drop with subtle blue-tinted glow at low alpha | Primary CTA buttons (the blue tint is a holdover from the link color and reads as a faint accent under the dark button) |
+| Button focus | Outer 2px blue ring at higher alpha | Keyboard focus state on primary buttons |
+| Card flat | No shadow; relies on color contrast against the surface band | Signature coral / forest / dark cards, cream callouts, demo-grid cards |
 
-### 8.2 Shadow rules
+The elevation philosophy is **color-block first, shadow second**. Shadows are minimal; depth is delegated to the contrast between white canvas and signature surface cards. There is no soft-glow / atmospheric-shadow / heavy-elevation language anywhere in the marketing system.
 
-Use shadows only as soft ambient separation:
+### Decorative Depth
+- **Vertical rainbow stripes** appear on the articles hero only — multi-color vertical bands sitting on `{colors.surface-dark-elevated}`. This is a single-page treatment, not a system-wide signature.
+- **Photography-as-depth** in the demo-card grid: every card carries a real product UI screenshot or mockup, contributing depth through legible artifact density rather than decorative effects.
 
-```css
-box-shadow: 0 18px 70px rgba(0,0,0,0.34);
-```
+## Shapes
 
-For amber live elements:
-
-```css
-box-shadow: 0 0 0 1px rgba(217,143,69,0.28), 0 18px 60px rgba(217,143,69,0.10);
-```
-
-Do not use bright, coloured shadows around every component.
-
----
-
-## 9. Shape System
-
-### 9.1 Radius scale
-
-Use:
+### Border Radius Scale
 
 | Token | Value | Use |
-|---|---:|---|
-| `xs` | 6px | tiny labels, internal chips |
-| `sm` | 10px | small controls |
-| `md` | 14px | inputs |
-| `lg` | 20px | dashboard cards |
-| `xl` | 28px | guest cards, launch kit cards |
-| `xxl` | 36px | hero panels, poster previews |
-| `pill` | 999px | buttons, chips, tabs |
-
-### 9.2 Shape rules
-
-- Guest cards use `xl` radius.
-- Primary buttons are pills.
-- Dashboard cards use `lg` or `xl` radius.
-- Print asset previews can use sharper corners if simulating real paper.
-- Do not use inconsistent radius values like 7px, 17px, 22px.
-- Do not mix square admin tables with round guest cards without reason.
-
----
-
-## 10. Motion
-
-Motion should feel like a calm host moving the night along.
-
-Use Framer Motion sparingly.
-
-### 10.1 Motion rules
-
-Allowed:
-
-- page fade + 8px upward slide
-- card enter stagger
-- selected chip scale from 0.98 to 1
-- live dot pulse
-- modal fade/scale from 0.98
-- success glow after starting Social Mode
-- QR asset preview fade-in
-
-Avoid:
-
-- bouncy spring chaos
-- confetti
-- spinning QR codes
-- dating-app card swipes
-- looping background animations
-- huge parallax sections
-
-### 10.2 Timing
-
-Use:
-
-```txt
-Fast: 120ms
-Base: 180ms
-Slow: 280ms
-Ease: cubic-bezier(0.22, 1, 0.36, 1)
-```
-
----
-
-## 11. Iconography
-
-Use `lucide-react` sparingly.
-
-Good icons:
-
-- `QrCode`
-- `Radio`
-- `Users`
-- `MessageCircle`
-- `Megaphone`
-- `ShieldCheck`
-- `Clock`
-- `Printer`
-- `Download`
-- `Copy`
-- `Play`
-- `Pause`
-- `Square`
-- `Sparkles` only when very subtle
-- `AlertTriangle` for safety states
-
-Avoid:
-
-- heart icons
-- flame icons
-- kiss/love icons
-- excessive smileys
-- map pins for guests
-- target/crosshair icons
-- anything that implies tracking a person physically
-
-Icons should support labels, not replace them.
-
----
-
-## 12. QR Design Rules
-
-V4 must remove all fake QR visuals. Every QR displayed in the product must be a real scannable QR generated from the actual event URL using the shared QR component.
-
-### 12.1 QR component rules
-
-Shared component name:
-
-```tsx
-<RealQRCode value={url} size={...} variant={...} />
-```
-
-Required behaviours:
-
-- Use the `qrcode` package or a reliable QR renderer.
-- Encode the exact guest event URL.
-- Use high contrast.
-- Do not place gradients inside QR modules.
-- Do not put glow under QR code if it reduces scan reliability.
-- Do not distort aspect ratio.
-- Add quiet zone around QR.
-- Test QR with actual phone camera.
-
-### 12.2 QR visual variants
-
-Use these variants:
-
-| Variant | Use | Style |
 |---|---|---|
-| `screen` | dashboard / setup screen | cream background, dark QR |
-| `print` | printable assets | black/dark QR on cream/white |
-| `story` | Instagram story | QR in strong cream card |
-| `compact` | safety card / bar sign | simple, high contrast |
+| `{rounded.xs}` | 2px | Cookie-consent and legal CTA buttons — system-required surfaces |
+| `{rounded.sm}` | 6px | Text inputs, small inline buttons |
+| `{rounded.md}` | 10px | Secondary content cards, article cards, cream callouts |
+| `{rounded.lg}` | 12px | Primary CTA buttons, signature surface cards, tabbed feature cards |
+| `{rounded.pill}` | 9999px | Pricing-page CTA buttons (sub-system only) |
+| `{rounded.full}` | 9999px / 50% | Circular icon buttons, avatar surfaces |
 
-### 12.3 QR placement
+### Photography Geometry
+Product UI screenshots inside demo-card grids retain native aspect ratios (typically 4:3 or 16:10) and crop into `{rounded.md}` containers. Hero illustrations bleed full-width with no rounding. Article-card thumbnails use 16:9 with `{rounded.md}` corners. Avatars in testimonials use `{rounded.full}` (perfect circles). Pricing comparison table images stay rectangular with no rounding.
 
-QR should always be paired with:
+## Components
 
-- clear CTA: “Scan to join tonight”
-- event title
-- venue name
-- short trust line: “No photos · No swiping · Temporary”
+> **No hover states documented.** Per the global no-hover policy (Step 6), every component spec below documents only Default and Active/Pressed states. Variants live as separate entries in the `components:` front matter.
 
-Do not show a QR with no explanation.
+**`top-nav`** — A 64px-tall white bar pinned to the top of every page. Airtable wordmark sits at left; primary horizontal menu (Platform, Solutions, Resources, Enterprise, Pricing) sits center-left in `{typography.body-md}`; the right cluster carries a "Book Demo" outline link, "Sign up for free" `{component.button-primary}`, and "Log In" text link. The nav stays light on every page — Airtable does not invert the nav over dark sections.
 
----
+### Buttons
 
-## 13. Core Components
+**`button-primary`** — The signature primary CTA. Background `{colors.primary}` (near-black), text `{colors.on-primary}`, type `{typography.button}`, padding 16px × 24px, rounded `{rounded.lg}` (12px). This is the "Get started for free" / "Sign up for free" button visible on every hero. It reads as confident and final — not decorative — which is why the system uses it sparingly (one per viewport).
+- Active state: `button-primary-active` darkens to `{colors.primary-active}` (#0d1218).
 
-### 13.1 AppShell
+**`button-secondary`** — White outline button (e.g. "Book demo"). Background `{colors.canvas}`, text `{colors.ink}`, type `{typography.button}`, rounded `{rounded.lg}` (12px), 1px hairline outline. Sits next to `{component.button-primary}` as the "less-committed" choice.
 
-Purpose:
+**`button-secondary-on-dark`** — Same shape as `{component.button-secondary}` but used on signature coral / forest / dark surfaces. Background `{colors.canvas}`, text `{colors.ink}` — the white button stays white over dark surfaces because the system never inverts to a translucent on-dark style on the marketing site.
 
-Frames guest-facing mobile UI.
+**`button-pricing-pill`** — The pricing-page CTA family. Background `{colors.canvas}`, text `{colors.pricing-ink}`, rounded `{rounded.pill}` (9999px), padding 12px × 24px. The only place pill-shape appears in the marketing system. Treat it as part of the pricing sub-system signaling.
 
-Structure:
+**`button-legal`** — Cookie-consent and legal-banner CTAs. Background `{colors.link}`, text `{colors.on-primary}`, type `{typography.legal}` (13.12px / 600), rounded `{rounded.xs}` (2px), padding 12px × 10px. The 2px corner radius and 600 weight signal "this is a required system surface," not a designed brand surface.
 
-- full-height warm dark background
-- centered max-width mobile container
-- safe area support
-- radial glows on landing only
-- bottom padding for mobile browsers
+**`button-icon-circular`** — 40px × 40px circular button with `{colors.canvas}` background, hairline border, and `{colors.ink}` icon. Used for carousel controls, "share", and "back" affordances.
 
-Rules:
+**`text-link`** — Inline body links in `{colors.link}` (#1b61c9, the actual link blue). No underline by default. Type inherits `{typography.body-md}`.
 
-- Do not stretch guest UI beyond 430px.
-- On desktop, center the mobile app and allow ambient background.
-- Use `min-h-dvh` rather than brittle `100vh`.
+### Cards & Containers
 
-### 13.2 VenueAdminShell
+**`hero-band`** — The full-page-width white-canvas hero. No surface card, no border, no shadow, no atmospheric gradient — just the headline, sub-headline, and primary + secondary button pair sitting in 96px of whitespace. Vertical padding `{spacing.section}` (96px).
 
-Purpose:
+**`signature-coral-card`** — The large full-bleed coral card on the homepage ("Production apps in prototype speed"). Background `{colors.signature-coral}` (#aa2d00, a dark coral / oxide red), text `{colors.on-primary}`, rounded `{rounded.lg}` (12px), internal padding `{spacing.xxl}` (48px). Carries an h2 in `{typography.display-md}`, supporting copy in `{typography.body-md}`, and `{component.button-secondary-on-dark}` as the CTA.
 
-Frames venue/admin UI.
+**`signature-forest-card`** — A deep green signature card (`{colors.signature-forest}` — #0a2e0e) used as a demo-grid sibling to the coral card on the homepage.
 
-Structure:
+**`hero-card-dark`** — The dark navy mid-page CTA card (e.g. "The path to 10× every person in your organization"). Background `{colors.surface-dark}` (#181d26), text `{colors.on-dark}`, rounded `{rounded.lg}` (12px), internal padding `{spacing.xxl}` (48px). The same color as `{colors.primary}` because the system uses ink as both type color and signature dark surface.
 
-- dark canvas
-- top bar with venue identity and status
-- max-width 1180px
-- primary action area near top
-- cards for setup, launch kit, host controls, reports
+**`feature-card-tabbed`** — Light-cream cards (e.g. the "Coke / Pelosi / Conde Nast / Time Inc" tabbed feature card on the homepage). Background `{colors.surface-soft}`, rounded `{rounded.lg}` (12px), internal padding `{spacing.xl}` (32px). Left rail carries vertically-stacked tab labels in `{typography.title-md}`; right pane shows the active tab's content (illustration + body copy + small CTA).
 
-Rules:
+**`cream-callout-card`** — Beige callout cards (`{colors.signature-cream}`). Rounded `{rounded.md}` (10px), internal padding `{spacing.lg}` (24px). Carry product UI fragments or stat callouts — softer than the dark/coral signature cards but still a deliberate brand surface.
 
-- Avoid generic sidebars unless the app genuinely needs one.
-- V4 should feel like a guided launch path, not enterprise software.
-- On mobile, venue admin should still be usable for staff behind the bar.
+**`demo-grid-card`** — Used in multi-card grids that punctuate every page. Background `{colors.canvas}` or one of the demo-grid surfaces (`{colors.signature-peach}`, `{colors.signature-mint}`, `{colors.signature-yellow}`, `{colors.signature-mustard}`), rounded `{rounded.md}` (10px), internal padding `{spacing.md}` (16px). Each card frames a product UI fragment. Card heights vary deliberately to dodge a uniform "spec sheet" feel.
 
-### 13.3 StatusPill
+**`logo-strip`** — Horizontal monochrome partner-logo row (HBO, Netflix, Amazon, Time, Conde Nast). Logos render in `{colors.muted}`, surface is `{colors.canvas}`, vertical padding `{spacing.xl}` (32px). 6 logos at desktop, 3 at mobile.
 
-Purpose:
+**`article-card`** — The trending-stories grid on the articles page. Background `{colors.canvas}`, rounded `{rounded.md}` (10px), internal padding `{spacing.md}` (16px). Each card carries a colorful illustrated thumbnail (16:9), a small uppercase category tag, an `{typography.title-sm}` title, and a meta line. 3-up at desktop.
 
-Shows `Set up`, `Live`, `Paused`, `Closed`, `After mode`.
+**`topic-filter-rail`** — The left rail on the articles page. 240px wide, `{colors.canvas}` background, `{typography.body-md}`, vertically grouped category headings ("Marketing", "Product", "Project management", "Operations") with sub-bullets. Active item carries a small numeric count badge.
 
-Variants:
+### Inputs & Forms
 
-- Setup: charcoal + muted text
-- Live: amber glow + pulsing dot
-- Paused: cobalt/olive subdued
-- Closed: muted/danger-subtle
-- After: olive/cobalt
+**`text-input`** — Standard text input. Background `{colors.canvas}`, text `{colors.ink}`, type `{typography.body-md}`, rounded `{rounded.sm}` (6px), padding 12px × 16px, height 44px. 1px hairline border in `{colors.hairline}`.
 
-Copy:
+**`text-input-focus`** — Focus state. Border thickens or recolors to `{colors.info-border}`.
 
-```txt
-SET UP
-LIVE
-PAUSED
-CLOSED
-AFTER MODE
-```
+### Pricing Sub-System
 
-Use mono micro labels.
+**`pricing-tier-card`** — Standard tier card. Background `{colors.canvas}`, text `{colors.pricing-ink}`, type `{typography.pricing-card-title}` for the plan name, rounded `{rounded.md}` (10px), internal padding `{spacing.xl}` (32px). Carries the plan name, a price block in `{typography.pricing-display}` (44.8px / 475), feature checklist, and a `{component.button-pricing-pill}` at the bottom.
 
-### 13.4 PrimaryButton
+**`pricing-tier-card-featured`** — The featured tier (typically "Team" or "Business"). Background shifts to `{colors.surface-soft}`. No accent border, no badge — the background tone shift is the only signal.
 
-Purpose:
+**`pricing-comparison-row`** — Each row of the long comparison table at the bottom of the pricing page. Labels in the left column; checkmarks or values across 4 plan columns. 12px vertical padding per row, hairline divider between rows.
 
-Main action.
+### Navigation Variants
 
-Style:
+**`footer`** — Light surface (`{colors.canvas}`), 6-column link list at desktop covering Platform / Solutions / Resources / Learn / Company sub-trees. Vertical padding `{spacing.section}` divided across upper link block and lower legal row. Type `{typography.body-md}`.
 
-```txt
-background: accent
-text: #14110D
-radius: pill
-height: 48–54px
-padding: 0 20px
-font-weight: 650
-soft amber shadow
-```
+**`cta-band-light`** — The light gray "Start building with Airtable" CTA strip near the footer. Background `{colors.surface-strong}` (#e0e2e6), text `{colors.ink}`, rounded `{rounded.lg}` (12px), padding `{spacing.xxl}` (48px). Carries an h2 in `{typography.display-md}` and a `{component.button-primary}`.
 
-Use for:
+### Signature Components
 
-- Enter tonight
-- Create night
-- Print launch kit
-- Start Social Mode
-- Send nudge
-- Run this again
+**Articles Vertical Rainbow Stripe Hero** — The articles-page hero treatment. Multi-color vertical bands at varying widths sitting on `{colors.surface-dark-elevated}`. The h1 + sub-head + CTA cluster sits center-left on top of the stripes. This is a single-page hero treatment, not a system-wide signature — do not promote it to a multi-page pattern.
 
-Do not use for destructive actions.
+## Do's and Don'ts
 
-### 13.5 SecondaryButton
+### Do
+- Keep `{component.button-primary}` near-black. The brand's primary CTA is `{colors.primary}`, not the link blue. Mixing them up turns a confident hero into a confused one.
+- Reserve `{component.button-primary}` for one primary action per viewport. The system is designed for scarcity at the brand-action layer.
+- Use `{component.button-secondary}` (white with hairline outline) as the natural pair with `{component.button-primary}`. The two together form Airtable's signature button row.
+- Trust whitespace as the hero atmosphere. Hero bands are intentionally calm — no gradient, no mesh, no atmospheric backdrop. Going against this reads as off-brand.
+- Use `{component.signature-coral-card}`, `{component.signature-forest-card}`, and `{component.hero-card-dark}` to break editorial monotony. These are the brand's voltage moments.
+- Keep `{component.demo-grid-card}` heights uneven within a grid. Uniform heights feel like a spec sheet.
+- Treat the pricing surface as its own dialect: keep `{typography.pricing-display}`, `{typography.pricing-card-title}`, and `{component.button-pricing-pill}` together. Mixing them with Haas Grotesk button type breaks the sub-system's voice.
+- Anchor every editorial band with `{spacing.section}` (96px) vertical padding.
 
-Purpose:
+### Don't
+- Don't make `{colors.link}` (#1b61c9) the primary button color. It is the link color. The primary button is `{colors.primary}` (#181d26, near-black). Treating link-blue as the brand action is the most common mistake when reading Airtable's CSS variables.
+- Don't add a gradient backdrop to the hero. Airtable's hero is white, full stop. Mesh, aurora, spotlight gradients all read as "another SaaS template" — not Airtable.
+- Don't bold display-weight type. `{typography.display-xl}` and `{typography.display-lg}` are intentionally weight 400 / 500 — going to 700 reads as marketing-page-template.
+- Don't use `{rounded.pill}` outside the pricing surface. It's a sub-system signal, not a general radius option.
+- Don't repeat the same surface mode in two consecutive bands. The editorial pacing depends on rhythm: white → signature card → white → cream → dark → white. Two whites in a row read as a typography blog.
+- Don't add hover state styling beyond what the system already encodes. The system documents Default and Active/Pressed only.
+- Don't introduce additional accent colors beyond the documented signature card palette. The system's voltage already uses coral, forest, dark navy, cream, peach, mint, yellow, and mustard.
 
-Secondary action.
-
-Style:
-
-```txt
-background: transparent or surface_2
-border: hairline_strong
-text: ink
-radius: pill
-height: 44–48px
-```
-
-Use for:
-
-- Copy link
-- Preview guest page
-- Pause
-- Download PNG
-- Edit template
-
-### 13.6 DangerButton
-
-Purpose:
-
-Safety/destructive action.
-
-Style:
-
-```txt
-background: transparent
-border: rgba(217,107,95,0.34)
-text: danger_soft
-radius: pill
-```
-
-Use for:
-
-- Block
-- Report
-- Ban from event
-- Close night permanently
-
-Never make danger buttons more visually dominant than the main safe action unless it is an emergency screen.
-
-### 13.7 SurfaceCard
-
-Purpose:
-
-Default app card.
-
-Style:
-
-```txt
-background: surface_2
-border: 1px solid hairline
-radius: xl for guest, lg/xl for admin
-padding: 20–24px
-```
-
-Hover on desktop:
-
-```txt
-border: hairline_strong
-background: surface_3
-```
-
-### 13.8 VenuePassCard
-
-Purpose:
-
-The core guest profile/social signal card. This is the most important guest component.
-
-It should feel like a temporary pass, not a dating profile.
-
-Content:
-
-- top micro label: `LIVE AT [VENUE]`
-- time remaining
-- alias
-- mode/vibe
-- topic chips
-- optional note
-- shared topics
-- action button
-- abstract signal mark, not avatar
-
-Example structure:
-
-```txt
-┌──────────────────────────────┐
-│ LIVE AT BUTTON BAR       42m │
-│                              │
-│        Quiet Tiger           │
-│   Social · Music · Art       │
-│                              │
-│ “Here for the live set.”     │
-│                              │
-│ Shared: Music, Art           │
-│                     Ping →   │
-└──────────────────────────────┘
-```
-
-Visual rules:
-
-- Use no profile photos.
-- Use no gender-coded styling.
-- Use no attractiveness cues.
-- Use an abstract signal mark: dot cluster, waveform, ring, or small pass stamp.
-- Use amber only for active/pingable state.
-- Use muted state for browsing-only guests.
-
-### 13.9 VibeSelector
-
-Purpose:
-
-Lets user/admin choose vibe level or guest signal.
-
-Style:
-
-- tactile cards/chips
-- selected card has amber border and faint glow
-- selected chip has amber fill or amber-tinted surface
-- disabled options are visibly muted
-
-Guest vibes:
-
-```txt
-Chill
-Social
-Music
-Deep Chat
-New Here
-Creative
-Just Curious
-```
-
-Venue vibe levels:
-
-```txt
-Quiet
-Balanced
-Social
-High-energy
-```
-
-Do not use “flirty” as a default vibe. If a singles template exists, keep it low-pressure.
-
-### 13.10 TopicChips
-
-Purpose:
-
-Selectable topics and table tags.
-
-Topics:
-
-```txt
-Music
-Travel
-Art
-Food
-Startups
-Games
-Life
-Random
-```
-
-Style:
-
-- pill shape
-- small but tappable
-- selected: amber/olive-tinted
-- unselected: warm border, muted text
-
-### 13.11 TemplateCard
-
-Purpose:
-
-Venue chooses a reusable night recipe.
-
-Content:
-
-- template title
-- one-line outcome
-- best for
-- estimated social window
-- generated tables count
-- vibe level
-- Find Me/Open to Pings support indicator
-
-Example:
-
-```txt
-New Faces Night
-A low-pressure night for people open to meeting someone new.
-Best for: mid-week bars · 7–10 PM
-Creates: 4 tables · 6 prompts · launch kit
-```
-
-Visual rules:
-
-- Template cards should feel like event recipes.
-- The selected template should feel confidently chosen.
-- Do not overload with analytics.
-
-### 13.12 LaunchKitAssetCard
-
-Purpose:
-
-Preview, print, download, and copy launch assets.
-
-Content:
-
-- asset name
-- usage note
-- preview
-- Print button
-- Download PNG button
-- Copy text button
-
-Assets:
-
-- Table QR card
-- Entrance poster
-- Bar counter sign
-- Instagram story
-- Safety card
-- Staff run sheet
-
-Rules:
-
-- QR assets must show real QR.
-- Staff run sheet does not show guest QR.
-- Each asset type must preview in its correct aspect ratio.
-- Print/download controls should be obvious.
-- Do not make every preview the same card with different text.
-
-### 13.13 HostControlPanel
-
-Purpose:
-
-Live operational controls for venue staff.
-
-The host should never need to interpret a dashboard.
-
-Main controls:
-
-1. Start Social Mode
-2. Pause
-3. Send nudge
-4. Spotlight table
-5. Final call
-6. Close night
-
-Rules:
-
-- Use large buttons.
-- Show current live state at the top.
-- Show “guest page currently says…” preview.
-- Put reports/safety alerts in a visible but not panic-inducing panel.
-
-### 13.14 AnnouncementComposer
-
-Purpose:
-
-Host sends live announcements.
-
-Presets:
-
-```txt
-Welcome in. Pick a table or open yourself to pings.
-Tonight’s icebreaker: What song would instantly improve this room?
-A few tables are warming up. Join one if you’re browsing.
-Final call: Social Mode wraps soon. Say hello while it’s live.
-```
-
-Rules:
-
-- Presets first, custom text second.
-- Avoid blank text boxes that require staff creativity.
-- Keep messages under 140 characters where possible.
-
-### 13.15 SafetyNotice
-
-Purpose:
-
-Reassure users without making the product feel dangerous.
-
-Example:
-
-```txt
-You control your night. Ignore, block, report, or leave anytime.
-```
-
-Rules:
-
-- Safety copy should be calm.
-- Do not use threatening language unless explaining rules.
-- Make report/block visible but not the dominant vibe.
-
-### 13.16 EmptyRoomState
-
-Purpose:
-
-Make low-density moments feel hosted rather than broken.
-
-Bad:
-
-```txt
-No users found.
-```
-
-Good:
-
-```txt
-You’re early.
-Social Mode has started, but the room is still warming up.
-Join a table or check back in a few minutes.
-```
-
-Include tonight’s icebreaker when possible.
-
-### 13.17 AfterReportCard
-
-Purpose:
-
-After mode should help the venue decide to run it again.
-
-Content:
-
-- check-ins
-- QR scans
-- active guests
-- pings sent
-- chats created
-- tables joined
-- reports
-- peak time
-- best-performing prompt/table
-- suggested next template
-- `Run this again` button
-
-Rules:
-
-- Hide advanced analytics until after-report.
-- Keep metrics useful and human.
-- Do not show vanity charts before the venue has any data.
-
----
-
-## 14. Screen Specifications
-
-## 14.1 Public Event Landing `/e/[eventSlug]`
-
-Purpose:
-
-Guest scans QR and immediately understands the event.
-
-State: Before live
-
-```txt
-[BARPING / SOCIAL MODE]
-[Venue Name]
-
-Social Mode starts at 7:00 PM.
-
-No swiping. No photos. No pressure.
-
-[Notify me / Check again] or [Join when live disabled]
-```
-
-State: Live
-
-```txt
-[BARPING / SOCIAL MODE]
-
-Meet people already here.
-No swiping. No photos. No pressure.
-
-Live at Button Bar
-7:00 PM — 10:00 PM
-
-[Enter tonight]
-
-18+ · Venue-only · Temporary
-```
-
-State: Closed
-
-```txt
-Social Mode has closed for tonight.
-Thanks for being part of it.
-```
-
-Visual rules:
-
-- Cinematic poster feel.
-- Large serif headline.
-- Venue card with status.
-- Primary CTA dominates.
-- Trust row visible.
-- No feature overload.
-
-## 14.2 Join / Rules Screen
-
-Purpose:
-
-Establish consent and safety.
-
-Required cards:
-
-1. Be kind
-2. No pressure
-3. Report anything weird
-
-Required confirmations:
-
-- I am 18+.
-- I am physically at this venue/event.
-- I agree to the community rules.
-
-CTA:
-
-```txt
-I’m in the venue
-```
-
-Visual rules:
-
-- Rules should feel human, not legal.
-- Use `ShieldCheck` subtly.
-- Do not use scary warning blocks unless user tries to bypass.
-
-## 14.3 Guest Mode Choice
-
-Purpose:
-
-Keep the guest flow simple.
-
-Three cards:
-
-### Join a table
-
-```txt
-Pick a group topic and join the room softly.
-```
-
-### Open to pings
-
-```txt
-Let people send a mutual chat request. Your exact spot is never shown.
-```
-
-### Just browsing
-
-```txt
-See what’s happening without being pinged.
-```
-
-Rules:
-
-- “Open to pings” replaces “Find Me” where possible.
-- If `find_me_enabled` is false, hide or disable open-to-pings with clear copy.
-- Browsing should not feel shameful.
-
-## 14.4 Create Guest Signal
-
-Purpose:
-
-Create temporary event profile.
-
-Sections:
-
-1. Choose vibe
-2. Choose topics
-3. Optional note
-4. Preview how you appear
-
-CTA:
-
-```txt
-Enter Social Mode
-```
-
-Preview card must use `VenuePassCard`.
-
-## 14.5 Guest Room
-
-Purpose:
-
-The live social surface.
-
-Top:
-
-```txt
-Button Bar
-Social Mode Live
-18 people open tonight
-```
-
-Tabs:
-
-```txt
-Tables | People | Pings
-```
-
-Tables tab:
-
-- table cards
-- spotlighted table first
-- prompts
-- join button
-
-People tab:
-
-- venue pass cards
-- no photos
-- no exact distance
-
-Pings tab:
-
-- received pings
-- sent pings
-- accepted chats
-
-Live announcements:
-
-- appear as warm host notes
-- not as intrusive alerts
-
-## 14.6 Ping Received Modal
-
-Purpose:
-
-Make a ping feel safe and low-pressure.
-
-Copy:
-
-```txt
-You got a ping
-Quiet Tiger wants to say hi.
-
-Shared topics: Music · Art
-“Also here for the live set?”
-```
-
-Actions:
-
-```txt
-Accept
-Ignore
-Block
-```
-
-Rules:
-
-- Ignore is normal and safe.
-- Block is visible but not dominant.
-- Do not use “Match.”
-
-## 14.7 Temporary Chat
-
-Purpose:
-
-One-night event chat.
-
-Header:
-
-```txt
-Quiet Tiger
-Temporary chat · expires at 10:30 PM
-```
-
-Safety note:
-
-```txt
-Be kind. You can end or report this chat anytime.
-```
-
-Suggested opener chips:
-
-```txt
-What brought you here?
-First time here?
-What music are you into?
-```
-
-Rules:
-
-- Chat should not look like a dating messenger.
-- Keep it warm, minimal, and temporary.
-- Show expiry clearly.
-
-## 14.8 Venue Login `/venue/login`
-
-Purpose:
-
-Magic link login.
-
-Layout:
-
-- simple centered panel
-- venue/admin language
-- email input
-- `Send magic link` primary CTA
-- small reassurance: “For venue staff running Social Mode.”
-
-Do not overbrand this screen.
-
-## 14.9 Venue Dashboard `/venue/dashboard`
-
-Purpose:
-
-Show current/next event and one primary action.
-
-Priority order:
-
-1. Current/next event card
-2. One primary CTA
-3. Setup/live state
-4. Secondary actions
-5. Small recent activity
-
-Example states:
-
-No event:
-
-```txt
-No night scheduled.
-Create a social night from a template.
-[Create night]
-```
-
-Event setup:
-
-```txt
-New Faces Night is almost ready.
-Next step: print the launch kit.
-[Print launch kit]
-```
-
-Live:
-
-```txt
-Social Mode is live.
-18 guests active · 4 pings sent
-[Open Host Mode]
-```
-
-Closed:
-
-```txt
-Last night is ready to review.
-[View after-report]
-[Run this again]
-```
-
-Rules:
-
-- Do not lead with analytics.
-- Do not show a complex table as the first screen.
-- Main actions are: Create night, Print launch kit, Start Social Mode, Send nudge, Close night, Run this again.
-
-## 14.10 New Event Flow `/venue/events/new`
-
-Purpose:
-
-Template picker → review → create real event.
-
-Step 1: Template picker
-
-- Template cards
-- short descriptions
-- best for
-- generated assets/tables count
-
-Step 2: Review generated night
-
-- event title
-- social window
-- vibe level
-- Open to Pings toggle
-- tables preview
-- prompts preview
-- safety copy preview
-
-Step 3: Create night
-
-- save event row
-- save event tables
-- save event assets
-- save social window
-- route to setup page
-
-Visual rules:
-
-- This should feel like choosing a recipe, not configuring software.
-- Use a progress indicator with three labels: Template, Review, Create.
-- Keep advanced edits hidden behind “Adjust details.”
-
-## 14.11 Setup Page `/venue/events/[eventId]/setup`
-
-Purpose:
-
-Three-step operational launch path.
-
-Steps:
-
-1. Template
-2. Assets
-3. Ready to launch
-
-Each step must have:
-
-- status
-- next action
-- clear CTA
-
-Example:
-
-```txt
-1. Template selected
-New Faces Night · Balanced vibe
-
-2. Assets ready
-6 launch assets generated
-[Open launch kit]
-
-3. Ready to launch
-Start when the room is ready.
-[Start Social Mode]
-```
-
-Rules:
-
-- Do not send users to old QR-only page.
-- Setup page should clearly show what remains before launch.
-
-## 14.12 Launch Kit Page `/venue/events/[eventId]/launch-kit`
-
-Purpose:
-
-Replace old QR-only page.
-
-Tabs/cards:
-
-- Table QR card
-- Entrance poster
-- Bar counter sign
-- Instagram story
-- Safety card
-- Staff run sheet
-
-Each asset card includes:
-
-- preview
-- print
-- download PNG
-- copy text
-
-Rules:
-
-- QR must be real and scannable.
-- Staff run sheet has no guest QR.
-- Each asset has correct aspect ratio.
-- The page should feel like a print studio, not a code demo.
-
-## 14.13 Host Mode `/venue/events/[eventId]/host`
-
-Purpose:
-
-Operational live controls.
-
-Top card:
-
-```txt
-Social Mode is Live
-Guests currently see: “Join a table, open to pings, or browse.”
-```
-
-Controls:
-
-- Start/Pause/End
-- Send announcement
-- Spotlight table
-- Final call
-- Safety reports
-
-Rules:
-
-- Host controls must work on mobile.
-- Put high-risk actions behind confirmation.
-- Show immediate feedback after actions.
-
-## 14.14 After Report `/venue/events/[eventId]/report`
-
-Purpose:
-
-Turn the night into a repeatable product.
-
-Sections:
-
-1. Summary
-2. What happened
-3. What worked
-4. Safety
-5. Suggested next night
-6. Run this again
-
-Example copy:
-
-```txt
-Social Mode ran for 2h 45m.
-The Music Table was the most active.
-Best prompt: “What song would instantly improve this room?”
-Suggested next template: Music Table Night.
-```
-
-Rules:
-
-- This is where metrics belong.
-- Keep it owner-friendly, not data-scientist-heavy.
-- End with action.
-
----
-
-## 15. Launch Kit Asset Specifications
-
-The launch kit is part of the product. If it looks cheap, venues will not print it.
-
-### 15.1 Shared asset rules
-
-Every guest-facing asset must include:
-
-- event title
-- venue name
-- short CTA
-- real QR code if relevant
-- trust line
-- short safety line when needed
-
-Trust line examples:
-
-```txt
-No photos · No swiping · Temporary
-18+ · Venue-only · Leave anytime
-```
-
-Do not include long paragraphs on printed assets.
-
-### 15.2 Table QR Card
-
-Use:
-
-- compact vertical card
-- table-friendly size
-- QR dominates
-- simple CTA
-
-Suggested copy:
-
-```txt
-Social Mode is live.
-Scan to join tonight.
-No swiping. No photos. No pressure.
-```
-
-Aspect ratio:
-
-```txt
-4:5 or A6-style compact print
-```
-
-### 15.3 Entrance Poster
-
-Use:
-
-- portrait layout
-- large serif headline
-- strong venue/event identity
-- QR below headline or lower third
-
-Suggested copy:
-
-```txt
-Meet people already here.
-Social Mode is live tonight.
-Scan to join.
-```
-
-Aspect ratio:
-
-```txt
-A4 portrait / 1080x1350 preview
-```
-
-### 15.4 Bar Counter Sign
-
-Use:
-
-- landscape layout
-- readable from short distance
-- QR on right or center
-- big CTA
-
-Suggested copy:
-
-```txt
-Open to meeting people tonight?
-Scan to join BarPing.
-```
-
-Aspect ratio:
-
-```txt
-landscape 16:9 / counter card
-```
-
-### 15.5 Instagram Story
-
-Use:
-
-- 9:16 layout
-- strong atmosphere
-- QR in cream card
-- event time and venue
-
-Suggested copy:
-
-```txt
-Tonight at [Venue]
-Social Mode is live from 7 PM.
-Scan in when you arrive.
-```
-
-Aspect ratio:
-
-```txt
-1080x1920
-```
-
-### 15.6 Safety Card
-
-Use:
-
-- compact print layout
-- calm safety language
-- no QR unless linking to rules/report flow
-
-Suggested copy:
-
-```txt
-Respect the room.
-No harassment, pressure, hate, explicit messages, or creepy behaviour.
-Ignore, block, report, or speak to staff anytime.
-```
-
-Aspect ratio:
-
-```txt
-A6 / compact card
-```
-
-### 15.7 Staff Run Sheet
-
-Internal only. No guest QR required.
-
-Sections:
-
-1. Before doors
-2. At launch
-3. During the night
-4. If the room is quiet
-5. If there is a report
-6. Final call
-7. Close night
-
-Suggested structure:
-
-```txt
-Before doors
-- Place table QR cards.
-- Put counter sign near bar.
-- Test QR with phone camera.
-
-Launch
-- Open Host Mode.
-- Press Start Social Mode.
-- Announce: “Social Mode is live tonight...”
-
-During
-- Send one nudge every 30–45 minutes.
-- Spotlight one table if needed.
-
-Safety
-- Check reports immediately.
-- Speak to staff/manager if a guest feels unsafe.
-
-Close
-- Send Final Call.
-- End Social Mode.
-- View after-report.
-```
-
----
-
-## 16. Template Design
-
-Templates are the product. They create the social reason, not just the visual theme.
-
-### 16.1 Template object should generate
-
-Each template generates:
-
-- event title
-- short event description
-- default social window
-- vibe level
-- Open to Pings default setting
-- table list
-- table prompts
-- host announcements
-- final call message
-- table QR copy
-- entrance poster copy
-- bar sign copy
-- Instagram story copy
-- safety copy
-- staff run sheet
-
-### 16.2 Template examples
-
-#### New Faces Night
-
-Purpose:
-
-Low-pressure night for people open to meeting someone new.
-
-Tables:
-
-- New in town
-- Music and gigs
-- Food spots
-- Random good questions
-
-Prompts:
-
-- What brought you here tonight?
-- What is one underrated place in Sydney?
-- What song would instantly improve this room?
-
-#### Music Table Night
-
-Purpose:
-
-For live music venues or music-heavy bars.
-
-Tables:
-
-- Live set chat
-- Guitar people
-- Albums and artists
-- Gig recommendations
-
-Prompts:
-
-- What was the first album you loved?
-- What song changed your taste?
-- Who should play here next?
-
-#### Creative Mixer
-
-Purpose:
-
-Artists, designers, founders, photographers, musicians, writers.
-
-Tables:
-
-- Artists
-- Builders
-- Freelancers
-- Ideas and projects
-
-Prompts:
-
-- What are you making lately?
-- What project are you avoiding?
-- What tool changed your workflow?
-
-#### After-Work Social
-
-Purpose:
-
-CBD bars and casual post-work crowds.
-
-Tables:
-
-- New job / new city
-- Work stories
-- Weekend plans
-- Easy questions
-
-Prompts:
-
-- What is the best part of your week so far?
-- What is your low-effort weekend plan?
-- What is one place nearby worth trying?
-
-#### Low-Pressure Singles
-
-Purpose:
-
-Singles night without dating-app energy.
-
-Rules:
-
-- No profile photos.
-- No ratings.
-- No “matches” language.
-- No pressure copy.
-
-Use terms:
-
-```txt
-Open to conversation
-Say hi if mutual
-Easy social night
-```
-
-Avoid terms:
-
-```txt
-Find your match
-Hot singles
-Flirt mode
-Crush
-Swipe
-```
-
----
-
-## 17. Safety Design
-
-Safety must be visible, but the app should not feel unsafe by default.
-
-### 17.1 Required guest safety controls
-
-Every guest must be able to:
-
-- ignore ping
-- block user
-- report user
-- leave event
-- end chat
-- see chat expiry
-
-### 17.2 Required venue safety controls
-
-Venue admin/host must be able to:
-
-- view reports
-- ban user from event
-- pause Social Mode
-- close Social Mode
-- see report timestamps
-- see relevant reported message context
-
-### 17.3 Safety copy style
-
-Good:
-
-```txt
-You control your night. Ignore, block, report, or leave anytime.
-```
-
-Good:
-
-```txt
-Respect the room. No pressure, harassment, hate, or explicit messages.
-```
-
-Bad:
-
-```txt
-WARNING: dangerous users may be present.
-```
-
-Bad:
-
-```txt
-By using this app, you waive all responsibility...
-```
-
-Legal copy can exist in Terms. UI copy should be human.
-
-### 17.4 Staff Alert
-
-If implemented, Staff Alert is separate from Report.
-
-Report:
-
-- moderation record
-- can be reviewed after event
-
-Staff Alert:
-
-- immediate venue concern
-- visible in host mode
-- should trigger a clear staff response flow
-
-If Staff Alert is not fully implemented, do not fake emergency support. Use honest wording.
-
----
-
-## 18. UX Copy Library
-
-### 18.1 Landing headlines
-
-```txt
-Meet people already here.
-Social Mode is live tonight.
-A softer way to say hello.
-Join the room without the pressure.
-```
-
-### 18.2 Subcopy
-
-```txt
-No swiping. No photos. No pressure.
-Join a table, open to pings, or just browse.
-Your exact spot is never shown.
-Chats are temporary for tonight.
-```
-
-### 18.3 Venue admin CTAs
-
-```txt
-Create night
-Review night
-Open launch kit
-Print launch kit
-Start Social Mode
-Pause Social Mode
-Send nudge
-Spotlight table
-Final call
-Close night
-View after-report
-Run this again
-```
-
-### 18.4 Guest CTAs
-
-```txt
-Enter tonight
-I’m in the venue
-Join a table
-Open to pings
-Just browsing
-Send ping
-Accept
-Ignore
-Block
-Report
-Leave Social Mode
-```
-
-### 18.5 Empty states
-
-No venue event:
-
-```txt
-No night scheduled.
-Create a social night from a template.
-```
-
-Room quiet:
-
-```txt
-You’re early.
-Social Mode has started, but the room is still warming up.
-```
-
-No pings:
-
-```txt
-No pings yet.
-Join a table or keep browsing.
-```
-
-No reports:
-
-```txt
-No reports so far.
-Keep an eye on the room while Social Mode is live.
-```
-
-### 18.6 Error states
-
-Do not show raw Supabase or JavaScript errors to guests.
-
-Guest-friendly:
-
-```txt
-Something didn’t load.
-Try again in a moment, or ask staff if the QR still looks right.
-```
-
-Venue-friendly:
-
-```txt
-We couldn’t save this night.
-Check your connection and try again.
-```
-
-Developer detail may be logged in console, but not displayed as the main UI.
-
----
-
-## 19. Implementation Rules for Codex
-
-### 19.1 Non-negotiables
-
-Codex must not:
-
-- create fake QR components
-- use default grey cards
-- use dating app language
-- add profile photos
-- add GPS/map UI
-- add swiping UI
-- lead dashboards with analytics
-- use hard white backgrounds in app UI
-- use random colours outside tokens
-- generate unstyled tables
-- hide safety actions
-- create five different button styles
-- make guest screens desktop-first
-- create generic SaaS layouts
-
-### 19.2 Required file structure recommendation
-
-```txt
-/src/design/
-  tokens.ts
-  copy.ts
-  templates.ts
-
-/src/components/shell/
-  AppShell.tsx
-  VenueAdminShell.tsx
-
-/src/components/ui/
-  PrimaryButton.tsx
-  SecondaryButton.tsx
-  DangerButton.tsx
-  StatusPill.tsx
-  SurfaceCard.tsx
-  SafetyNotice.tsx
-
-/src/components/qr/
-  RealQRCode.tsx
-
-/src/components/guest/
-  VenuePassCard.tsx
-  VibeSelector.tsx
-  TopicChips.tsx
-  GuestModeChoice.tsx
-  PingModal.tsx
-  EmptyRoomState.tsx
-
-/src/components/venue/
-  TemplateCard.tsx
-  LaunchKitAssetCard.tsx
-  HostControlPanel.tsx
-  AnnouncementComposer.tsx
-  AfterReportCard.tsx
-
-/src/components/assets/
-  TableQrCardPreview.tsx
-  EntrancePosterPreview.tsx
-  BarCounterSignPreview.tsx
-  InstagramStoryPreview.tsx
-  SafetyCardPreview.tsx
-  StaffRunSheetPreview.tsx
-```
-
-### 19.3 Tailwind token implementation
-
-Create CSS variables in global CSS:
-
-```css
-:root {
-  --bp-canvas: #080807;
-  --bp-canvas-warm: #0D0B08;
-  --bp-surface-1: #11100D;
-  --bp-surface-2: #171510;
-  --bp-surface-3: #1F1C15;
-  --bp-surface-4: #282318;
-  --bp-hairline: rgba(255,244,220,0.08);
-  --bp-hairline-strong: rgba(255,244,220,0.16);
-  --bp-ink: #F7F0E3;
-  --bp-ink-muted: #B8AA92;
-  --bp-ink-subtle: #8E806C;
-  --bp-accent: #D98F45;
-  --bp-accent-soft: #F0B46A;
-  --bp-olive: #7C8061;
-  --bp-cobalt: #4D6AAA;
-  --bp-danger: #D96B5F;
-}
-```
-
-Do not scatter hex values across components. Use tokens.
-
-### 19.4 Responsive implementation
-
-Guest screens:
-
-```tsx
-<div className="min-h-dvh bg-[var(--bp-canvas)] text-[var(--bp-ink)]">
-  <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 py-6">
-    ...
-  </main>
-</div>
-```
-
-Admin screens:
-
-```tsx
-<div className="min-h-dvh bg-[var(--bp-canvas)] text-[var(--bp-ink)]">
-  <main className="mx-auto w-full max-w-[1180px] px-5 py-6 md:px-8 md:py-8">
-    ...
-  </main>
-</div>
-```
-
----
-
-## 20. Accessibility
-
-### 20.1 Minimum requirements
-
-- Touch targets minimum 44px.
-- Use semantic buttons, not clickable divs.
-- Inputs require labels.
-- Modals trap focus.
-- Escape closes modals where appropriate.
-- Colour cannot be the only status indicator.
-- QR actions require text labels.
-- Focus rings must be visible.
-- Text contrast must be readable on dark surfaces.
-
-### 20.2 Focus style
-
-Use:
-
-```css
-outline: 2px solid rgba(240,180,106,0.72);
-outline-offset: 2px;
-```
-
-Do not remove focus rings.
-
----
-
-## 21. Quality Audit Checklist
-
-Before accepting any UI change, check every screen against this list.
-
-### 21.1 Product fit
-
-- Does this screen support “Run a social night in 5 minutes”?
-- Is the next action obvious?
-- Is this venue-first, not social-app-first?
-- Does it avoid dating app cues?
-- Does it avoid generic SaaS clutter?
-
-### 21.2 Visual quality
-
-- Are colours from tokens only?
-- Is spacing consistent?
-- Are cards using the right radius?
-- Are buttons visually consistent?
-- Are typography roles correct?
-- Are status states clear?
-- Does it look good on 390px mobile?
-- Would a venue owner screenshot this and take it seriously?
-
-### 21.3 QR quality
-
-- Is every QR real?
-- Does the QR encode the correct URL?
-- Is contrast high enough?
-- Is the quiet zone preserved?
-- Can it scan from a phone?
-- Does every QR have CTA/context?
-
-### 21.4 Safety quality
-
-- Can guest ignore/block/report?
-- Can host see reports?
-- Is dangerous copy avoided?
-- Does “Open to Pings” avoid implying physical tracking?
-- Are exact locations hidden?
-- Are photos absent?
-
-### 21.5 Operational quality
-
-- Can venue create a night from template?
-- Can venue print/share assets?
-- Can venue start/pause/end Social Mode?
-- Can venue send announcement?
-- Can venue spotlight table?
-- Can venue view after-report?
-- Are advanced analytics hidden until after mode?
-
----
-
-## 22. Codex Instruction Block
-
-Use this exact instruction when asking Codex to improve BarPing UI:
-
-```txt
-Before making UI changes, read DESIGN.md fully and treat it as the source of truth.
-
-Your job is not to invent a new visual style. Your job is to implement the BarPing V4 design system exactly.
-
-The product must feel like a premium digital venue pass and operational host console, not a generic SaaS dashboard and not a dating app.
-
-Non-negotiables:
-- Every QR must be real and scannable using the shared QR component.
-- Use only the DESIGN.md colour tokens.
-- Guest screens are mobile-first and max-width 430px.
-- Venue admin screens are operational and action-first.
-- Do not add swiping, photos, GPS, map UI, matches, hearts, flames, or dating-app copy.
-- Do not lead the dashboard with analytics.
-- Launch Kit assets must preview in distinct correct aspect ratios.
-- Staff run sheet must not show a guest QR.
-- Use warm, calm, short copy.
-- Keep safety visible but not frightening.
-
-After changes, audit the implementation against the DESIGN.md Quality Audit Checklist and fix any violations before finishing.
-```
-
----
-
-## 23. UI Repair Prompts
-
-Use these when Codex produces ugly UI.
-
-### 23.1 Generic SaaS cleanup
-
-```txt
-The UI currently looks like a generic SaaS dashboard. Redesign it according to DESIGN.md.
-
-Remove generic grey cards, default tables, random icons, and analytics-first layout.
-Make the screen action-first for venue staff. The next action must be visually obvious.
-Use BarPing tokens, warm dark surfaces, premium spacing, and operational copy.
-Do not add new colours or new component styles.
-```
-
-### 23.2 Dating app cleanup
-
-```txt
-The UI is drifting toward dating-app language and visuals. Fix it using DESIGN.md.
-
-Remove any references to matches, swiping, hot, crush, flirting, hearts, flames, profile photos, attractiveness, or dating-card stacks.
-Use low-pressure venue language: open to pings, join a table, just browsing, temporary chat.
-Make the guest cards feel like digital venue passes, not dating profiles.
-```
-
-### 23.3 QR cleanup
-
-```txt
-The QR visuals are not acceptable. Replace all decorative/fake QR visuals with the shared RealQRCode component using the qrcode package.
-Every QR must encode the actual event URL and be scannable.
-Preserve quiet zone, high contrast, and clear CTA text.
-Update the launch kit, dashboard, asset previews, print/download flows, and event page anywhere QR appears.
-```
-
-### 23.4 Launch kit cleanup
-
-```txt
-The launch kit assets look too similar or too generic. Redesign them according to DESIGN.md.
-Each asset must have a distinct layout and correct aspect ratio:
-- Table QR card: compact print card
-- Entrance poster: portrait poster
-- Bar counter sign: landscape counter sign
-- Instagram story: 9:16 story
-- Safety card: compact rules card
-- Staff run sheet: internal checklist with no guest QR
-Use real QR codes where relevant and make the assets look good enough for a real bar to print.
-```
-
-### 23.5 Mobile polish cleanup
-
-```txt
-The mobile UI feels cramped or inconsistent. Polish it according to DESIGN.md.
-Use max-width 430px, 20px page padding, 20–24px card padding, large touch targets, consistent rounded corners, and clear vertical rhythm.
-Make the primary action obvious without overcrowding the screen.
-```
-
----
-
-## 24. Final Design Standard
-
-BarPing V4 is acceptable only if it passes this standard:
-
-> A real venue owner could open the dashboard, understand the next action in five seconds, print the launch kit without embarrassment, start Social Mode confidently, and see guests understand the QR landing page without explanation.
-
-If the UI does not meet that standard, it is not done.
-
+## Responsive Behavior
+
+### Breakpoints
+
+| Name | Width | Key Changes |
+|---|---|---|
+| Mobile | < 768px | Single-column body; top nav collapses to hamburger; demo-grid drops to 1-up; signature cards stay full-bleed; logo strip wraps to 2 rows; footer collapses to single-column |
+| Tablet | 768–1024px | 2-up demo-grid; top nav stays horizontal but tightens; cream-callout cards stack 2-up; pricing comparison table becomes horizontally scrollable |
+| Desktop | 1024–1440px | 3-up demo-grid (and 4-up for tighter content); full top-nav with all menu items visible; pricing tier cards render 4-across |
+| Wide | > 1440px | Same as Desktop with more outer breathing room; max content width caps at ~1280px and the page adds outer margin rather than scaling type up |
+
+### Touch Targets
+- `{component.button-primary}` and siblings render at 48 × 48px minimum (16px vertical padding + 16px line-height) — comfortably above WCAG AAA's 44 × 44.
+- `{component.button-icon-circular}` is exactly 40 × 40px — slightly under WCAG's recommended 44, but the centered icon and dot-radius compensate visually.
+- `{component.text-input}` height is 44px.
+
+### Collapsing Strategy
+- Top nav collapses to a hamburger at < 768px; the menu opens as a full-screen sheet rather than a dropdown.
+- Card grids reduce columns rather than scaling cards down.
+- The `{component.feature-card-tabbed}` re-stacks the tab rail above the content pane on mobile.
+- The pricing comparison table converts to horizontally-scrollable swipe at < 1024px; the four plan headers stay visible while body rows scroll.
+
+### Image Behavior
+- Demo-card UI screenshots crop to fit their container rather than scaling up.
+- Hero illustrations bleed full-width on mobile, losing horizontal margin.
+- Signature card images (inside coral / forest / dark cards) compress to their card width without cropping.
+
+## Iteration Guide
+
+1. Focus on ONE component at a time. Reference its YAML key directly (`{component.button-primary}`, `{component.signature-coral-card}`).
+2. When adding a new component, decide first which sub-system it belongs to: the main editorial system (Haas, `{rounded.lg}`/`{rounded.md}`) or the pricing sub-system (Inter Display, `{rounded.pill}`).
+3. Variants of an existing component (`-active`, `-disabled`, `-focus`) live as separate entries in `components:` — never as nested state objects.
+4. Use `{token.refs}` everywhere prose mentions a color, a radius, a typography role, or a spacing value. Hex codes appear at most once next to the reference.
+5. Never document hover. The system documents Default and Active/Pressed states only.
+6. Run `npx @google/design.md lint DESIGN.md` after edits — `broken-ref`, `contrast-ratio`, and `orphaned-tokens` warnings flag issues automatically.
+7. When in doubt about emphasis: bigger type before bolder type, signature surface card before solid accent.
+
+## Known Gaps
+
+- The exact hex values of pastel demo-grid surfaces (`{colors.signature-peach}`, `{colors.signature-mint}`, `{colors.signature-yellow}`, `{colors.signature-mustard}`) are inferred from screenshot pixel sampling. Some product launches may swap these surfaces seasonally.
+- Hover behavior across all components is not documented (per global no-hover policy).
+- Animation and transition timings are not in scope.
+- Form validation states beyond `text-input-focus` are not extracted — error and success states for inputs would need a dedicated form page to confirm.
+- The pricing comparison table's checkmark glyph and column-divider widths are described structurally but not formalized as tokens.
+- The CSS variable `--theme_button-background-primary: #1b61c9` exists at `:root` but is not used as the primary CTA color anywhere on the marketing site. It maps to the link/info color role instead. Documented here so future extractions don't re-trip over the misleading variable name.
