@@ -29,13 +29,13 @@ export function PingModal({
         className="glass-card w-full max-w-[430px] rounded-[30px] p-5"
       >
         <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">
-          {incoming ? "You got a ping" : "Ping sent"}
+          {incoming ? "Table hello" : "Hello sent"}
         </p>
         <h2 className="mt-3 font-serif text-3xl text-venue-cream">{guest.alias}</h2>
         <p className="mt-2 text-sm leading-relaxed text-venue-muted">
           {incoming
-            ? `${guest.alias} wants to start a temporary chat. You can accept, ignore, or block.`
-            : "A soft hello has been sent. If they accept, a temporary chat opens for tonight."}
+            ? `${guest.alias} wants to start a temporary table chat. You can accept, ignore, or block.`
+            : "A table-scoped hello has been sent. If they accept, a temporary chat opens for tonight."}
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {guest.topics.slice(0, 4).map((topic) => (

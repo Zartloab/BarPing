@@ -80,7 +80,7 @@ export function HostModePanel({
           <div>
             <div className="flex items-center gap-3">
               <StatusPill status={isLive ? "Live" : "Paused"} />
-              <SectionLabel>Host control room</SectionLabel>
+              <SectionLabel>Host controls</SectionLabel>
             </div>
             <h2 className="mt-2 text-2xl font-medium tracking-[-0.01em]">Social Mode {isLive ? "is live" : "is paused"}.</h2>
             <p className="mt-1 text-sm text-venue-muted">
@@ -107,7 +107,7 @@ export function HostModePanel({
             )}
           </div>
         </div>
-        {statusMessage ? <p className="mt-4 rounded-[10px] bg-white/10 px-3 py-2 text-sm text-white">{statusMessage}</p> : null}
+        {statusMessage ? <p className="mt-4 rounded-[10px] bg-venue-olive/10 px-3 py-2 text-sm text-venue-olive">{statusMessage}</p> : null}
       </CommandPanel>
 
       <section className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
@@ -154,8 +154,8 @@ export function HostModePanel({
           <div className="flex items-center gap-3">
             <Star className="text-venue-danger" size={19} />
             <div>
-              <SectionLabel>Spotlight table</SectionLabel>
-              <h3 className="mt-1 text-xl font-medium">Active conversation zone</h3>
+              <SectionLabel>Feature a table</SectionLabel>
+              <h3 className="mt-1 text-xl font-medium">Featured table</h3>
             </div>
           </div>
           <div className="mt-4 grid gap-2">
@@ -170,7 +170,7 @@ export function HostModePanel({
               >
                 <span className="flex items-center justify-between gap-3">
                   <span className="font-medium text-venue-cream">{table.name}</span>
-                  <span className="rounded-[999px] bg-[#dfece0] px-2 py-0.5 text-xs text-venue-olive">{table.energyLevel ?? "Warming up"}</span>
+                  <span className="rounded-[999px] bg-venue-olive/10 px-2 py-0.5 text-xs text-venue-olive">{table.energyLevel ?? "Warming up"}</span>
                 </span>
                 <span className="mt-1 block text-xs leading-relaxed text-venue-muted">{table.prompt}</span>
               </button>

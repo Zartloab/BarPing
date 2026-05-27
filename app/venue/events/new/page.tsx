@@ -14,11 +14,11 @@ import { demoEvent, demoEventTemplates, demoVenue } from "@/lib/demo-data";
 import { createPilotEvent } from "@/lib/venue-pilot";
 import type { EventTemplate, VenueVibeLevel } from "@/lib/types";
 
-type CreateStep = "Template" | "Review" | "Create";
+type CreateStep = "Choose recipe" | "Review run sheet";
 
 export default function NewVenueEventPage() {
   const router = useRouter();
-  const [step, setStep] = useState<CreateStep>("Template");
+  const [step, setStep] = useState<CreateStep>("Choose recipe");
   const [template, setTemplate] = useState<EventTemplate>(demoEventTemplates[2]);
   const [vibeLevel, setVibeLevel] = useState<VenueVibeLevel>(template.defaultVibeLevel);
   const [findMeEnabled, setFindMeEnabled] = useState(template.findMeDefault);
@@ -50,21 +50,18 @@ export default function NewVenueEventPage() {
           venue={demoVenue}
           event={{ ...demoEvent, title: template.eventTitle }}
           status="Set up"
-          summary="Choose a reusable night recipe. BarPing generates the tables, prompts, launch kit, and run sheet."
-          action={<PrimaryButton onClick={() => setStep("Create")}>Create night</PrimaryButton>}
+          summary="Choose recipe, review run sheet, then generate the launch kit."
+          action={<VenueThemeToggle />}
         />
 
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <StageControl<CreateStep> items={["Template", "Review", "Create"]} value={step} onChange={setStep} />
-          <div className="flex gap-2">
-            <VenueGuide compact />
-            <VenueThemeToggle />
-          </div>
+          <StageControl<CreateStep> items={["Choose recipe", "Review run sheet"]} value={step} onChange={setStep} />
+          <VenueGuide compact />
         </div>
 
         <section className="rounded-[12px] border border-venue-soft bg-venue-card p-4">
           <p className="text-xs font-medium text-venue-dim">Simple version</p>
-          <p className="mt-1 text-base font-medium">Pick a template that sounds closest to the bar night. BarPing fills in the tables, signs, nudges, and run sheet.</p>
+          <p className="mt-1 text-base font-medium">Pick a recipe. BarPing turns it into tables, signs, nudges, and a run sheet.</p>
         </section>
 
         <section className="grid gap-5 lg:grid-cols-[1fr_0.82fr]">
@@ -82,7 +79,7 @@ export default function NewVenueEventPage() {
                   key={item.id}
                   onClick={() => {
                     chooseTemplate(item);
-                    setStep("Review");
+                    setStep("Review run sheet");
                   }}
                   className={`rounded-[12px] border px-4 py-3 text-left transition ${
                     template.id === item.id ? "border-venue-cream bg-venue-raised" : "border-venue-soft bg-white hover:border-venue-cream/25"
@@ -118,7 +115,7 @@ export default function NewVenueEventPage() {
             </CommandPanel>
 
             <ConsolePanel>
-              <SectionLabel>Room settings</SectionLabel>
+              <SectionLabel>Run sheet settings</SectionLabel>
               <div className="mt-3 grid gap-2">
                 {(["Calm", "Social", "Mixer"] as VenueVibeLevel[]).map((level) => (
                   <button
@@ -140,8 +137,8 @@ export default function NewVenueEventPage() {
                 className="mt-3 flex min-h-11 w-full items-center justify-between rounded-[10px] border border-venue-soft bg-white px-3 text-left"
                 type="button"
               >
-                <span className="text-sm font-medium">Find Me color beacon</span>
-                <span className={`rounded-[999px] px-2.5 py-1 text-xs ${findMeEnabled ? "bg-venue-cream text-white" : "bg-venue-raised text-venue-muted"}`}>
+                <span className="text-sm font-medium">Optional table hellos</span>
+                <span className={`rounded-[999px] px-2.5 py-1 text-xs ${findMeEnabled ? "bg-venue-olive/10 text-venue-olive" : "bg-venue-raised text-venue-muted"}`}>
                   {findMeEnabled ? "On" : "Off"}
                 </span>
               </button>
@@ -162,12 +159,12 @@ export default function NewVenueEventPage() {
 
         <div className="flex flex-wrap justify-between gap-3 border-t border-venue-soft pt-4">
           <SecondaryLink href="/venue/dashboard">Cancel</SecondaryLink>
-          <PrimaryButton disabled={isCreating} onClick={createNight}>
-            {isCreating ? "Creating..." : "Create night"}
+          <PrimaryButton disabled={isCreating} onClick={step === "Choose recipe" ? () => setStep("Review run sheet") : createNight}>
+            {step === "Choose recipe" ? "Review run sheet" : isCreating ? "Creating..." : "Create run sheet"}
             <ArrowRight size={16} />
           </PrimaryButton>
         </div>
-        {error ? <p className="rounded-[10px] bg-[#f6d4c7] p-3 text-sm text-venue-danger">{error}</p> : null}
+        {error ? <p className="rounded-[10px] bg-venue-danger/10 p-3 text-sm text-venue-danger">{error}</p> : null}
       </MotionShell>
     </AppShell>
   );

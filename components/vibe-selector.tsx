@@ -16,7 +16,7 @@ export function VibeSelector({ value, onChange }: { value: Vibe; onChange: (vibe
             type="button"
             className={`tap-highlight flex min-h-[74px] items-center justify-between rounded-[24px] border p-4 text-left transition ${
               active
-                ? "border-venue-amber/65 bg-venue-amber/12 shadow-[0_0_34px_rgba(217,143,69,0.12)]"
+                ? "border-venue-amber/65 bg-venue-amber/12 shadow-[0_0_34px_rgba(255,122,107,0.16)]"
                 : "border-white/[0.08] bg-venue-card hover:border-venue-amber/35"
             }`}
           >

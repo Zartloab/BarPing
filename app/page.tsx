@@ -2,51 +2,39 @@ import { AppShell } from "@/components/app-shell";
 import { MotionShell } from "@/components/motion-shell";
 import { SafetyNotice } from "@/components/safety-notice";
 import { PrimaryLink, SecondaryLink } from "@/components/ui/buttons";
-import { demoEvent, demoGuests, demoVenue, isDemoMode } from "@/lib/demo-data";
-import { formatEventTime } from "@/lib/time";
+import { demoEvent, demoVenue, isDemoMode } from "@/lib/demo-data";
 
 export default function HomePage() {
   return (
     <AppShell>
       <MotionShell className="flex min-h-[calc(100dvh-2.5rem)] flex-col justify-between">
-        <div className="pt-8">
-          <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-venue-amberSoft">
-            BarPing / Social Mode
+        <div className="pt-10">
+          <p className="text-sm font-medium text-venue-muted">{demoVenue.name}</p>
+          <h1 className="mt-4 font-serif text-5xl leading-none text-venue-cream">{demoEvent.title}</h1>
+          <p className="mt-5 text-lg leading-7 text-venue-muted">
+            Scan the QR, pick a conversation table, and join when you&apos;re ready.
           </p>
-          <h1 className="mt-5 font-serif text-6xl leading-[0.92] text-venue-cream">Meet people already here.</h1>
-          <p className="mt-5 max-w-sm text-lg leading-relaxed text-venue-muted">
-            No swiping. No photos. No pressure. Scan in, choose your vibe, and say hello only when it is mutual.
-          </p>
-          <div className="mt-8 glass-card rounded-[30px] p-5">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-venue-amberSoft">
-                  Tonight
-                </p>
-                <h2 className="mt-2 text-xl font-semibold">{demoVenue.name}</h2>
-                <p className="mt-1 text-sm text-venue-muted">{demoEvent.title}</p>
-                <p className="mt-3 text-sm text-venue-dim">{formatEventTime(demoEvent.startsAt, demoEvent.endsAt)}</p>
-              </div>
-              <div className="rounded-full bg-venue-amber/12 px-3 py-1 text-xs text-venue-amberSoft">Live</div>
-            </div>
-            <div className="mt-5 flex items-center gap-2 text-sm text-venue-muted">
-              <span className="h-2 w-2 rounded-full bg-venue-amber" />
-              {demoGuests.length} guests checked in
-            </div>
+
+          <div className="mt-8 grid gap-3">
+            <PrimaryLink href={`/e/${demoEvent.slug}`}>See tables</PrimaryLink>
+            <SecondaryLink href="/rules">Community rules</SecondaryLink>
           </div>
-          <div className="mt-6 grid gap-3">
-            <PrimaryLink href={`/e/${demoEvent.slug}`}>Enter tonight</PrimaryLink>
-            <SecondaryLink href="/venue/dashboard">Venue dashboard</SecondaryLink>
-          </div>
-          <p className="mt-5 text-center text-sm text-venue-dim">18+ - Venue-only - Temporary chat</p>
+
+          <p className="mt-5 text-center text-sm text-venue-dim">No names. No photos. No exact location.</p>
         </div>
+
         <div className="pb-2">
           {isDemoMode() ? (
-            <p className="mb-3 rounded-full border border-venue-amber/30 bg-venue-amber/10 px-4 py-2 text-center text-xs text-venue-amberSoft">
-              Demo mode active. Connect Supabase env vars for production data.
+            <p className="mb-3 rounded-[999px] border border-venue-soft bg-venue-card px-4 py-2 text-center text-xs text-venue-muted">
+              Demo mode active.
             </p>
           ) : null}
           <SafetyNotice compact />
+          <div className="mt-4 text-center">
+            <SecondaryLink className="min-h-9 px-3 text-xs" href="/venue/login">
+              Venue staff
+            </SecondaryLink>
+          </div>
         </div>
       </MotionShell>
     </AppShell>

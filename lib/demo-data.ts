@@ -34,7 +34,7 @@ export const demoVenue: Venue = {
   suburb: "Surry Hills",
   city: "Sydney",
   country: "Australia",
-  brandColor: "#D98F45",
+  brandColor: "#FF7A6B",
   contactEmail: "support@barping.local"
 };
 
@@ -136,7 +136,7 @@ export const demoGuests: Guest[] = [
     note: "Trying the room before the next set.",
     checkedInAt: new Date(now.getTime() - 2 * 60 * 1000).toISOString(),
     expiresAt: end.toISOString(),
-    entryChoice: "Just browsing"
+    entryChoice: "Just browse"
   }
 ];
 
@@ -198,14 +198,14 @@ export const demoTables: EventTable[] = [
 
 const sharedAssetCopy = {
   tableQr: "Open to meeting people tonight?\n\nScan to join BarPing.\nNo names. No photos. No pressure.",
-  entrancePoster: "Social Mode is live tonight.\n\nMeet people already here.\nScan the QR at the bar.",
-  barCounter: "Ask the bar about Social Mode.\nScan in, choose a vibe, join a table.",
-  instagramStory: "Tonight: Social Mode is live.\n\nScan in at the bar from 7 PM.\nNo swiping. No photos. No pressure.",
+  entrancePoster: "Conversation tables are live tonight.\n\nScan the QR, pick a table, and join when you're ready.",
+  barCounter: "Ask the bar about tonight's tables.\nScan in, read the table prompts, and join when ready.",
+  instagramStory: "Tonight: conversation tables are live.\n\nScan in at the bar from 7 PM.\nNo swiping. No photos. No pressure.",
   safetyCard: "Respect the room.\nNo pressure, harassment, hate, or creepy behaviour.\nYou can ignore, block, or report anytime.",
   staffScript:
-    "We're running BarPing tonight. Guests scan the QR, choose a vibe, and can join table chats or send low-pressure pings. No photos or real names.",
+    "We're running BarPing tonight. Guests scan the QR, see tonight's conversation tables, and join when they're ready. No photos or real names.",
   runOfShow:
-    "7:00 PM: QR signs visible, staff briefed.\n7:30 PM: Social Mode starts.\n7:45 PM: First table prompt.\n8:15 PM: Host nudge.\n8:45 PM: Accepted chats may use Find Me if both agree.\n9:15 PM: Final prompt.\n9:30 PM: Feedback opens."
+    "7:00 PM: QR signs visible, staff briefed.\n7:30 PM: Conversation tables open.\n7:45 PM: First table prompt.\n8:15 PM: Host nudge.\n8:45 PM: Optional table hellos stay table-scoped and mutual.\n9:15 PM: Final prompt.\n9:30 PM: Feedback opens."
 };
 
 export const demoEventTemplates: EventTemplate[] = [
@@ -261,7 +261,7 @@ export const demoEventTemplates: EventTemplate[] = [
       { name: "First Time Here", description: "For anyone new to the venue or band.", prompt: "What made you come out tonight?", suggestedTopics: ["Music", "Life", "Random"], maxMembers: 8, energyLevel: "Warming up" },
       { name: "After The Set", description: "Keep the chat going after the last song.", prompt: "What was the best moment of the set?", suggestedTopics: ["Music", "Travel"], maxMembers: 12, energyLevel: "Quiet" }
     ],
-    hostNudges: ["Music Table is active. Share your read on the set.", "First Time Here is the easiest place to start.", "Accepted chats can use Find Me only if both agree."],
+    hostNudges: ["Music Table is active. Share your read on the set.", "First Time Here is the easiest place to start.", "Optional hellos stay inside the table and only work if both people allow them."],
     assets: sharedAssetCopy
   },
   {
@@ -269,7 +269,7 @@ export const demoEventTemplates: EventTemplate[] = [
     name: "Singles Without Swiping",
     eventTitle: "Singles Without Swiping",
     eventType: "Singles Social",
-    description: "A safer singles night where tables lead and pings stay mutual.",
+    description: "A safer singles night where tables lead and hellos stay mutual.",
     recommendedDurationMinutes: 120,
     socialWindowOffsetMinutes: 20,
     socialWindowDurationMinutes: 100,
@@ -279,7 +279,7 @@ export const demoEventTemplates: EventTemplate[] = [
       { name: "No Pressure Table", description: "Group chat before any 1:1.", prompt: "What is your ideal low-pressure night out?", suggestedTopics: ["Life", "Food", "Travel"], maxMembers: 10, energyLevel: "Active" },
       { name: "Conversation Starters", description: "Prompts that are not dating-app coded.", prompt: "What topic can you talk about for too long?", suggestedTopics: ["Books", "Film", "Music"], maxMembers: 10, energyLevel: "Warming up" }
     ],
-    hostNudges: ["Start with tables. Pings are optional and mutual.", "No pressure is the rule tonight."],
+    hostNudges: ["Start with tables. Hellos are optional, table-scoped, and mutual.", "No pressure is the rule tonight."],
     assets: sharedAssetCopy
   },
   {
@@ -417,8 +417,8 @@ export const demoFindMeSession: FindMeSession = {
   requestedBy: "me",
   acceptedBy: "guest-blue-vinyl",
   status: "active",
-  colorToken: "#F0B46A",
-  colorName: "Warm Amber",
+  colorToken: "#7CFFCB",
+  colorName: "Mint Live",
   expiresAt: new Date(now.getTime() + 90 * 1000).toISOString()
 };
 
@@ -445,7 +445,7 @@ export const demoAnnouncements: HostAnnouncement[] = [
     id: "announcement-find-me",
     eventId: demoEvent.id,
     venueId: demoVenue.id,
-    body: "Accepted chats can use Find Me only if both people agree.",
+    body: "Optional table hellos only work inside the same table when both people agree.",
     kind: "safety",
     expiresAt: end.toISOString(),
     createdAt: new Date(now.getTime() - 5 * 60 * 1000).toISOString()

@@ -20,7 +20,7 @@ export default function VenueLoginPage() {
 
     if (!supabase) {
       window.localStorage.setItem("barping:v4:demo-admin", "true");
-      setStatus("Demo access enabled. Continue to the dashboard.");
+      setStatus("Demo access enabled. Continue to tonight's run sheet.");
       setIsSending(false);
       return;
     }
@@ -47,7 +47,7 @@ export default function VenueLoginPage() {
         <p className="mt-6 text-xs font-medium text-venue-danger">Venue access</p>
         <h1 className="mt-4 font-serif text-5xl font-normal leading-none">Run Social Mode tonight.</h1>
         <p className="mt-5 leading-6 text-venue-muted">
-          Staff sign in with a magic link. In demo mode, this unlocks the local pilot dashboard on this browser.
+          Staff sign in with a magic link. In demo mode, this unlocks tonight&apos;s local run sheet on this browser.
         </p>
 
         <label className="mt-8 block text-sm text-venue-muted">
@@ -68,7 +68,7 @@ export default function VenueLoginPage() {
           <PrimaryButton disabled={isSending || (!!supabase && !email.includes("@"))} onClick={sendMagicLink}>
             {supabase ? "Send magic link" : "Enable demo access"}
           </PrimaryButton>
-          <PrimaryLink href="/venue/dashboard">Continue to dashboard</PrimaryLink>
+          <PrimaryLink href="/venue/dashboard">Continue to run sheet</PrimaryLink>
           <SecondaryLink href="/">Back to guest entry</SecondaryLink>
         </div>
         {status ? <p className="mt-4 rounded-[10px] bg-venue-raised p-3 text-sm text-venue-muted">{status}</p> : null}

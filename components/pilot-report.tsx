@@ -1,11 +1,11 @@
-import { MessageCircle, QrCode, ShieldCheck, UsersRound } from "lucide-react";
+import { Bell, QrCode, ShieldCheck, UsersRound } from "lucide-react";
 import { SectionLabel, UtilityPanel } from "@/components/venue-console";
 import type { PilotMetrics } from "@/lib/types";
 
 export function PilotReport({ metrics }: { metrics: PilotMetrics }) {
   return (
     <section className="venue-panel rounded-[12px] p-4 md:p-5">
-      <SectionLabel>After-report</SectionLabel>
+      <SectionLabel>Night recap</SectionLabel>
       <div className="mt-2 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 className="text-2xl font-medium tracking-[-0.01em]">What happened tonight</h2>
@@ -27,9 +27,9 @@ export function PilotReport({ metrics }: { metrics: PilotMetrics }) {
           <p className="text-sm text-venue-muted">peak active guests</p>
         </UtilityPanel>
         <UtilityPanel>
-          <MessageCircle size={18} />
+          <Bell size={18} />
           <p className="mt-3 text-2xl font-medium">{metrics.chatsCreated}</p>
-          <p className="text-sm text-venue-muted">{metrics.acceptedPings} accepted pings</p>
+          <p className="text-sm text-venue-muted">{metrics.acceptedPings} optional hellos</p>
         </UtilityPanel>
         <UtilityPanel>
           <ShieldCheck size={18} />

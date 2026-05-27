@@ -1,8 +1,8 @@
 export function SignalMark({ tone = "amber" }: { tone?: "amber" | "blue" | "olive" }) {
   const toneClass = {
-    amber: "from-venue-amber/75 to-venue-amberSoft/20 shadow-[0_0_34px_rgba(217,143,69,0.28)]",
-    blue: "from-venue-blue/80 to-venue-blue/20 shadow-[0_0_34px_rgba(77,106,170,0.24)]",
-    olive: "from-venue-olive/80 to-venue-olive/20 shadow-[0_0_34px_rgba(124,128,97,0.24)]"
+    amber: "from-venue-amber/75 to-venue-amberSoft/20 shadow-[0_0_34px_rgba(255,122,107,0.22)]",
+    blue: "from-venue-blue/80 to-venue-blue/20 shadow-[0_0_34px_rgba(142,167,255,0.18)]",
+    olive: "from-venue-olive/80 to-venue-olive/20 shadow-[0_0_34px_rgba(124,255,203,0.16)]"
   }[tone];
 
   return (

@@ -6,7 +6,7 @@ import { AppShell } from "@/components/app-shell";
 import { AssetGenerator } from "@/components/asset-generator";
 import { MotionShell } from "@/components/motion-shell";
 import { QRCard } from "@/components/qr-card";
-import { PrimaryButton, PrimaryLink, SecondaryButton } from "@/components/ui/buttons";
+import { PrimaryButton, PrimaryLink, SecondaryButton, SecondaryLink } from "@/components/ui/buttons";
 import { VenueGuide } from "@/components/venue-guide";
 import { CommandPanel, ConsolePanel, SectionLabel, StageControl, UtilityPanel, VenueConsoleHeader } from "@/components/venue-console";
 import { VenueThemeToggle } from "@/components/venue-theme-toggle";
@@ -29,7 +29,7 @@ export default function EventSetupPage() {
     const result = await updatePilotLiveStatus(event, "active");
     setEvent(result.event);
     setSocialWindow(result.socialWindow);
-    setMessage("Social Mode is live. Guests can now join from the QR.");
+    setMessage("Social Mode is live. Guests can now see tonight's tables from the QR.");
   }
 
   return (
@@ -39,21 +39,18 @@ export default function EventSetupPage() {
           venue={demoVenue}
           event={event}
           status={status}
-          summary="Finish the launch checklist, print the kit, then start Social Mode when the room is ready."
-          action={<PrimaryButton onClick={startNight}><Play size={16} />Start Social Mode</PrimaryButton>}
+          summary="Review the run sheet, print the launch kit, then start Social Mode when the room is ready."
+          action={<VenueThemeToggle />}
         />
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <StageControl<SetupStep> items={["Template", "Assets", "Ready"]} value={step} onChange={setStep} />
-          <div className="flex gap-2">
-            <VenueGuide compact />
-            <VenueThemeToggle />
-          </div>
+          <VenueGuide compact />
         </div>
 
         <section className="rounded-[12px] border border-venue-soft bg-venue-card p-4">
           <p className="text-xs font-medium text-venue-dim">Simple version</p>
-          <p className="mt-1 text-base font-medium">Check what was generated, print the launch kit, then press Start Social Mode only when staff and QR signs are ready.</p>
+          <p className="mt-1 text-base font-medium">Review the table plan, print the guest link, then start only when staff and QR signs are ready.</p>
         </section>
 
         {step === "Template" ? (
@@ -64,10 +61,10 @@ export default function EventSetupPage() {
               <p className="mt-2 text-sm leading-6 text-venue-muted">{template.description}</p>
               <div className="mt-4 grid grid-cols-3 gap-2">
                 <UtilityPanel><p className="text-xs text-venue-dim">Vibe</p><p className="mt-1 font-medium">{event.vibeLevel}</p></UtilityPanel>
-                <UtilityPanel><p className="text-xs text-venue-dim">Find Me</p><p className="mt-1 font-medium">{event.findMeEnabled ? "On" : "Off"}</p></UtilityPanel>
+                <UtilityPanel><p className="text-xs text-venue-dim">Table hellos</p><p className="mt-1 font-medium">{event.findMeEnabled ? "Optional" : "Off"}</p></UtilityPanel>
                 <UtilityPanel><p className="text-xs text-venue-dim">Assets</p><p className="mt-1 font-medium">{local.assets.length}</p></UtilityPanel>
               </div>
-              <PrimaryLink className="mt-4" href="/venue/events/new">Change recipe</PrimaryLink>
+              <SecondaryLink className="mt-4" href="/venue/events/new">Change recipe</SecondaryLink>
             </CommandPanel>
 
             <ConsolePanel>
@@ -86,7 +83,7 @@ export default function EventSetupPage() {
                         <p className="font-medium">{table.name}</p>
                         <p className="mt-0.5 text-sm text-venue-muted">{table.description}</p>
                       </div>
-                      <span className="rounded-[999px] bg-[#dfece0] px-2.5 py-1 text-xs text-venue-olive">{table.energyLevel}</span>
+                      <span className="rounded-[999px] bg-venue-olive/10 px-2.5 py-1 text-xs text-venue-olive">{table.energyLevel}</span>
                     </div>
                     <p className="mt-2 text-sm text-venue-muted">{table.prompt}</p>
                   </article>
@@ -101,9 +98,9 @@ export default function EventSetupPage() {
             <CommandPanel>
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <SectionLabel>Launch kit</SectionLabel>
+                  <SectionLabel>Print launch kit</SectionLabel>
                   <h2 className="mt-2 text-2xl font-medium">Print/share assets are ready.</h2>
-                  <p className="mt-1 text-sm text-venue-muted">Every guest-facing asset uses the same live event QR.</p>
+                  <p className="mt-1 text-sm text-venue-muted">Every guest-facing asset uses the same guest link.</p>
                 </div>
                 <PrimaryLink href={`/venue/events/${event.id}/qr`}><Printer size={16} />Open launch kit</PrimaryLink>
               </div>
@@ -116,22 +113,22 @@ export default function EventSetupPage() {
         {step === "Ready" ? (
           <section className="grid gap-5 lg:grid-cols-[1fr_0.85fr]">
             <CommandPanel>
-              <div className="grid h-11 w-11 place-items-center rounded-[12px] bg-[#dfece0] text-venue-olive">
+              <div className="grid h-11 w-11 place-items-center rounded-[12px] bg-venue-olive/10 text-venue-olive">
                 <CheckCircle2 size={22} />
               </div>
               <h2 className="mt-4 text-2xl font-medium tracking-[-0.01em]">Ready to launch.</h2>
               <p className="mt-2 max-w-xl text-sm leading-6 text-venue-muted">
-                Place the QR cards, brief staff, then press start when the host announces Social Mode.
+                Place the QR cards, brief staff, then press start when the host announces the tables.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 <SecondaryButton onClick={() => setStep("Assets")}><Printer size={16} />Print launch kit</SecondaryButton>
                 <PrimaryButton onClick={startNight}><Play size={16} />Start Social Mode</PrimaryButton>
               </div>
-              {message ? <p className="mt-4 rounded-[10px] bg-white/10 px-3 py-2 text-sm text-white">{message}</p> : null}
+              {message ? <p className="mt-4 rounded-[10px] bg-venue-olive/10 px-3 py-2 text-sm text-venue-olive">{message}</p> : null}
             </CommandPanel>
             <ConsolePanel>
               <SectionLabel>Guest link</SectionLabel>
-              <h2 className="mt-2 text-xl font-medium">Tonight&apos;s QR</h2>
+              <h2 className="mt-2 text-xl font-medium">Tonight&apos;s tables link</h2>
               <div className="mt-4">
                 <QRCard event={event} />
               </div>
@@ -141,8 +138,8 @@ export default function EventSetupPage() {
         ) : null}
 
         <div className="flex flex-wrap gap-3 border-t border-venue-soft pt-4">
-          <PrimaryLink href="/venue/dashboard">Back to dashboard</PrimaryLink>
-          <PrimaryLink href={`/venue/events/${event.id}/qr`}>Open launch kit</PrimaryLink>
+          <SecondaryLink href="/venue/dashboard">Back to run sheet</SecondaryLink>
+          <SecondaryLink href={`/venue/events/${event.id}/qr`}>Open guest link</SecondaryLink>
         </div>
       </MotionShell>
     </AppShell>

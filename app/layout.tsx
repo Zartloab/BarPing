@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "BarPing | Social Mode for Venues",
-  description: "A QR-based, opt-in social mode for venues and live events.",
+  title: "BarPing | Conversation Tables for Venues",
+  description: "A QR-based way for guests to pick a conversation table and join when ready.",
   manifest: process.env.NODE_ENV === "production" ? "/BarPing/manifest.webmanifest" : "/manifest.webmanifest"
 };
 

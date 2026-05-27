@@ -39,7 +39,7 @@ export function QRCard({ event }: { event: Event }) {
           <style>
             body { background: #fff; color: #181d26; font-family: Arial, sans-serif; margin: 0; padding: 48px; }
             main { border: 1px solid #e5e1d8; border-radius: 16px; padding: 48px; }
-            .kicker { color: #aa2d00; font-size: 13px; font-weight: 700; letter-spacing: 4px; }
+            .kicker { color: #FF7A6B; font-size: 13px; font-weight: 700; letter-spacing: 4px; }
             h1 { font-family: Georgia, serif; font-size: 56px; font-weight: 400; margin: 28px 0 8px; }
             p { color: #454a54; font-size: 22px; }
             img { width: 240px; height: 240px; border-radius: 12px; background: #fff; border: 1px solid #e5e1d8; padding: 20px; margin-top: 36px; }
@@ -48,10 +48,10 @@ export function QRCard({ event }: { event: Event }) {
         </head>
         <body>
           <main>
-            <div class="kicker">BarPing / Event QR</div>
+            <div class="kicker">BarPing / Guest link</div>
             <h1>${event.title}</h1>
             ${dataUrl ? `<img src="${dataUrl}" alt="QR code" />` : ""}
-            <p>Scan to join Social Mode.</p>
+            <p>Scan the QR, pick a conversation table, and join when ready.</p>
             <p class="url">${eventUrl}</p>
           </main>
           <script>window.addEventListener("load", () => window.print());</script>
@@ -64,7 +64,7 @@ export function QRCard({ event }: { event: Event }) {
     <section className="venue-panel-flat rounded-[12px] p-4">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <p className="text-xs font-medium text-venue-dim">Event QR</p>
+          <p className="text-xs font-medium text-venue-dim">Guest link</p>
           <h2 className="mt-2 text-lg font-medium text-venue-cream">{event.title}</h2>
           <p className="mt-1 break-all text-sm text-venue-muted">{eventUrl}</p>
         </div>

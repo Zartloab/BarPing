@@ -9,9 +9,9 @@ export function StatusPill({ status }: { status: "Set up" | "Live" | "After" | "
     <span
       className={`inline-flex min-h-7 items-center gap-2 rounded-[999px] border px-3 font-mono text-[0.62rem] font-medium uppercase tracking-[0.12em] ${
         live
-          ? "border-venue-olive/25 bg-[#dfece0] text-venue-olive"
+          ? "border-venue-olive/40 bg-venue-olive/10 text-venue-olive"
           : danger
-            ? "border-venue-danger/25 bg-[#f6d4c7] text-venue-danger"
+            ? "border-venue-danger/35 bg-venue-danger/10 text-venue-danger"
             : "border-venue-soft bg-venue-card text-venue-muted"
       }`}
     >
@@ -35,7 +35,7 @@ export function VenueConsoleHeader({
   action: ReactNode;
 }) {
   return (
-    <header className="border-b border-venue-soft bg-venue-ink py-4">
+    <header className="border-b border-venue-soft bg-transparent py-4">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-3">
@@ -61,13 +61,13 @@ export function StageControl<T extends string>({
   onChange: (value: T) => void;
 }) {
   return (
-    <div className="inline-grid grid-cols-3 rounded-[12px] border border-venue-soft bg-venue-raised p-1">
+    <div className="inline-grid rounded-[12px] border border-venue-soft bg-venue-raised p-1" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
       {items.map((item) => (
         <button
           key={item}
           onClick={() => onChange(item)}
           className={`min-h-9 rounded-[9px] px-4 text-sm font-medium transition ${
-            value === item ? "bg-venue-card text-venue-cream shadow-[0_1px_6px_rgba(24,29,38,0.08)]" : "text-venue-muted hover:text-venue-cream"
+            value === item ? "bg-venue-card text-venue-cream shadow-[0_1px_8px_rgba(0,0,0,0.24)]" : "text-venue-muted hover:text-venue-cream"
           }`}
           type="button"
         >

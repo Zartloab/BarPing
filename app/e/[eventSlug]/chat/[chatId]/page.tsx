@@ -14,7 +14,8 @@ import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
 import { beaconPalette, openerChips } from "@/lib/constants";
 import { demoContactExchange, demoEvent, demoFindMeSession, demoGuests, demoMessages } from "@/lib/demo-data";
 import { containsAbusePlaceholder } from "@/lib/safety";
-import { minutesRemaining, shortTime } from "@/lib/time";
+import { shortTime } from "@/lib/time";
+import { formatVisibleUntil } from "@/lib/ux";
 import type { ChatMessage, FindMeSession } from "@/lib/types";
 
 export default function ChatPage() {
@@ -45,7 +46,7 @@ export default function ChatPage() {
 
   function requestFindMe() {
     if (!demoEvent.findMeEnabled) {
-      setError("Find Me is turned off for tonight. You can still chat or meet through a table.");
+      setError("Table hellos are turned off for tonight. You can still chat or meet through a table.");
       return;
     }
     setFindMeRequestOpen(true);
@@ -64,7 +65,7 @@ export default function ChatPage() {
   }
 
   function reportFindMe() {
-    setError("Find Me was reported. Venue staff can review the session metadata.");
+    setError("This table hello was reported. Venue staff can review the session metadata.");
     setBeacon(null);
     setFindMeRequestOpen(false);
   }
@@ -77,7 +78,7 @@ export default function ChatPage() {
             <div>
               <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-venue-amberSoft">Temporary chat</p>
               <h1 className="mt-1 text-lg font-semibold">{other.alias}</h1>
-              <p className="mt-1 text-xs text-venue-muted">Expires in {minutesRemaining(demoEvent.endsAt)} min</p>
+              <p className="mt-1 text-xs text-venue-muted">{formatVisibleUntil(demoEvent.endsAt)}</p>
             </div>
             <div className="flex gap-2">
               {demoEvent.findMeEnabled ? (
@@ -102,12 +103,12 @@ export default function ChatPage() {
           <div className="glass-card rounded-[24px] p-4">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-venue-amberSoft">Accepted ping</p>
+                <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-venue-amberSoft">Table hello</p>
                 <h2 className="mt-1 font-semibold">Ready to find each other?</h2>
                 <p className="mt-1 text-sm leading-relaxed text-venue-muted">
                   {demoEvent.findMeEnabled
-                    ? "Find Me only starts after both people agree. Both phones show the same color for 90 seconds."
-                    : "Find Me is turned off for this event. You can still meet through a table or keep chatting."}
+                    ? "This only starts after both people from the same table agree. Both phones show the same color for 90 seconds."
+                    : "Table hellos are turned off for this event. You can still meet through a table or keep chatting."}
                 </p>
               </div>
               {demoEvent.findMeEnabled ? (

@@ -5,7 +5,7 @@ export type ReportStatus = "New" | "Reviewing" | "Actioned" | "Dismissed";
 export type SocialWindowStatus = "scheduled" | "active" | "ended";
 export type FindMeStatus = "requested" | "active" | "ended" | "expired" | "reported";
 export type VenueVibeLevel = "Calm" | "Social" | "Mixer";
-export type GuestEntryChoice = "Join a table" | "Open to pings" | "Just browsing";
+export type GuestEntryChoice = "Join a table" | "Open to pings" | "Just browse";
 export type TableEnergy = "Quiet" | "Warming up" | "Active";
 export type EventRecommendation =
   | "Good pilot signal"

@@ -12,7 +12,7 @@ export default function VenueSettingsPage() {
         <div className="mt-6 glass-card rounded-[28px] p-5">
           <p className="text-venue-muted">Brand color, contact email, staff roles, and venue status will connect to Supabase venue records.</p>
         </div>
-        <SecondaryLink className="mt-6" href="/venue/dashboard">Back to dashboard</SecondaryLink>
+        <SecondaryLink className="mt-6" href="/venue/dashboard">Back to run sheet</SecondaryLink>
       </MotionShell>
     </AppShell>
   );

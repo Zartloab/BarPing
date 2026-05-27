@@ -1,4 +1,4 @@
-import type { GuestEntryChoice, Mode, VenueVibeLevel, Vibe } from "@/lib/types";
+import type { VenueVibeLevel, Vibe } from "@/lib/types";
 
 export const communityRules =
   "Be normal. Be kind. No harassment, pressure, hate, explicit messages, or creepy behaviour. Staff and moderators can remove anyone.";
@@ -33,12 +33,6 @@ export const topics = [
   "Random"
 ];
 
-export const modes: { label: Mode; description: string }[] = [
-  { label: "Open to 1:1 chat", description: "For casual one-to-one conversation." },
-  { label: "Join a table", description: "Group conversation, lower pressure." },
-  { label: "With a friend", description: "Two of us are open to another pair or group." }
-];
-
 export const reportReasons = [
   "Harassment",
   "Hate or abuse",
@@ -60,22 +54,22 @@ export const openerChips = [
 
 export const launchKit = {
   tableQr: "Open to meeting people tonight?\n\nScan to join BarPing.\nNo names. No photos. No pressure.",
-  entrancePoster: "Social Mode is live tonight.\n\nMeet people already here.\nScan the QR at the bar.",
+  entrancePoster: "Conversation tables are live tonight.\n\nScan the QR, pick a table, and join when you're ready.",
   staffScript:
-    "We're running BarPing tonight. It's an opt-in social tool. Guests scan the QR, choose a vibe, and can chat with others here. No photos or real names.",
+    "We're running BarPing tonight. Guests scan the QR, see tonight's conversation tables, and join when they're ready. No photos or real names.",
   safetyCard:
     "Respect the room.\nNo pressure, harassment, hate, or creepy behaviour.\nYou can ignore, block, or report anytime.",
-  instagramStory: "Tonight: Social Mode is live.\n\nScan in at the bar from 7 PM.\nNo swiping. No photos. No pressure.",
+  instagramStory: "Tonight: conversation tables are live.\n\nScan in at the bar from 7 PM.\nNo swiping. No photos. No pressure.",
   runOfShow:
-    "7:00 PM: QR signs visible, staff briefed.\n7:30 PM: Host announces Social Mode is live.\n7:45 PM: First table prompt.\n8:15 PM: Nudge New Here and Music Table.\n8:45 PM: Accepted chats can use Find Me if both agree.\n9:15 PM: Final social prompt.\n9:30 PM: Social Mode winds down and feedback opens.",
+    "7:00 PM: QR signs visible, staff briefed.\n7:30 PM: Host announces conversation tables are live.\n7:45 PM: First table prompt.\n8:15 PM: Nudge New Here and Music Table.\n8:45 PM: Optional table hellos stay table-scoped and mutual.\n9:15 PM: Final table prompt.\n9:30 PM: Night closes and feedback opens.",
   staffIntro:
-    "Social Mode is live now. Scan the QR, choose a vibe, and join a table or send a low-pressure ping. No photos, no real names.",
+    "Conversation tables are live now. Scan the QR, pick a table, and join when you're ready. No photos, no real names.",
   midwayPrompt:
     "If you're new here, try the New Here table. If you're here for the set, Music Table is warming up.",
   finalCall:
-    "Social Mode wraps soon. If you had a good chat, you can share contact only if both people agree.",
+    "Conversation tables wrap soon. If you had a good chat, you can share contact only if both people agree.",
   findMeSafety:
-    "Only use Find Me if both people agree. Both phones light up the same color for a short time. You can end it anytime.",
+    "Only use table hellos if both people agree. Keep them inside the same table, rate limited, and easy to end anytime.",
   eventNames: [
     "Thursday Social Mode",
     "New Faces Night",
@@ -90,40 +84,22 @@ export const launchKit = {
 };
 
 export const beaconPalette = [
-  { token: "#F0B46A", name: "Warm Amber" },
-  { token: "#4D6AAA", name: "Signal Blue" },
-  { token: "#7C8061", name: "Olive Light" },
-  { token: "#D96B5F", name: "Coral Signal" },
-  { token: "#F7F0E3", name: "Cream Light" }
+  { token: "#7CFFCB", name: "Mint Live" },
+  { token: "#8EA7FF", name: "Blue Signal" },
+  { token: "#FF7A6B", name: "Coral Hello" },
+  { token: "#FFD166", name: "Final Call" },
+  { token: "#FFF3E8", name: "Warm Light" }
 ];
 
 export const hostNudges = [
-  "Social Mode is live. Join a table or send a low-pressure ping.",
+  "Conversation tables are live. Pick a table and join when you're ready.",
   "New Here and Music Table both have open seats.",
   "Last 30 minutes. Keep it kind, temporary, and mutual.",
-  "If an accepted chat feels right, use Find Me only if both people agree."
-];
-
-export const guestEntryChoices: { label: GuestEntryChoice; description: string; defaultMode: Mode }[] = [
-  {
-    label: "Join a table",
-    description: "Start with a group prompt and a few open seats.",
-    defaultMode: "Join a table"
-  },
-  {
-    label: "Open to pings",
-    description: "Browse people and allow low-pressure 1:1 pings.",
-    defaultMode: "Open to 1:1 chat"
-  },
-  {
-    label: "Just browsing",
-    description: "Look around first. You can opt into pings later.",
-    defaultMode: "Join a table"
-  }
+  "Optional hellos stay inside the table and only work when both people allow them."
 ];
 
 export const vibeLevelDescriptions: Record<VenueVibeLevel, string> = {
-  Calm: "More tables, fewer 1:1 prompts, Find Me off by default.",
-  Social: "Balanced tables and pings, Find Me on.",
-  Mixer: "More host nudges and table prompts, Find Me on."
+  Calm: "More table prompts, hellos off by default.",
+  Social: "Balanced table prompts with optional table-scoped hellos.",
+  Mixer: "More host nudges and table prompts, optional hellos available."
 };

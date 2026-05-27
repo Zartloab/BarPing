@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { MessageCircle, ShieldAlert } from "lucide-react";
 import type { Guest } from "@/lib/types";
-import { minutesRemaining } from "@/lib/time";
+import { formatVisibleUntil } from "@/lib/ux";
 import { SignalMark } from "@/components/signal-mark";
 import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
 
@@ -58,7 +58,7 @@ export function SignalCard({
       </div>
       <div className="mt-4 flex items-center justify-between gap-3">
         <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-venue-dim">
-          {minutesRemaining(guest.expiresAt)} min left
+          {formatVisibleUntil(guest.expiresAt)}
         </p>
         <div className="flex gap-2">
           {onReport ? (

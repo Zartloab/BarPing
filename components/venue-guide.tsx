@@ -12,29 +12,29 @@ type GuideStep = {
 
 const guideSteps: GuideStep[] = [
   {
-    title: "1. Pick a night recipe",
-    body: "Templates are reusable venue formats. A template creates the event title, tables, prompts, QR copy, social window, host nudges, safety copy, and staff run sheet. Pick the closest format, then adjust vibe and Find Me before launch.",
-    action: "Use Create night when you want a fresh event. Use the selected recipe preview when you only want to inspect what BarPing will generate."
+    title: "1. Guests see tables",
+    body: "A guest scans the QR and lands on tonight's conversation tables. Browsing is the default state, not a mode.",
+    action: "If someone is unsure, tell them to read the tables first and join when one feels easy."
   },
   {
-    title: "2. Print the launch kit",
-    body: "The launch kit contains the entrance poster, table QR card, bar counter sign, Instagram story, safety card, and staff run sheet. Guest-facing assets all point to the same event QR, so staff can print or share them without rebuilding anything.",
-    action: "Open Print launch kit, choose the asset tab, then use Print, Download PNG, or Copy text."
+    title: "2. Review run sheet",
+    body: "Before the night starts, the venue screen follows the run sheet: recipe, tables, launch kit, staff brief, and start.",
+    action: "Print the launch kit, place QR signs, brief staff, then press Start Social Mode."
   },
   {
-    title: "3. Start Social Mode",
-    body: "Guests should only join once the venue is ready. Start Social Mode after QR cards are visible and the host has announced the night. Guests then choose Join a table, Open to pings, or Just browsing.",
-    action: "In Live mode, press Start. Pause if the room needs a reset. End when the activation is finished."
+    title: "3. Host controls",
+    body: "During the night, the host screen shows the next operational action: send a nudge, feature a table, final call, or close.",
+    action: "Do the next action on the run sheet, then move on."
   },
   {
-    title: "4. Host the room",
-    body: "Live mode is the host control room. Send nudges to guide behavior, spotlight a table to steer conversation, watch active guests, and keep reports visible without turning the screen into analytics.",
-    action: "Use quick nudges first. Use spotlight when a table needs energy. Use safety actions deliberately."
+    title: "4. Guest link",
+    body: "QR tools and printable assets stay in the guest link screen so the host controls remain clean while the night is live.",
+    action: "Use the guest link if a sign goes missing or staff need the QR."
   },
   {
-    title: "5. Read the after-report",
-    body: "After mode is a plain-English debrief for the venue owner: scans, joins, pings, chats, feedback, and whether the format is worth repeating. It should answer: run again, change signage, or change format?",
-    action: "Use Run this again for the next night once you know the format worked."
+    title: "5. Night recap",
+    body: "After the night closes, the screen becomes a simple recap: scans, table joins, optional hellos, reports, best table, and recommendation.",
+    action: "Use Run this again when the format worked."
   }
 ];
 
@@ -59,7 +59,7 @@ export function VenueGuide({ compact = false }: { compact?: boolean }) {
           <section className="w-full max-w-[620px] rounded-[16px] border border-venue-soft bg-venue-card p-5 text-venue-cream shadow-[0_24px_90px_rgba(0,0,0,0.28)]">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-medium text-venue-dim">BarPing handoff guide</p>
+                <p className="text-xs font-medium text-venue-dim">BarPing run sheet guide</p>
                 <h2 className="mt-2 text-2xl font-medium tracking-[-0.01em]">{step.title}</h2>
               </div>
               <button

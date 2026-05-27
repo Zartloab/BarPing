@@ -35,8 +35,8 @@ export function useQrCodeDataUrl(value: string) {
       margin: 2,
       scale: 9,
       color: {
-        dark: "#080807",
-        light: "#fff7e8"
+        dark: "#080B16",
+        light: "#FFF3E8"
       }
     })
       .then((nextDataUrl) => {

@@ -18,12 +18,12 @@ const assetSizes: Record<EventAsset["kind"], { width: number; height: number }> 
 };
 
 const assetMeta: Record<EventAsset["kind"], { format: string; ratioClass: string; shellClass: string; useQr: boolean; tone: string }> = {
-  table_qr: { format: "Table card - landscape print", ratioClass: "aspect-[4/3]", shellClass: "max-w-[620px]", useQr: true, tone: "bg-white" },
-  entrance_poster: { format: "Entrance poster - portrait print", ratioClass: "aspect-[3/4]", shellClass: "max-w-[520px]", useQr: true, tone: "bg-[#f7f7f2]" },
-  bar_counter: { format: "Bar counter sign - wide print", ratioClass: "aspect-[16/9]", shellClass: "max-w-[780px]", useQr: true, tone: "bg-[#dfece0]" },
-  instagram_story: { format: "Instagram story - 9:16 PNG", ratioClass: "aspect-[9/16]", shellClass: "max-w-[330px]", useQr: true, tone: "bg-[#e8a18f]" },
-  safety_card: { format: "Safety card - small print", ratioClass: "aspect-[4/3]", shellClass: "max-w-[620px]", useQr: true, tone: "bg-[#f6d4c7]" },
-  run_sheet: { format: "Staff run sheet - internal print", ratioClass: "aspect-[3/4]", shellClass: "max-w-[560px]", useQr: false, tone: "bg-white" }
+  table_qr: { format: "Table card - landscape print", ratioClass: "aspect-[4/3]", shellClass: "max-w-[620px]", useQr: true, tone: "bg-[#171D32]" },
+  entrance_poster: { format: "Entrance poster - portrait print", ratioClass: "aspect-[3/4]", shellClass: "max-w-[520px]", useQr: true, tone: "bg-[#080B16]" },
+  bar_counter: { format: "Bar counter sign - wide print", ratioClass: "aspect-[16/9]", shellClass: "max-w-[780px]", useQr: true, tone: "bg-[#101527]" },
+  instagram_story: { format: "Instagram story - 9:16 PNG", ratioClass: "aspect-[9/16]", shellClass: "max-w-[330px]", useQr: true, tone: "bg-[#171D32]" },
+  safety_card: { format: "Safety card - small print", ratioClass: "aspect-[4/3]", shellClass: "max-w-[620px]", useQr: true, tone: "bg-[#171D32]" },
+  run_sheet: { format: "Staff run sheet - internal print", ratioClass: "aspect-[3/4]", shellClass: "max-w-[560px]", useQr: false, tone: "bg-[#171D32]" }
 };
 
 function slugify(value: string) {
@@ -110,25 +110,25 @@ export function AssetPreview({
 
     const isStory = asset.kind === "instagram_story";
     const isPortrait = asset.kind === "entrance_poster" || isStory || asset.kind === "run_sheet";
-    const bg = asset.kind === "instagram_story" ? "#e8a18f" : asset.kind === "bar_counter" ? "#dfece0" : asset.kind === "safety_card" ? "#f6d4c7" : "#ffffff";
+    const bg = asset.kind === "entrance_poster" ? "#080B16" : asset.kind === "bar_counter" ? "#101527" : "#171D32";
     const pad = Math.round(size.width * 0.075);
     const qrSize = Math.round(size.width * (isStory ? 0.42 : asset.kind === "bar_counter" ? 0.25 : 0.22));
 
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, size.width, size.height);
-    ctx.strokeStyle = "#181d26";
+    ctx.strokeStyle = "rgba(255, 243, 232, 0.22)";
     ctx.lineWidth = 2;
     ctx.strokeRect(pad * 0.55, pad * 0.55, size.width - pad * 1.1, size.height - pad * 1.1);
 
-    ctx.fillStyle = "#aa2d00";
+    ctx.fillStyle = "#FF7A6B";
     ctx.font = `600 ${Math.round(size.width * 0.018)}px Arial`;
-    ctx.fillText(asset.kind === "run_sheet" ? "BARPING / STAFF RUN SHEET" : "BARPING / SOCIAL MODE", pad, pad);
+    ctx.fillText(asset.kind === "run_sheet" ? "BARPING / STAFF RUN SHEET" : "BARPING / GUEST LINK", pad, pad);
 
-    ctx.fillStyle = "#181d26";
+    ctx.fillStyle = "#FFF3E8";
     ctx.font = `400 ${Math.round(size.width * (isStory ? 0.096 : isPortrait ? 0.072 : 0.056))}px Georgia`;
     wrapText(ctx, event.title, pad, pad + Math.round(size.height * 0.12), size.width - pad * 2, Math.round(size.width * (isPortrait ? 0.08 : 0.065)));
 
-    ctx.fillStyle = "#454a54";
+    ctx.fillStyle = "#CFC3B6";
     ctx.font = `400 ${Math.round(size.width * 0.024)}px Arial`;
     ctx.fillText(`${venue.name} / ${template.name}`, pad, pad + Math.round(size.height * (isPortrait ? 0.3 : 0.26)));
 
@@ -143,13 +143,13 @@ export function AssetPreview({
       ctx.drawImage(image, qrX + qrSize * 0.08, qrY + qrSize * 0.08, qrSize * 0.84, qrSize * 0.84);
     }
 
-    ctx.fillStyle = "#333840";
+    ctx.fillStyle = "#CFC3B6";
     ctx.font = `400 ${Math.round(size.width * (asset.kind === "run_sheet" ? 0.027 : isStory ? 0.043 : 0.031))}px Arial`;
     const copyTop = asset.kind === "bar_counter" ? pad + Math.round(size.height * 0.42) : pad + Math.round(size.height * (isStory ? 0.38 : isPortrait ? 0.56 : 0.63));
     const copyWidth = asset.kind === "bar_counter" ? size.width - pad * 3 - qrSize : size.width - pad * 2;
     wrapText(ctx, asset.copy, pad, copyTop, copyWidth, Math.round(size.width * (isStory ? 0.058 : 0.041)));
 
-    ctx.fillStyle = "#767b84";
+    ctx.fillStyle = "#8B8178";
     ctx.font = `600 ${Math.round(size.width * 0.018)}px Arial`;
     wrapText(ctx, meta.useQr ? qrUrl : "Internal staff guide", pad, size.height - pad, size.width - pad * 2, Math.round(size.width * 0.027));
 
@@ -180,18 +180,18 @@ export function AssetPreview({
           <title>${escapeHtml(asset.title)}</title>
           <style>
             @page { margin: 0.35in; }
-            body { background: #fff; color: #181d26; font-family: Arial, sans-serif; margin: 0; }
-            main { min-height: calc(100vh - 0.7in); padding: 48px; border: 1px solid #e5e1d8; }
-            .kicker { color: #aa2d00; font-size: 13px; font-weight: 700; letter-spacing: 4px; }
+            body { background: #080B16; color: #FFF3E8; font-family: Arial, sans-serif; margin: 0; }
+            main { min-height: calc(100vh - 0.7in); padding: 48px; border: 1px solid rgba(255, 243, 232, 0.18); background: #171D32; }
+            .kicker { color: #FF7A6B; font-size: 13px; font-weight: 700; letter-spacing: 4px; }
             h1 { font-family: Georgia, serif; font-size: 64px; font-weight: 400; line-height: 0.95; margin: 36px 0 12px; }
-            .meta, p { color: #454a54; font-size: 24px; line-height: 1.45; }
-            img { width: 190px; height: 190px; border: 1px solid #e5e1d8; border-radius: 12px; background: #fff; padding: 18px; margin: 42px 0 24px; }
-            .url { color: #767b84; font-size: 13px; letter-spacing: 2px; overflow-wrap: anywhere; text-transform: uppercase; }
+            .meta, p { color: #CFC3B6; font-size: 24px; line-height: 1.45; }
+            img { width: 190px; height: 190px; border: 1px solid rgba(255, 243, 232, 0.18); border-radius: 12px; background: #fff; padding: 18px; margin: 42px 0 24px; }
+            .url { color: #8B8178; font-size: 13px; letter-spacing: 2px; overflow-wrap: anywhere; text-transform: uppercase; }
           </style>
         </head>
         <body>
           <main>
-            <div class="kicker">BarPing / Social Mode</div>
+            <div class="kicker">BarPing / Guest link</div>
             <h1>${escapeHtml(event.title)}</h1>
             <div class="meta">${escapeHtml(venue.name)} / ${escapeHtml(template.name)}</div>
             ${qrDataUrl && meta.useQr ? `<img src="${qrDataUrl}" alt="QR code" />` : ""}
@@ -236,7 +236,7 @@ export function AssetPreview({
               <div className="flex h-full items-center justify-between gap-6">
                 <div className="max-w-[62%]">
                   <p className="text-xs font-medium text-venue-danger">BarPing / at the bar</p>
-                  <h4 className="mt-4 font-serif text-4xl leading-none text-venue-cream">Social Mode is live.</h4>
+                  <h4 className="mt-4 font-serif text-4xl leading-none text-venue-cream">Tables are live.</h4>
                   <CopyLines className="mt-4 text-base" copy={asset.copy} />
                 </div>
                 <div className="text-center">
@@ -248,7 +248,7 @@ export function AssetPreview({
               <div className="flex h-full flex-col justify-between">
                 <div>
                   <p className="text-xs font-medium text-venue-danger">@ {venue.name}</p>
-                  <h4 className="mt-5 font-serif text-5xl leading-[0.9] text-venue-cream">Social Mode tonight</h4>
+                  <h4 className="mt-5 font-serif text-5xl leading-[0.9] text-venue-cream">Tables tonight</h4>
                 </div>
                 <div>
                   <CopyLines className="text-lg" copy={asset.copy} />
@@ -274,7 +274,7 @@ export function AssetPreview({
             ) : (
               <div className="flex h-full flex-col justify-between">
                 <div>
-                  <p className="text-xs font-medium text-venue-danger">BarPing / Social Mode</p>
+                  <p className="text-xs font-medium text-venue-danger">BarPing / Guest link</p>
                   <h4 className="mt-5 font-serif text-5xl leading-none text-venue-cream">{event.title}</h4>
                   <p className="mt-3 text-base text-venue-muted">{venue.name} / {template.name}</p>
                 </div>

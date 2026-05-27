@@ -16,7 +16,7 @@ const base =
 export function PrimaryButton({ className = "", ...props }: ButtonProps) {
   return (
     <button
-      className={`${base} bg-venue-amber text-venue-ink shadow-[0_10px_24px_rgba(24,29,38,0.12)] hover:bg-venue-amberSoft ${className}`}
+      className={`${base} bg-venue-amber text-venue-ink shadow-[0_16px_36px_rgba(255,122,107,0.18)] hover:bg-venue-amberSoft ${className}`}
       {...props}
     />
   );
@@ -25,7 +25,7 @@ export function PrimaryButton({ className = "", ...props }: ButtonProps) {
 export function SecondaryButton({ className = "", ...props }: ButtonProps) {
   return (
     <button
-      className={`${base} border border-venue-soft bg-white text-venue-cream hover:border-venue-cream/30 hover:bg-venue-raised ${className}`}
+      className={`${base} border border-venue-blue/30 bg-venue-blue/10 text-[#B9C7FF] hover:border-venue-blue/50 hover:bg-venue-blue/15 ${className}`}
       {...props}
     />
   );
@@ -34,7 +34,7 @@ export function SecondaryButton({ className = "", ...props }: ButtonProps) {
 export function DangerButton({ className = "", ...props }: ButtonProps) {
   return (
     <button
-      className={`${base} border border-venue-danger/40 bg-venue-danger/10 text-venue-danger hover:bg-venue-danger/15 ${className}`}
+      className={`${base} border border-venue-danger/45 bg-venue-danger/10 text-venue-danger hover:bg-venue-danger/15 ${className}`}
       {...props}
     />
   );
@@ -43,7 +43,7 @@ export function DangerButton({ className = "", ...props }: ButtonProps) {
 export function PrimaryLink({ className = "", ...props }: LinkButtonProps) {
   return (
     <Link
-      className={`${base} bg-venue-amber text-venue-ink shadow-[0_10px_24px_rgba(24,29,38,0.12)] hover:bg-venue-amberSoft ${className}`}
+      className={`${base} bg-venue-amber text-venue-ink shadow-[0_16px_36px_rgba(255,122,107,0.18)] hover:bg-venue-amberSoft ${className}`}
       {...props}
     />
   );
@@ -52,7 +52,7 @@ export function PrimaryLink({ className = "", ...props }: LinkButtonProps) {
 export function SecondaryLink({ className = "", ...props }: LinkButtonProps) {
   return (
     <Link
-      className={`${base} border border-venue-soft bg-white text-venue-cream hover:border-venue-cream/30 hover:bg-venue-raised ${className}`}
+      className={`${base} border border-venue-blue/30 bg-venue-blue/10 text-[#B9C7FF] hover:border-venue-blue/50 hover:bg-venue-blue/15 ${className}`}
       {...props}
     />
   );

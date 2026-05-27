@@ -29,7 +29,7 @@ export default function EventReportsPage() {
             </article>
           ))}
         </div>
-        <SecondaryLink className="mt-6" href="/venue/dashboard">Back to dashboard</SecondaryLink>
+        <SecondaryLink className="mt-6" href="/venue/dashboard">Back to run sheet</SecondaryLink>
       </MotionShell>
     </AppShell>
   );

@@ -9,6 +9,28 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        bp: {
+          bg: {
+            main: "#080B16",
+            soft: "#101527"
+          },
+          surface: {
+            DEFAULT: "#171D32",
+            raised: "#222A42"
+          },
+          text: {
+            main: "#FFF3E8",
+            soft: "#CFC3B6",
+            muted: "#8B8178"
+          },
+          accent: {
+            primary: "#FF7A6B",
+            live: "#7CFFCB",
+            secondary: "#8EA7FF",
+            warning: "#FFD166",
+            danger: "#FF5C7A"
+          }
+        },
         venue: {
           ink: "var(--bp-canvas)",
           raised: "var(--bp-surface-2)",
@@ -25,8 +47,8 @@ const config: Config = {
         }
       },
       boxShadow: {
-        amber: "0 12px 34px rgba(24,29,38,0.12)",
-        soft: "0 18px 54px rgba(24,29,38,0.08)"
+        amber: "0 16px 36px rgba(255,122,107,0.18)",
+        soft: "0 24px 80px rgba(0,0,0,0.24)"
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)", "Inter", "system-ui", "sans-serif"],
