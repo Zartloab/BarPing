@@ -67,7 +67,7 @@ export default function RoomPage() {
             {realMode ? "0 active" : `${demoTables.length} active`}
           </p>
         </div>
-        <div className="-mx-5 flex snap-x gap-3 overflow-x-auto px-5 pb-2">
+        <div className="grid gap-3">
           {demoTables.map((circle, index) => {
             return (
               <CircleCard

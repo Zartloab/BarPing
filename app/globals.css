@@ -5,9 +5,9 @@
 :root {
   color-scheme: dark;
   background: #080b16;
-  --font-display: "Anton", "Bebas Neue", "Arial Narrow", sans-serif;
-  --font-body: "DM Sans", "Space Grotesk", "Trebuchet MS", sans-serif;
-  --font-mono: "DM Mono", "Space Mono", "Cascadia Mono", monospace;
+  --font-display: "Bahnschrift", "Avenir Next Condensed", "Roboto Condensed", "Segoe UI Variable Display", "Segoe UI", Arial, sans-serif;
+  --font-body: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   --font-geist-sans: var(--font-body);
   --font-geist-mono: var(--font-mono);
   --font-instrument-serif: Georgia, "Times New Roman", serif;
@@ -128,6 +128,7 @@ select {
 @layer components {
   .font-display {
     font-family: var(--font-display), sans-serif;
+    font-weight: 650;
     letter-spacing: 0;
   }
 
@@ -172,34 +173,36 @@ select {
   }
 
   .guest-label {
-    font-family: var(--font-mono), monospace;
+    font-family: var(--font-mono), sans-serif;
     font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.1em;
+    font-weight: 650;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   .guest-micro {
-    font-family: var(--font-mono), monospace;
+    font-family: var(--font-mono), sans-serif;
     font-size: 10px;
-    font-weight: 400;
+    font-weight: 650;
   }
 
   .drop-text {
     color: var(--text-main);
     font-family: var(--font-display), sans-serif;
-    font-size: 44px;
+    font-size: 40px;
+    font-weight: 650;
     letter-spacing: 0;
-    line-height: 1.05;
+    line-height: 1.12;
     animation: dropPulse 4s ease-in-out infinite;
   }
 
   .room-drop-text {
     color: var(--text-main);
     font-family: var(--font-display), sans-serif;
-    font-size: 38px;
+    font-size: 32px;
+    font-weight: 650;
     letter-spacing: 0;
-    line-height: 1.05;
+    line-height: 1.14;
     animation: dropPulse 4s ease-in-out infinite;
   }
 
@@ -403,8 +406,9 @@ select {
     place-items: center;
     border-radius: 999px;
     background: var(--surface-raised);
-    font-family: var(--font-mono), monospace;
+    font-family: var(--font-mono), sans-serif;
     font-size: 11px;
+    font-weight: 650;
   }
 
   .stats-strip {

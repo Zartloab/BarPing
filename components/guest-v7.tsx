@@ -168,7 +168,7 @@ export function CircleCard({
     .join("");
 
   return (
-    <button className="circle-card w-[75%] shrink-0 snap-start" onClick={onClick} type="button">
+    <button className="circle-card w-full" onClick={onClick} type="button">
       <span className="flex items-start gap-3">
         <span className="accent-dot shrink-0" style={{ borderColor: accent, color: accent }}>
           {initials}
