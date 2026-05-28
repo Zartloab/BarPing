@@ -88,23 +88,26 @@ export default function SignalPage() {
           - {signal.helloTemplates[0]} <span className="text-[var(--text-muted)]">suggested for {signal.name}</span>
         </p>
 
-      <div className="stagger-in mt-9 grid gap-4" style={{ animationDelay: "900ms" }}>
-        <GuestPrimaryButton disabled={!confirmed} onClick={enterRoom}>
-          That&apos;s me - I&apos;m in
-        </GuestPrimaryButton>
-        <GhostButton className="w-full" disabled={signal.redrawUsed} onClick={redrawOnce}>
-          {signal.redrawUsed ? "Redraw (used)" : "Not me - redraw once"}
-        </GhostButton>
-      </div>
+        <div className="stagger-in mt-9 grid gap-4" style={{ animationDelay: "900ms" }}>
+          <button
+            aria-pressed={confirmed}
+            className={`age-check ${confirmed ? "age-check-on" : ""}`}
+            onClick={() => setConfirmed((value) => !value)}
+            type="button"
+          >
+            <span className="age-check-box" aria-hidden="true">
+              {confirmed ? <Check size={14} strokeWidth={3} /> : null}
+            </span>
+            I&apos;m 18+ and I&apos;m here tonight
+          </button>
 
-      <button
-        className={`mt-7 inline-flex justify-center gap-2 text-[13px] ${confirmed ? "text-[var(--live)]" : "text-[var(--text-muted)]"}`}
-        onClick={() => setConfirmed(true)}
-        type="button"
-      >
-        {confirmed ? <Check size={16} /> : null}
-        I&apos;m 18+ and I&apos;m here tonight
-      </button>
+          <GuestPrimaryButton disabled={!confirmed} onClick={enterRoom}>
+            That&apos;s me - I&apos;m in
+          </GuestPrimaryButton>
+          <GhostButton className="w-full" disabled={signal.redrawUsed} onClick={redrawOnce}>
+            {signal.redrawUsed ? "Redraw used" : "Not me - redraw once"}
+          </GhostButton>
+        </div>
 
         <p className="guest-micro mt-12 text-[var(--text-muted)]">No names. No photos. Everything fades tonight.</p>
       </section>

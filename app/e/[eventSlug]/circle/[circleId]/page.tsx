@@ -84,7 +84,7 @@ export default function CirclePage() {
         </div>
 
         <button
-          className={`mt-5 flex w-full items-center justify-between rounded-[12px] border p-4 text-left ${
+          className={`mt-5 flex w-full items-center justify-between gap-4 rounded-[12px] border p-4 text-left text-[var(--text-main)] ${
             openToHello ? "border-[var(--live)] bg-[rgba(124,255,203,0.08)]" : "border-[var(--border-default)] bg-[var(--surface)]"
           }`}
           onClick={() => setOpenToHello((value) => !value)}
@@ -95,7 +95,7 @@ export default function CirclePage() {
             <span className="mt-1 block text-xs text-[var(--text-muted)]">They can say hi. You choose whether to reply.</span>
           </span>
           <span className={`h-6 w-10 rounded-full p-1 ${openToHello ? "bg-[var(--live)]" : "bg-[var(--surface-raised)]"}`}>
-            <span className={`block h-4 w-4 rounded-full bg-[var(--bg-main)] transition ${openToHello ? "translate-x-4" : ""}`} />
+            <span className={`block h-4 w-4 rounded-full transition ${openToHello ? "translate-x-4 bg-[var(--bg-main)]" : "bg-[var(--text-soft)]"}`} />
           </span>
         </button>
 

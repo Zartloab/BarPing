@@ -112,7 +112,7 @@ export function DropResponsePills({
             disabled={disabled}
             onClick={() => onSelect(key)}
             type="button"
-            className={`response-pill ${isSelected ? "response-pill-selected" : ""} ${selected && !isSelected ? "opacity-55" : ""}`}
+            className={`response-pill ${isSelected ? "response-pill-selected" : ""} ${selected && !isSelected ? "response-pill-muted" : ""}`}
           >
             {option}
           </button>
@@ -134,7 +134,7 @@ export function BottomSheet({
       <section className="bottom-sheet-panel" onClick={(event) => event.stopPropagation()}>
         <div className="mb-5 flex justify-end">
           <button
-            className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--text-muted)]"
+            className="guest-icon-button"
             onClick={onClose}
             type="button"
             aria-label="Close"
@@ -334,7 +334,7 @@ export function HelloSheet({
 
 export function BackLink({ href }: { href: string }) {
   return (
-    <a className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] text-[var(--text-soft)]" href={href} aria-label="Back">
+    <a className="guest-icon-button" href={href} aria-label="Back">
       <ArrowLeft size={18} />
     </a>
   );

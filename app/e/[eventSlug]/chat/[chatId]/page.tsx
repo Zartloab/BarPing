@@ -127,7 +127,7 @@ export default function ChatPage() {
             placeholder="Keep it easy..."
             className="min-w-0 flex-1 bg-transparent px-3 text-sm text-[var(--text-main)] outline-none placeholder:text-[var(--text-muted)]"
           />
-          <button className="rounded-[6px] bg-[var(--primary)] px-4 text-sm font-medium text-[var(--bg-main)]" type="submit">Send</button>
+          <button className="guest-send-button" type="submit">Send</button>
         </form>
       ) : null}
 
