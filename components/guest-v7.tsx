@@ -27,6 +27,15 @@ import {
 
 const circleAccents = ["var(--secondary)", "var(--live)", "var(--warning)"];
 
+export function guestPath(path: string) {
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  if (normalized === "/BarPing" || normalized.startsWith("/BarPing/")) return normalized;
+  if (typeof window !== "undefined") {
+    return `${window.location.pathname.startsWith("/BarPing") ? "/BarPing" : ""}${normalized}`;
+  }
+  return `${process.env.NODE_ENV === "production" ? "/BarPing" : ""}${normalized}`;
+}
+
 export function GuestShell({ children }: { children: React.ReactNode }) {
   return (
     <main className="guest-stage">
@@ -229,7 +238,7 @@ export function CirclePeekSheet({
     const next = Array.from(new Set([...existing, circle.id]));
     writeJsonStorage(key, next);
     persistCircleJoin({ eventId, circleId: circle.id, signalName: signal?.name });
-    window.location.href = `/e/${eventSlug}/circle/${circle.id}`;
+    window.location.href = guestPath(`/e/${eventSlug}/circle/${circle.id}`);
   }
 
   return (
@@ -334,7 +343,7 @@ export function HelloSheet({
 
 export function BackLink({ href }: { href: string }) {
   return (
-    <a className="guest-icon-button" href={href} aria-label="Back">
+    <a className="guest-icon-button" href={guestPath(href)} aria-label="Back">
       <ArrowLeft size={18} />
     </a>
   );

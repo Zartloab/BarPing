@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { guestPath } from "@/components/guest-v7";
 import { demoEvent } from "@/lib/demo-data";
 
 export default function JoinPage() {
@@ -17,7 +18,7 @@ export default function JoinPage() {
     <main className="guest-stage grid min-h-dvh place-items-center px-5 text-center">
       <div>
         <p className="font-display text-4xl">Opening the room...</p>
-        <a className="mt-5 block text-sm text-[var(--secondary)]" href={`/e/${eventSlug}`}>
+        <a className="mt-5 block text-sm text-[var(--secondary)]" href={guestPath(`/e/${eventSlug}`)}>
           Continue
         </a>
       </div>

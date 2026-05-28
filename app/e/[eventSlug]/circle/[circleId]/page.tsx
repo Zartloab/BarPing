@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { Flag, HelpCircle } from "lucide-react";
-import { BackLink, GuestPrimaryButton, GuestShell, HelloSheet, HelloUnlockHint, TopBar, hasHelloUnlocked, markHelloUnlocked } from "@/components/guest-v7";
+import { BackLink, GuestPrimaryButton, GuestShell, HelloSheet, HelloUnlockHint, TopBar, guestPath, hasHelloUnlocked, markHelloUnlocked } from "@/components/guest-v7";
 import { demoEvent, demoTables } from "@/lib/demo-data";
 import {
   circlesStorageKey,
@@ -114,7 +114,7 @@ export default function CirclePage() {
         ) : null}
 
         {!signal ? (
-          <a className="guest-primary mt-4" href={`/e/${eventSlug}/signal`}>
+          <a className="guest-primary mt-4" href={guestPath(`/e/${eventSlug}/signal`)}>
             Draw my Signal
           </a>
         ) : null}

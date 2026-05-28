@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { guestPath } from "@/components/guest-v7";
 import { demoEvent } from "@/lib/demo-data";
 
 export default function TableRedirectPage() {
@@ -18,7 +19,7 @@ export default function TableRedirectPage() {
     <main className="guest-stage grid min-h-dvh place-items-center px-5 text-center">
       <div>
         <p className="font-display text-4xl">Opening Circle...</p>
-        <a className="mt-5 block text-sm text-[var(--secondary)]" href={`/e/${eventSlug}/circle/${tableId}`}>
+        <a className="mt-5 block text-sm text-[var(--secondary)]" href={guestPath(`/e/${eventSlug}/circle/${tableId}`)}>
           Continue
         </a>
       </div>
