@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
-import { CirclePeekSheet, ActivityFeed, DropResponsePills, DropResponseSummary, IncomingHelloBar, LiveBar } from "@/components/guest-v7";
+import { CircleCard, CirclePeekSheet, ActivityFeed, DropResponsePills, DropResponseSummary, DropText, GuestShell, StatsStrip, TopBar } from "@/components/guest-v7";
 import { demoEvent, demoTables } from "@/lib/demo-data";
 import {
   dropResponseStorageKey,
@@ -39,16 +39,18 @@ export default function RoomPage() {
   }
 
   return (
-    <main className="guest-stage min-h-dvh">
-      <LiveBar realMode={realMode} signalCount={realMode ? 0 : 18} />
-      {!realMode ? <IncomingHelloBar eventId={demoEvent.id} eventSlug={eventSlug} /> : null}
+    <GuestShell>
+      <TopBar realMode={realMode} signalCount={realMode ? 0 : 18} />
 
-      <section className="flex min-h-[35dvh] flex-col justify-center px-4 py-7 text-center">
-        <h1 className="font-display drop-pulse mx-auto max-w-[390px] text-[40px] leading-[1.05]">{drop.text}</h1>
+      <section className="px-5 pb-7 pt-8 text-center">
+        <p className="guest-label text-[var(--primary)]">Tonight&apos;s Drop</p>
+        <div className="mx-auto mt-4 max-w-[360px]">
+          <DropText room>{drop.text}</DropText>
+        </div>
         <div className="mt-6">
           <DropResponsePills drop={drop} selected={selectedResponse} onSelect={respond} />
           {realMode ? (
-            <p className="mt-3 text-center text-sm text-[var(--text-muted)]">
+            <p className="guest-label mt-4 text-center text-[var(--text-muted)]">
               {selectedResponse ? "You're in." : "The room is warming up."}
             </p>
           ) : (
@@ -57,41 +59,24 @@ export default function RoomPage() {
         </div>
       </section>
 
-      <section className="px-4">
+      <section className="px-5">
+        <StatsStrip signals={realMode ? 0 : 18} circles={realMode ? 0 : demoTables.length} hellos={realMode ? 0 : 7} />
         <div className="mb-3 flex items-end justify-between">
-          <h2 className="font-display text-2xl">Circles</h2>
-          <p className="font-mono text-xs text-[var(--text-muted)]">
+          <h2 className="font-display mt-6 text-[28px] leading-none text-[var(--text-main)]">Circles</h2>
+          <p className="guest-label text-[var(--text-muted)]">
             {realMode ? "0 active" : `${demoTables.length} active`}
           </p>
         </div>
-        <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2">
+        <div className="-mx-5 flex snap-x gap-3 overflow-x-auto px-5 pb-2">
           {demoTables.map((circle, index) => {
-            const hot = circle.energyLevel === "Active";
-            const quiet = circle.energyLevel === "Quiet";
-            const accent = index % 3 === 0 ? "var(--secondary)" : index % 3 === 1 ? "var(--live)" : "var(--warning)";
             return (
-              <button
+              <CircleCard
                 key={circle.id}
-                className="min-h-[172px] w-[72%] shrink-0 snap-start rounded-[12px] border border-white/10 bg-[var(--surface-raised)] p-4 text-left shadow-soft"
-                style={{ borderLeft: `4px solid ${accent}` }}
+                circle={circle}
+                index={index}
+                count={realMode ? 0 : randomizedCounts[index]}
                 onClick={() => setPeekCircle(circle)}
-                type="button"
-              >
-                <span className="flex items-start justify-between gap-3">
-                  <span className="font-display text-[24px] leading-none">{circle.name}</span>
-                  {hot ? <span className="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--primary)]" /> : null}
-                </span>
-                <span className="mt-3 block text-sm leading-5 text-[var(--text-soft)]">{circle.prompt}</span>
-                <span className="font-mono mt-4 block text-xs text-[var(--text-muted)]">
-                  {realMode ? 0 : randomizedCounts[index]} signals
-                </span>
-                <span className="mt-3 flex gap-1.5">
-                  {["var(--secondary)", "var(--live)", "var(--warning)", "var(--primary)"].slice(0, 3 + (index % 2)).map((color, dotIndex) => (
-                    <span key={`${circle.id}-${dotIndex}`} className="h-2.5 w-2.5 rounded-full" style={{ background: color }} />
-                  ))}
-                </span>
-                {quiet ? <span className="mt-3 block text-xs text-[var(--text-muted)]">Start it?</span> : null}
-              </button>
+              />
             );
           })}
         </div>
@@ -111,6 +96,6 @@ export default function RoomPage() {
           onClose={() => setPeekCircle(null)}
         />
       ) : null}
-    </main>
+    </GuestShell>
   );
 }

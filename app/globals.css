@@ -23,6 +23,8 @@
   --secondary: #8EA7FF;
   --warning: #FFD166;
   --danger: #FF5C7A;
+  --border-default: #222A42;
+  --border-subtle: #171D32;
   --bp-canvas: #080b16;
   --bp-canvas-warm: #101527;
   --bp-surface-1: #171d32;
@@ -92,10 +94,7 @@ html {
 body {
   min-height: 100%;
   margin: 0;
-  background:
-    radial-gradient(circle at 18% 0%, rgba(255, 122, 107, 0.1), transparent 34%),
-    radial-gradient(circle at 86% 12%, rgba(142, 167, 255, 0.1), transparent 28%),
-    var(--bp-canvas);
+  background: var(--bg-main);
   color: var(--bp-ink);
   font-family: var(--font-body), sans-serif;
   font-size: 14px;
@@ -133,9 +132,215 @@ select {
   }
 
   .guest-stage {
+    display: flex;
+    justify-content: center;
     min-height: 100dvh;
     background: var(--bg-main);
     color: var(--text-main);
+    font-family: var(--font-body), sans-serif;
+  }
+
+  .guest-shell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 430px;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    background: var(--bg-main);
+  }
+
+  @media (min-width: 768px) {
+    .guest-shell {
+      border-left: 1px solid var(--border-subtle);
+      border-right: 1px solid var(--border-subtle);
+    }
+  }
+
+  .guest-top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-main);
+    padding: 0 20px;
+  }
+
+  .guest-label {
+    font-family: var(--font-mono), monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .guest-micro {
+    font-family: var(--font-mono), monospace;
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  .drop-text {
+    color: var(--text-main);
+    font-family: var(--font-display), sans-serif;
+    font-size: 44px;
+    letter-spacing: 0;
+    line-height: 1.05;
+    animation: dropPulse 4s ease-in-out infinite;
+  }
+
+  .room-drop-text {
+    color: var(--text-main);
+    font-family: var(--font-display), sans-serif;
+    font-size: 38px;
+    letter-spacing: 0;
+    line-height: 1.05;
+    animation: dropPulse 4s ease-in-out infinite;
+  }
+
+  .response-pill {
+    min-height: 38px;
+    border: 1px solid var(--border-default);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-soft);
+    font-size: 13px;
+    font-weight: 400;
+    padding: 9px 16px;
+    transition: border-color 120ms ease, color 120ms ease, background-color 120ms ease, transform 120ms ease;
+  }
+
+  .response-pill:hover {
+    border-color: var(--primary);
+    color: var(--text-main);
+  }
+
+  .response-pill:active {
+    transform: scale(0.96);
+  }
+
+  .response-pill-selected {
+    border-color: var(--primary);
+    background: rgba(255, 122, 107, 0.12);
+    color: var(--text-main);
+  }
+
+  .guest-primary {
+    display: inline-flex;
+    min-height: 52px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 6px;
+    background: var(--primary);
+    color: var(--bg-main);
+    font-size: 15px;
+    font-weight: 700;
+    transition: background-color 120ms ease, transform 120ms ease, opacity 120ms ease;
+  }
+
+  .guest-primary:hover {
+    background: #ff8f82;
+  }
+
+  .guest-primary:active {
+    transform: scale(0.98);
+  }
+
+  .guest-primary:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+  }
+
+  .guest-ghost {
+    border: 0;
+    background: transparent;
+    color: var(--text-soft);
+    font-size: 13px;
+    font-weight: 400;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .guest-ghost:disabled {
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+
+  .circle-card {
+    border: 1px solid var(--border-default);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 16px 18px;
+    text-align: left;
+    transition: background-color 150ms ease, border-color 150ms ease, transform 120ms ease;
+  }
+
+  .circle-card:hover {
+    background: var(--surface-raised);
+  }
+
+  .circle-card:active {
+    transform: scale(0.99);
+  }
+
+  .accent-dot {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--surface-raised);
+    font-family: var(--font-mono), monospace;
+    font-size: 11px;
+  }
+
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border: 1px solid var(--border-default);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  .stats-strip > * + * {
+    border-left: 1px solid var(--border-default);
+  }
+
+  .bottom-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background: rgba(8, 11, 22, 0.7);
+    animation: fadeIn 200ms ease-out both;
+  }
+
+  .bottom-sheet-panel {
+    width: 100%;
+    max-width: 430px;
+    max-height: 70dvh;
+    overflow-y: auto;
+    border-top: 1px solid var(--border-default);
+    border-radius: 16px 16px 0 0;
+    background: var(--surface);
+    padding: 24px 24px calc(36px + env(safe-area-inset-bottom));
+    animation: sheetIn 220ms ease-out both;
+    will-change: transform;
+  }
+
+  .stagger-in {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: staggerIn 400ms ease-out forwards;
   }
 
   .drop-pulse {
@@ -143,6 +348,8 @@ select {
   }
 
   .live-dot {
+    width: 7px;
+    height: 7px;
     background: var(--live);
     animation: livePulse 2s ease-out infinite;
   }
@@ -277,9 +484,8 @@ select {
 }
 
 @keyframes livePulse {
-  0% { box-shadow: 0 0 0 0 rgba(124, 255, 203, 0.5); }
-  70% { box-shadow: 0 0 0 12px rgba(124, 255, 203, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(124, 255, 203, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 255, 203, 0.5); }
+  50% { box-shadow: 0 0 0 5px rgba(124, 255, 203, 0); }
 }
 
 @keyframes sheetIn {
@@ -303,4 +509,14 @@ select {
   0% { opacity: 0; transform: translateY(12px); }
   12%, 78% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes staggerIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }

@@ -19,19 +19,75 @@ import {
   type SignalIdentity,
   writeJsonStorage
 } from "@/lib/signal-night";
-import { isRealSupabaseMode, persistCircleJoin, persistHelloDecision, persistHelloSend, persistTemporaryChatStart } from "@/lib/signal-night-client";
-import { PrimaryButton } from "@/components/ui/buttons";
+import {
+  isRealSupabaseMode,
+  persistCircleJoin,
+  persistHelloSend
+} from "@/lib/signal-night-client";
 
-export function LiveBar({ signalCount = 18, realMode = false }: { signalCount?: number; realMode?: boolean }) {
+const circleAccents = ["var(--secondary)", "var(--live)", "var(--warning)"];
+
+export function GuestShell({ children }: { children: React.ReactNode }) {
   return (
-    <header className="sticky top-0 z-40 flex h-12 items-center justify-between border-b border-white/10 bg-[#080B16]/95 px-4 backdrop-blur">
-      <p className="truncate text-sm text-[var(--text-soft)]">{demoVenue.name}</p>
-      <p className="font-mono flex items-center gap-2 text-xs text-[var(--text-soft)]">
-        <span className="live-dot h-2.5 w-2.5 rounded-full" />
+    <main className="guest-stage">
+      <div className="guest-shell">{children}</div>
+    </main>
+  );
+}
+
+export function TopBar({
+  signalCount = 18,
+  realMode = false,
+  showBorder = true,
+  leftAction
+}: {
+  signalCount?: number;
+  realMode?: boolean;
+  showBorder?: boolean;
+  leftAction?: React.ReactNode;
+}) {
+  return (
+    <header className={`guest-top-bar ${showBorder ? "" : "border-b-0"}`}>
+      <div className="flex min-w-0 items-center gap-3">
+        {leftAction}
+        <p className="guest-label truncate text-[var(--text-muted)]">{demoVenue.name}</p>
+      </div>
+      <p className="guest-label flex items-center gap-2 text-[var(--live)]">
+        <span className="live-dot rounded-full" />
         {realMode ? signalCount : 18} signals
       </p>
     </header>
   );
+}
+
+export const LiveBar = TopBar;
+
+export function GuestPrimaryButton({
+  children,
+  className = "",
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { children: React.ReactNode }) {
+  return (
+    <button className={`guest-primary ${className}`} type="button" {...props}>
+      {children}
+    </button>
+  );
+}
+
+export function GhostButton({
+  children,
+  className = "",
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { children: React.ReactNode }) {
+  return (
+    <button className={`guest-ghost ${className}`} type="button" {...props}>
+      {children}
+    </button>
+  );
+}
+
+export function DropText({ children, room = false }: { children: React.ReactNode; room?: boolean }) {
+  return <h1 className={`${room ? "room-drop-text" : "drop-text"} text-center`}>{children}</h1>;
 }
 
 export function DropResponsePills({
@@ -56,13 +112,7 @@ export function DropResponsePills({
             disabled={disabled}
             onClick={() => onSelect(key)}
             type="button"
-            className={`min-h-11 rounded-full border px-4 py-2 text-sm transition active:scale-[0.96] ${
-              isSelected
-                ? "border-[var(--primary)] bg-[rgba(255,122,107,0.2)] text-[var(--text-main)]"
-                : selected
-                  ? "border-[var(--surface-raised)] text-[var(--text-muted)] opacity-55"
-                  : "border-[var(--surface-raised)] text-[var(--text-soft)]"
-            }`}
+            className={`response-pill ${isSelected ? "response-pill-selected" : ""} ${selected && !isSelected ? "opacity-55" : ""}`}
           >
             {option}
           </button>
@@ -72,21 +122,88 @@ export function DropResponsePills({
   );
 }
 
-export function BottomSheet({ children, onClose, height = "65%" }: { children: React.ReactNode; onClose: () => void; height?: string }) {
+export function BottomSheet({
+  children,
+  onClose
+}: {
+  children: React.ReactNode;
+  onClose: () => void;
+}) {
   return (
-    <div className="fixed inset-0 z-50 flex items-end bg-black/45" onClick={onClose}>
-      <section
-        className="bottom-sheet w-full rounded-t-[18px] border border-white/10 bg-[var(--surface)] p-4 shadow-soft"
-        style={{ minHeight: height }}
-        onClick={(event) => event.stopPropagation()}
-      >
-        <div className="mb-4 flex justify-end">
-          <button className="grid h-9 w-9 place-items-center rounded-full bg-[var(--surface-raised)] text-[var(--text-muted)]" onClick={onClose} type="button" aria-label="Close">
+    <div className="bottom-sheet-backdrop" onClick={onClose}>
+      <section className="bottom-sheet-panel" onClick={(event) => event.stopPropagation()}>
+        <div className="mb-5 flex justify-end">
+          <button
+            className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--text-muted)]"
+            onClick={onClose}
+            type="button"
+            aria-label="Close"
+          >
             <X size={16} />
           </button>
         </div>
         {children}
       </section>
+    </div>
+  );
+}
+
+export function CircleCard({
+  circle,
+  index,
+  count,
+  onClick
+}: {
+  circle: EventTable;
+  index: number;
+  count: number;
+  onClick: () => void;
+}) {
+  const accent = circleAccents[index % circleAccents.length];
+  const initials = circle.name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0]?.toUpperCase())
+    .join("");
+
+  return (
+    <button className="circle-card w-[75%] shrink-0 snap-start" onClick={onClick} type="button">
+      <span className="flex items-start gap-3">
+        <span className="accent-dot shrink-0" style={{ borderColor: accent, color: accent }}>
+          {initials}
+        </span>
+        <span className="min-w-0">
+          <span className="font-display block text-[24px] leading-[1.05] text-[var(--text-main)]">{circle.name}</span>
+          <span className="mt-2 block text-[13px] leading-5 text-[var(--text-soft)]">{circle.prompt}</span>
+          <span className="guest-label mt-4 block text-[var(--text-muted)]">{count} signals</span>
+        </span>
+      </span>
+    </button>
+  );
+}
+
+export function StatsStrip({
+  signals,
+  circles,
+  hellos
+}: {
+  signals: number;
+  circles: number;
+  hellos: number;
+}) {
+  return (
+    <div className="stats-strip">
+      {[
+        ["Signals", signals],
+        ["Circles", circles],
+        ["Hellos", hellos]
+      ].map(([label, value]) => (
+        <div key={label} className="px-3 py-3 text-center">
+          <p className="font-display text-[28px] leading-none text-[var(--text-main)]">{value}</p>
+          <p className="guest-micro mt-2 uppercase tracking-[0.1em] text-[var(--text-muted)]">{label}</p>
+        </div>
+      ))}
     </div>
   );
 }
@@ -117,19 +234,19 @@ export function CirclePeekSheet({
 
   return (
     <BottomSheet onClose={onClose}>
-      <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--secondary)]">Peek Circle</p>
-      <h2 className="font-display mt-2 text-4xl leading-none">{circle.name}</h2>
-      <p className="mt-3 text-sm leading-6 text-[var(--text-soft)]">{circle.prompt}</p>
-      <div className="relative mt-5 grid gap-3 overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-[var(--surface)] to-transparent" />
+      <p className="guest-label text-[var(--secondary)]">Peek Circle</p>
+      <h2 className="font-display mt-3 text-[28px] leading-[1.05] text-[var(--text-main)]">{circle.name}</h2>
+      <p className="mt-3 text-[15px] leading-6 text-[var(--text-soft)]">{circle.prompt}</p>
+      <div className="relative mt-5 grid gap-2 overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-8 bg-[linear-gradient(to_bottom,var(--surface),rgba(23,29,50,0))]" />
         {messages.slice(0, 3).map((message) => (
-          <p key={`${message.signal}-${message.body}`} className="rounded-[10px] bg-[var(--surface-raised)] px-3 py-2 text-sm text-[var(--text-soft)]">
-            <span className="text-[var(--text-main)]">{message.signal}</span> {message.body}
+          <p key={`${message.signal}-${message.body}`} className="rounded-[8px] bg-[var(--surface-raised)] px-3 py-2 text-[13px] leading-5 text-[var(--text-soft)]">
+            <span className="font-medium text-[var(--text-main)]">{message.signal}:</span> {message.body}
           </p>
         ))}
       </div>
-      <PrimaryButton className="mt-6 w-full" onClick={joinCircle}>Join this Circle</PrimaryButton>
-      <button className="mt-4 w-full text-sm text-[var(--text-muted)]" onClick={onClose} type="button">Maybe later</button>
+      <GuestPrimaryButton className="mt-6" onClick={joinCircle}>Join this Circle</GuestPrimaryButton>
+      <GhostButton className="mt-4 w-full" onClick={onClose}>Maybe later</GhostButton>
     </BottomSheet>
   );
 }
@@ -154,14 +271,12 @@ export function ActivityFeed() {
     return () => window.cancelAnimationFrame(frame);
   }, [realMode]);
 
-  if (realMode) {
-    return <p className="px-4 py-5 text-sm text-[var(--text-muted)]">The room is warming up.</p>;
-  }
-
   return (
-    <section className="px-4 py-5">
-      <p className="font-mono mb-3 text-xs uppercase tracking-[0.18em] text-[var(--text-muted)]">Room traces</p>
-      <p key={index} className="activity-item text-sm text-[var(--text-soft)]">{activityFeedItems[index]}</p>
+    <section className="px-5 pb-8 pt-6">
+      <p className="guest-label mb-3 text-[var(--text-muted)]">Room traces</p>
+      <p key={index} className="activity-item text-[13px] leading-5 text-[var(--text-muted)]">
+        {realMode ? "The room is warming up." : activityFeedItems[index]}
+      </p>
     </section>
   );
 }
@@ -188,18 +303,20 @@ export function HelloSheet({
   }
 
   return (
-    <BottomSheet onClose={onClose} height="58%">
-      <div className="rounded-[12px] border border-[var(--primary)]/40 bg-[rgba(255,122,107,0.08)] p-4">
-        <p className="text-lg leading-7 text-[var(--text-main)]">&quot;{starters[0]}&quot;</p>
-        <p className="mt-2 text-sm text-[var(--text-muted)]">Suggested for {signal.name}</p>
+    <BottomSheet onClose={onClose}>
+      <div className="rounded-[12px] border border-[var(--border-default)] bg-[var(--surface-raised)] p-4">
+        <p className="text-[16px] italic leading-7 text-[var(--secondary)]">&quot;{starters[0]}&quot;</p>
+        <p className="guest-micro mt-2 uppercase tracking-[0.1em] text-[var(--text-muted)]">Suggested for {signal.name}</p>
       </div>
-      <h3 className="mt-5 text-sm font-bold text-[var(--text-soft)]">Or pick a different one:</h3>
+      <h3 className="mt-5 text-[14px] font-medium text-[var(--text-soft)]">Or pick a different one:</h3>
       <div className="mt-3 grid gap-2">
         {starters.slice(1).map((starter) => (
           <button
             key={starter}
-            className={`rounded-[8px] border bg-[var(--surface-raised)] p-3 text-left text-sm transition ${
-              selected === starter ? "border-[var(--primary)] bg-[rgba(255,122,107,0.1)]" : "border-white/10 text-[var(--text-soft)]"
+            className={`rounded-[8px] border p-3 text-left text-[13px] leading-5 transition ${
+              selected === starter
+                ? "border-[var(--primary)] bg-[rgba(255,122,107,0.1)] text-[var(--text-main)]"
+                : "border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--text-soft)]"
             }`}
             onClick={() => setSelected(starter)}
             type="button"
@@ -208,54 +325,16 @@ export function HelloSheet({
           </button>
         ))}
       </div>
-      <PrimaryButton className="mt-5 w-full" onClick={sendHello} disabled={sent}>
+      <GuestPrimaryButton className="mt-5" onClick={sendHello} disabled={sent}>
         {sent ? <span className="hello-check inline-flex items-center gap-2">Sent <Check size={17} /></span> : "Send Hello"}
-      </PrimaryButton>
+      </GuestPrimaryButton>
     </BottomSheet>
-  );
-}
-
-export function IncomingHelloBar({ eventId, eventSlug }: { eventId: string; eventSlug: string }) {
-  const [open, setOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const helloId = "demo-incoming-hello";
-
-  if (hidden) return null;
-
-  function reply() {
-    persistHelloDecision({ eventId, helloId, status: "accepted" });
-    persistTemporaryChatStart({ eventId, helloId, otherSignal: "The Cassette" });
-    window.location.href = `/e/${eventSlug}/chat/demo-chat`;
-  }
-
-  return (
-    <>
-      <div className="sticky top-12 z-30 border-b border-[var(--primary)] bg-[var(--surface-raised)] px-4 py-3">
-        <p className="text-sm text-[var(--text-soft)]">The Cassette said hello in The B-Side</p>
-        <div className="mt-2 flex gap-3 text-sm">
-          <button className="font-bold text-[var(--primary)]" onClick={() => setOpen(true)} type="button">See it</button>
-          <button className="text-[var(--text-muted)]" onClick={() => setHidden(true)} type="button">Maybe later</button>
-        </div>
-      </div>
-      {open ? (
-        <BottomSheet onClose={() => setOpen(false)} height="45%">
-          <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--secondary)]">The Cassette</p>
-          <h2 className="mt-3 text-2xl leading-tight">&quot;What song saves this room?&quot;</h2>
-          <PrimaryButton className="mt-6 w-full" onClick={reply}>Reply</PrimaryButton>
-          <button className="mt-4 w-full text-sm text-[var(--text-muted)]" onClick={() => setOpen(false)} type="button">Not right now</button>
-          <button className="mt-5 w-full text-xs text-[var(--danger)]" onClick={() => {
-            persistHelloDecision({ eventId, helloId, status: "blocked" });
-            setHidden(true);
-          }} type="button">Block</button>
-        </BottomSheet>
-      ) : null}
-    </>
   );
 }
 
 export function BackLink({ href }: { href: string }) {
   return (
-    <a className="inline-grid h-10 w-10 place-items-center rounded-full bg-[var(--surface-raised)] text-[var(--text-soft)]" href={href} aria-label="Back">
+    <a className="grid h-9 w-9 place-items-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] text-[var(--text-soft)]" href={href} aria-label="Back">
       <ArrowLeft size={18} />
     </a>
   );
@@ -264,7 +343,7 @@ export function BackLink({ href }: { href: string }) {
 export function HelloUnlockHint({ unlocked, onInfo }: { unlocked: boolean; onInfo: () => void }) {
   if (unlocked) return null;
   return (
-    <p className="flex items-center justify-center gap-2 py-4 text-sm text-[var(--text-muted)]">
+    <p className="flex items-center justify-center gap-2 py-4 text-[13px] text-[var(--text-muted)]">
       You&apos;ve just arrived - look around.
       <button className="text-[var(--secondary)]" onClick={onInfo} type="button" aria-label="Hello info">
         <HelpCircle size={15} />
@@ -296,7 +375,7 @@ export function hasHelloUnlocked(eventSlug: string, circleId: string) {
 
 export function DropResponseSummary({ drop, response }: { drop: EventDrop; response: DropResponse | null }) {
   return (
-    <p className="mt-3 text-center text-sm text-[var(--text-muted)]">
+    <p className="guest-label mt-4 text-center text-[var(--text-muted)]">
       {response ? `${selectedResponseLabel(drop, response)} got you in.` : `${responseCount(drop)} people responded`}
     </p>
   );

@@ -2,8 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
-import { BackLink } from "@/components/guest-v7";
-import { PrimaryButton } from "@/components/ui/buttons";
+import { BackLink, GuestPrimaryButton, GuestShell, TopBar } from "@/components/guest-v7";
 import { demoEvent, demoGuests, demoMessages } from "@/lib/demo-data";
 import { containsAbusePlaceholder } from "@/lib/safety";
 import type { ChatMessage } from "@/lib/types";
@@ -52,37 +51,35 @@ export default function ChatPage() {
   }
 
   return (
-    <main className="guest-stage flex min-h-dvh flex-col">
-      <div className="fixed inset-x-0 top-0 z-50 h-1 bg-[var(--surface-raised)]">
+    <GuestShell>
+      <div className="absolute inset-x-0 top-0 z-50 h-1 bg-[var(--surface-raised)]">
         <div
           className={`h-full transition-transform duration-1000 ${remainingRatio <= 0.2 ? "bg-[var(--primary)]" : "bg-[var(--live)]"}`}
           style={{ transformOrigin: "left", transform: `scaleX(${remainingRatio})` }}
         />
       </div>
 
-      <header className="sticky top-1 z-40 flex items-center justify-between border-b border-white/10 bg-[#080B16]/95 px-4 py-3 backdrop-blur">
-        <div className="flex items-center gap-3">
-          <BackLink href={`/e/${eventSlug}/room`} />
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--secondary)]">Temporary chat</p>
-            <h1 className="text-base font-bold">{other.alias}</h1>
-          </div>
+      <TopBar leftAction={<BackLink href={`/e/${eventSlug}/room`} />} />
+      <div className="flex items-center justify-between border-b border-[var(--border-subtle)] px-5 py-4">
+        <div>
+          <p className="guest-label text-[var(--secondary)]">Temporary chat</p>
+          <h1 className="mt-1 font-display text-[18px] text-[var(--text-main)]">{other.alias}</h1>
         </div>
-        <button className="text-sm text-[var(--text-muted)]" onClick={() => setEnded(true)} type="button">End</button>
-      </header>
+        <button className="guest-micro uppercase tracking-[0.1em] text-[var(--danger)]" onClick={() => setEnded(true)} type="button">End</button>
+      </div>
 
       <section className={`scrollbar-warm flex-1 space-y-3 overflow-y-auto px-4 py-5 transition duration-700 ${expired ? "grayscale" : ""}`}>
-        <p className="mx-auto max-w-[280px] rounded-[10px] border border-white/10 bg-[var(--surface)] px-3 py-2 text-center text-xs text-[var(--text-muted)]">
+        <p className="guest-micro mx-auto max-w-[280px] rounded-[10px] border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-center uppercase tracking-[0.08em] text-[var(--text-muted)]">
           Hello accepted. Keep it easy. No pressure.
         </p>
 
         {messages.map((message) => (
           <div key={message.id} className={`flex ${message.sender === "me" ? "justify-end" : message.sender === "system" ? "justify-center" : "justify-start"}`}>
             <p className={`max-w-[82%] rounded-[16px] px-4 py-3 text-sm leading-6 ${
-              message.sender === "me"
-                ? "bg-[var(--primary)] text-[var(--bg-main)]"
-                : message.sender === "system"
-                  ? "border border-white/10 bg-[var(--surface)] text-center text-[var(--text-muted)]"
+                message.sender === "me"
+                  ? "bg-[var(--primary)] text-[var(--bg-main)]"
+                  : message.sender === "system"
+                  ? "border border-[var(--border-default)] bg-[var(--surface)] text-center text-[var(--text-muted)]"
                   : "bg-[var(--surface-raised)] text-[var(--text-soft)]"
             }`}>
               {message.body}
@@ -97,15 +94,15 @@ export default function ChatPage() {
             <div className="mt-7 animate-[sheetIn_500ms_ease-out_both]">
               {bothAgreed ? (
                 <div className="rounded-[12px] border border-[var(--live)]/35 bg-[rgba(124,255,203,0.08)] p-4">
-                  <p className="font-bold text-[var(--live)]">You both agreed.</p>
+                  <p className="font-medium text-[var(--live)]">You both agreed.</p>
                   <p className="mt-2 text-sm text-[var(--text-muted)]">What happens next is up to you.</p>
                 </div>
               ) : (
                 <>
                   <p className="text-sm text-[var(--text-soft)]">Keep in touch? You both need to agree.</p>
-                  <PrimaryButton className="mt-4 w-full" disabled={keepWanted} onClick={() => setKeepWanted(true)}>
+                  <GuestPrimaryButton className="mt-4" disabled={keepWanted} onClick={() => setKeepWanted(true)}>
                     {keepWanted ? "Waiting..." : "I'd like that"}
-                  </PrimaryButton>
+                  </GuestPrimaryButton>
                   <p className="mt-3 text-xs text-[var(--text-muted)]">If they tap this too, something happens.</p>
                 </>
               )}
@@ -118,7 +115,7 @@ export default function ChatPage() {
 
       {!expired ? (
         <form
-          className="mx-4 mb-3 flex gap-2 rounded-[10px] border border-white/10 bg-[var(--surface-raised)] p-2"
+          className="mx-4 mb-3 flex gap-2 rounded-[10px] border border-[var(--border-default)] bg-[var(--surface-raised)] p-2"
           onSubmit={(event) => {
             event.preventDefault();
             sendMessage();
@@ -130,11 +127,11 @@ export default function ChatPage() {
             placeholder="Keep it easy..."
             className="min-w-0 flex-1 bg-transparent px-3 text-sm text-[var(--text-main)] outline-none placeholder:text-[var(--text-muted)]"
           />
-          <button className="rounded-[6px] bg-[var(--primary)] px-4 text-sm font-bold text-[var(--bg-main)]" type="submit">Send</button>
+          <button className="rounded-[6px] bg-[var(--primary)] px-4 text-sm font-medium text-[var(--bg-main)]" type="submit">Send</button>
         </form>
       ) : null}
 
       <button className="mb-5 text-center text-xs text-[var(--danger)]" type="button">Report</button>
-    </main>
+    </GuestShell>
   );
 }

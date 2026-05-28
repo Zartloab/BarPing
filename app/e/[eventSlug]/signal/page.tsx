@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Check } from "lucide-react";
-import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
+import { GhostButton, GuestPrimaryButton, GuestShell, TopBar } from "@/components/guest-v7";
 import { demoEvent } from "@/lib/demo-data";
 import { persistDropResponse } from "@/lib/signal-night-client";
 import {
@@ -66,37 +66,39 @@ export default function SignalPage() {
   }
 
   return (
-    <main className="guest-stage flex min-h-dvh flex-col justify-center px-5 py-6 text-center">
-      <p className="text-sm text-[var(--text-soft)]">Tonight you&apos;re...</p>
+    <GuestShell>
+      <TopBar />
+      <section className="flex min-h-[calc(100dvh-48px)] flex-col justify-center px-5 py-6 text-center">
+        <p className="guest-label stagger-in text-[var(--text-muted)]" style={{ animationDelay: "100ms" }}>Tonight you&apos;re...</p>
 
-      <section className={`${revealed ? "signal-reveal" : "opacity-0"} mt-5`}>
-        <h1 className="font-display text-[64px] leading-[0.95] text-[var(--text-main)]">{signal.name}</h1>
-        <p className="mt-5 text-base text-[var(--text-muted)]">{signal.vibe}</p>
+        <div className={`${revealed ? "signal-reveal" : "opacity-0"} mt-5`}>
+          <h1 className="font-display text-[64px] leading-[0.95] text-[var(--text-main)]">{signal.name}</h1>
+        </div>
+        <p className="stagger-in mt-5 text-[16px] text-[var(--text-muted)]" style={{ animationDelay: "300ms" }}>{signal.vibe}</p>
 
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <div className="stagger-in mt-6 flex flex-wrap justify-center gap-2" style={{ animationDelay: "550ms" }}>
           {signal.suggestedCircles.map((circle) => (
-            <span key={circle} className="rounded-[4px] border border-white/25 bg-[var(--surface)] px-2.5 py-1 text-xs text-[var(--text-soft)]">
+            <span key={circle} className="guest-micro rounded-[4px] border border-[var(--border-default)] bg-transparent px-2 py-1 uppercase tracking-[0.08em] text-[var(--text-muted)]">
               {circle}
             </span>
           ))}
         </div>
 
-        <p className="mt-7 text-sm italic text-[var(--secondary)]">
+        <p className="stagger-in mt-7 text-[14px] italic text-[var(--secondary)]" style={{ animationDelay: "750ms" }}>
           - {signal.helloTemplates[0]} <span className="text-[var(--text-muted)]">suggested for {signal.name}</span>
         </p>
-      </section>
 
-      <div className="mt-9 grid gap-3">
-        <PrimaryButton className="w-full" disabled={!confirmed} onClick={enterRoom}>
+      <div className="stagger-in mt-9 grid gap-4" style={{ animationDelay: "900ms" }}>
+        <GuestPrimaryButton disabled={!confirmed} onClick={enterRoom}>
           That&apos;s me - I&apos;m in
-        </PrimaryButton>
-        <SecondaryButton className={`w-full ${signal.redrawUsed ? "line-through" : ""}`} disabled={signal.redrawUsed} onClick={redrawOnce}>
+        </GuestPrimaryButton>
+        <GhostButton className="w-full" disabled={signal.redrawUsed} onClick={redrawOnce}>
           {signal.redrawUsed ? "Redraw (used)" : "Not me - redraw once"}
-        </SecondaryButton>
+        </GhostButton>
       </div>
 
       <button
-        className={`mt-6 inline-flex justify-center gap-2 text-sm ${confirmed ? "text-[var(--text-soft)]" : "text-[var(--text-muted)]"}`}
+        className={`mt-7 inline-flex justify-center gap-2 text-[13px] ${confirmed ? "text-[var(--live)]" : "text-[var(--text-muted)]"}`}
         onClick={() => setConfirmed(true)}
         type="button"
       >
@@ -104,7 +106,8 @@ export default function SignalPage() {
         I&apos;m 18+ and I&apos;m here tonight
       </button>
 
-      <p className="mt-12 text-xs text-[var(--text-muted)]">No names. No photos. Everything fades tonight.</p>
-    </main>
+        <p className="guest-micro mt-12 text-[var(--text-muted)]">No names. No photos. Everything fades tonight.</p>
+      </section>
+    </GuestShell>
   );
 }
