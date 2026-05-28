@@ -51,9 +51,10 @@ const config: Config = {
         soft: "0 24px 80px rgba(0,0,0,0.24)"
       },
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "Inter", "system-ui", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
-        serif: ["var(--font-instrument-serif)", "Georgia", "serif"]
+        sans: ["var(--font-body)", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
+        serif: ["var(--font-display)", "sans-serif"],
+        display: ["var(--font-display)", "sans-serif"]
       }
     }
   },

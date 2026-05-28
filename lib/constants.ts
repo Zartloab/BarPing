@@ -54,12 +54,12 @@ export const openerChips = [
 
 export const launchKit = {
   tableQr: "The room has a hidden layer tonight.\n\nScan the QR. Draw a Signal. Join a Circle.",
-  entrancePoster: "The room is live tonight.\n\nDraw a Signal. Follow the Drop. Everything fades tonight.",
+  entrancePoster: "The room is live tonight.\n\nAnswer the Drop. Draw a Signal. Gone by last call.",
   staffScript:
     "We're running BarPing tonight. Guests scan the QR, draw a temporary Signal, follow the Drop, and join a Circle. No photos or real names.",
   safetyCard:
     "Respect the room.\nNo pressure, harassment, hate, or creepy behaviour.\nYou can ignore, block, or report anytime.",
-  instagramStory: "Tonight: the room is live.\n\nScan in at the bar.\nNo swiping. No photos. Everything fades tonight.",
+  instagramStory: "Tonight: the room is live.\n\nScan in at the bar.\nNo apps. No photos. Gone by last call.",
   runOfShow:
     "7:00 PM: QR signs visible, staff briefed.\n7:30 PM: Start room.\n7:45 PM: First Drop.\n8:15 PM: Feature a Circle.\n8:45 PM: Optional Hellos stay contextual and mutual.\n9:15 PM: Final Drop.\n9:30 PM: Close room and open recap.",
   staffIntro:

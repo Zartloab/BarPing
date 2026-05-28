@@ -11,9 +11,9 @@ export default function HomePage() {
         <div className="pt-10">
           <p className="text-sm font-medium text-venue-muted">{demoVenue.name}</p>
           <h1 className="mt-4 font-serif text-5xl leading-none text-venue-cream">The room has a hidden layer.</h1>
-          <p className="mt-5 text-lg leading-7 text-venue-muted">
-            Scan the QR, draw your Signal, follow the Drop, join a Circle, and send a Hello if it feels right.
-          </p>
+        <p className="mt-5 text-lg leading-7 text-venue-muted">
+          Scan the QR, answer the Drop, draw your Signal, and step into the room.
+        </p>
 
           <div className="mt-8 grid gap-3">
             <PrimaryLink href={`/e/${demoEvent.slug}`}>Open Signal Night</PrimaryLink>
@@ -26,7 +26,7 @@ export default function HomePage() {
         <div className="pb-2">
           {isDemoMode() ? (
             <p className="mb-3 rounded-[999px] border border-venue-soft bg-venue-card px-4 py-2 text-center text-xs text-venue-muted">
-              Demo mode active.
+              Demo data active.
             </p>
           ) : null}
           <SafetyNotice compact />

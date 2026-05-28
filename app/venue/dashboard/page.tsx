@@ -24,7 +24,7 @@ export default function VenueDashboardPage() {
       <MotionShell className="py-2">
         {isDemoMode() ? (
           <div className="mb-4 rounded-[10px] border border-venue-soft bg-venue-raised px-3 py-2 text-sm text-venue-muted">
-            Demo mode is active. Supabase env vars are missing, so tonight&apos;s run sheet uses local demo data.
+            Demo data is active. Supabase env vars are missing, so tonight&apos;s run sheet uses local data.
           </div>
         ) : null}
         <VenueNightDashboard

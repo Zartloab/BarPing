@@ -7,6 +7,7 @@ export type FindMeStatus = "requested" | "active" | "ended" | "expired" | "repor
 export type VenueVibeLevel = "Calm" | "Social" | "Mixer";
 export type GuestEntryChoice = "Join a table" | "Open to pings" | "Just browse";
 export type TableEnergy = "Quiet" | "Warming up" | "Active";
+export type DropResponse = "option_a" | "option_b" | "option_c";
 export type EventRecommendation =
   | "Good pilot signal"
   | "Run again with stronger signage"
@@ -85,19 +86,22 @@ export type EventSignal = {
   expiresAt: string;
 };
 
-export type DropStatus = "draft" | "live" | "expired";
+export type DropStatus = "upcoming" | "active" | "closed";
 
 export type EventDrop = {
   id: string;
-  eventId: string;
-  title: string;
-  body: string;
-  actionLabels: string[];
-  relatedCircleId?: string;
+  eventId?: string;
+  text: string;
+  responseOptions: [string, string, string];
+  responseCounts: { option_a: number; option_b: number; option_c: number };
   status: DropStatus;
-  startsAt: string;
-  expiresAt: string;
-  createdAt: string;
+  title?: string;
+  body?: string;
+  actionLabels?: string[];
+  relatedCircleId?: string;
+  startsAt?: string;
+  expiresAt?: string;
+  createdAt?: string;
 };
 
 export type HelloStatus = "pending" | "accepted" | "declined" | "blocked" | "expired";

@@ -10,7 +10,7 @@ export default function PrivacyPage() {
         <h1 className="mt-4 font-serif text-5xl leading-none">Temporary by design.</h1>
         <div className="mt-6 glass-card rounded-[28px] p-5">
           <p className="leading-relaxed text-venue-muted">
-            BarPing does not show photos, real names, exact location, emails, or phone numbers to guests. Venue admins see event aliases,
+            BarPing does not show photos, real names, exact location, emails, or phone numbers to guests. Venue admins see event Signals,
             reports, activity, and ban state only for safety and operations.
           </p>
         </div>

@@ -26,6 +26,7 @@ import type {
 } from "@/lib/types";
 
 type HostStep = "drop" | "feature" | "final" | "close";
+type RunStage = "Setup" | "Live" | "Active" | "Final Drop" | "Closed";
 
 const hostStepCopy: Record<HostStep, { label: string; title: string; body: string }> = {
   drop: {
@@ -88,6 +89,7 @@ export function VenueNightDashboard({
   const [notice, setNotice] = useState("");
   const [launchKitPrinted, setLaunchKitPrinted] = useState(false);
   const [hostStep, setHostStep] = useState<HostStep>("drop");
+  const [dropConfirming, setDropConfirming] = useState(false);
   const activeAssets = pilot.event.id !== event.id ? pilot.assets : assets;
   const activeTemplate = templates.find((template) => template.id === activeEvent.templateId) ?? selectedTemplate;
   const state = getVenueDashboardState(activeEvent, activeWindows);
@@ -96,6 +98,8 @@ export function VenueNightDashboard({
   const activeTableCount = activeTables.filter((table) => table.isActive !== false).length;
   const bestTable = featuredTable?.name ?? activeTables[0]?.name ?? "Circles";
   const nextHostStep = hostStepCopy[hostStep];
+  const currentStage: RunStage = state === "before" ? "Setup" : state === "after" ? "Closed" : hostStep === "drop" ? "Live" : hostStep === "final" ? "Final Drop" : "Active";
+  const stages: RunStage[] = ["Setup", "Live", "Active", "Final Drop", "Closed"];
 
   async function setNightStatus(nextStatus: "scheduled" | "active" | "ended" | "closed") {
     const result = await updatePilotLiveStatus(activeEvent, nextStatus);
@@ -115,7 +119,7 @@ export function VenueNightDashboard({
       expiresAt: new Date(Date.now() + 45 * 60 * 1000).toISOString()
     };
     setRecentAnnouncements((items) => [announcement, ...items]);
-    setNotice(kind === "last_call" ? "Final call sent." : "Nudge sent.");
+    setNotice(kind === "last_call" ? "Final Drop sent." : "Drop sent.");
 
     const supabase = createClient();
     if (supabase) {
@@ -148,7 +152,14 @@ export function VenueNightDashboard({
 
   async function runHostStep() {
     if (hostStep === "drop") {
+      if (!dropConfirming) {
+        setDropConfirming(true);
+        setNotice("Preview the Drop, then confirm.");
+        return;
+      }
       await sendAnnouncement();
+      setNotice("Drop sent.");
+      setDropConfirming(false);
       setHostStep("feature");
       return;
     }
@@ -158,7 +169,7 @@ export function VenueNightDashboard({
       return;
     }
     if (hostStep === "final") {
-      await sendAnnouncement("last_call", "Final Drop: send one easy Hello if it feels right. Everything fades tonight.");
+      await sendAnnouncement("last_call", "Final Drop: send one easy Hello if it feels right. Gone by last call.");
       setHostStep("close");
       return;
     }
@@ -185,6 +196,22 @@ export function VenueNightDashboard({
           </div>
         }
       />
+
+      <section className="rounded-[12px] border border-venue-soft bg-venue-card p-3">
+        <div className="flex items-center gap-2 md:gap-3">
+          {stages.map((stage, index) => {
+            const currentIndex = stages.indexOf(currentStage);
+            const isPast = index < currentIndex;
+            const isCurrent = stage === currentStage;
+            return (
+              <div key={stage} className="min-w-0 flex-1">
+                <div className={`h-1.5 rounded-full ${isCurrent ? "bg-[var(--primary)]" : isPast ? "bg-[var(--live)]" : "bg-venue-raised"}`} />
+                <p className={`mt-2 truncate text-[0.65rem] ${isCurrent ? "text-venue-cream" : "text-venue-dim"}`}>{stage}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
       {notice ? <p className="rounded-[12px] border border-venue-soft bg-venue-card p-3 text-sm text-venue-muted">{notice}</p> : null}
 
@@ -240,6 +267,10 @@ export function VenueNightDashboard({
 
             {hostStep === "drop" ? (
               <>
+                <div className="mt-5 rounded-[10px] border border-venue-soft bg-venue-raised p-3">
+                  <p className="text-xs text-venue-dim">Next Drop preview</p>
+                  <p className="mt-2 text-base text-venue-cream">{message}</p>
+                </div>
                 <label className="mt-5 block text-sm text-venue-muted">
                   Drop text
                   <textarea
@@ -278,24 +309,21 @@ export function VenueNightDashboard({
 
             <PrimaryButton className="mt-5 w-full" onClick={runHostStep}>
               {hostStep === "drop" ? <Megaphone size={16} /> : hostStep === "feature" ? <Star size={16} /> : hostStep === "close" ? <Square size={16} /> : <Megaphone size={16} />}
-              {nextHostStep.label}
+              {hostStep === "drop" && dropConfirming ? "Confirm - send this Drop" : nextHostStep.label}
             </PrimaryButton>
           </ConsolePanel>
 
           <section className="grid gap-5 lg:grid-cols-[1fr_0.9fr]">
             <ConsolePanel>
-              <SectionLabel>Live run sheet</SectionLabel>
-              <div className="mt-4 grid gap-3">
-                <p className="rounded-[10px] bg-venue-raised p-3 text-sm text-venue-muted">
-                  Current Drop: {recentAnnouncements[0]?.body ?? "No Drops sent yet."}
-                </p>
-                <p className="rounded-[10px] bg-venue-raised p-3 text-sm text-venue-muted">
-                  Featured Circle: {featuredTable?.name ?? "None yet"}
-                </p>
-                <p className="rounded-[10px] bg-venue-raised p-3 text-sm text-venue-muted">
-                  {activeTableCount} Circles active. {guests.length} Signals checked in.
-                </p>
+              <SectionLabel>Room Pulse</SectionLabel>
+              <div className="mt-4 grid grid-cols-3 gap-3 text-center">
+                <UtilityPanel><p className="text-3xl font-medium">{guests.length}</p><p className="text-sm text-venue-muted">Signals</p></UtilityPanel>
+                <UtilityPanel><p className="text-3xl font-medium">{activeTableCount}</p><p className="text-sm text-venue-muted">Circles</p></UtilityPanel>
+                <UtilityPanel><p className="text-3xl font-medium">{metrics.pingsSent}</p><p className="text-sm text-venue-muted">Hellos</p></UtilityPanel>
               </div>
+              <p className="mt-4 rounded-[10px] bg-venue-raised p-3 text-sm text-venue-muted">
+                Current Drop: {recentAnnouncements[0]?.body ?? "No Drops sent yet."}
+              </p>
             </ConsolePanel>
 
             <SafetyPanel>

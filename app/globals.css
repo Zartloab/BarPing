@@ -5,9 +5,24 @@
 :root {
   color-scheme: dark;
   background: #080b16;
-  --font-geist-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-geist-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-display: "Anton", "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-body: "DM Sans", "Space Grotesk", "Trebuchet MS", sans-serif;
+  --font-mono: "DM Mono", "Space Mono", "Cascadia Mono", monospace;
+  --font-geist-sans: var(--font-body);
+  --font-geist-mono: var(--font-mono);
   --font-instrument-serif: Georgia, "Times New Roman", serif;
+  --bg-main: #080B16;
+  --bg-soft: #101527;
+  --surface: #171D32;
+  --surface-raised: #222A42;
+  --text-main: #FFF3E8;
+  --text-soft: #CFC3B6;
+  --text-muted: #8B8178;
+  --primary: #FF7A6B;
+  --live: #7CFFCB;
+  --secondary: #8EA7FF;
+  --warning: #FFD166;
+  --danger: #FF5C7A;
   --bp-canvas: #080b16;
   --bp-canvas-warm: #101527;
   --bp-surface-1: #171d32;
@@ -82,7 +97,7 @@ body {
     radial-gradient(circle at 86% 12%, rgba(142, 167, 255, 0.1), transparent 28%),
     var(--bp-canvas);
   color: var(--bp-ink);
-  font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-size: 14px;
 }
 
@@ -112,6 +127,43 @@ select {
 }
 
 @layer components {
+  .font-display {
+    font-family: var(--font-display), sans-serif;
+    letter-spacing: 0;
+  }
+
+  .guest-stage {
+    min-height: 100dvh;
+    background: var(--bg-main);
+    color: var(--text-main);
+  }
+
+  .drop-pulse {
+    animation: dropPulse 4s ease-in-out infinite;
+  }
+
+  .live-dot {
+    background: var(--live);
+    animation: livePulse 2s ease-out infinite;
+  }
+
+  .bottom-sheet {
+    will-change: transform;
+    animation: sheetIn 220ms ease-out both;
+  }
+
+  .signal-reveal {
+    animation: signalReveal 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .hello-check {
+    animation: helloCheck 300ms ease-out both;
+  }
+
+  .activity-item {
+    animation: activityFloat 8s ease-in-out both;
+  }
+
   .warm-border {
     border: 1px solid var(--bp-hairline);
   }
@@ -217,4 +269,38 @@ select {
   [data-theme="dark"] .bg-\[\#7CFFCB\] {
     background-color: rgba(124, 255, 203, 0.1) !important;
   }
+}
+
+@keyframes dropPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.88; }
+}
+
+@keyframes livePulse {
+  0% { box-shadow: 0 0 0 0 rgba(124, 255, 203, 0.5); }
+  70% { box-shadow: 0 0 0 12px rgba(124, 255, 203, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(124, 255, 203, 0); }
+}
+
+@keyframes sheetIn {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes signalReveal {
+  0% { opacity: 0; transform: scale(0.6); }
+  72% { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes helloCheck {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes activityFloat {
+  0% { opacity: 0; transform: translateY(12px); }
+  12%, 78% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-8px); }
 }

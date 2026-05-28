@@ -1,182 +1,124 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
-import { Flag, Lightbulb, LogOut, Send } from "lucide-react";
-import { AppShell } from "@/components/app-shell";
-import { ContactExchangeCard } from "@/components/contact-exchange";
-import { FeedbackSheet } from "@/components/feedback-sheet";
-import { FindMeBeacon } from "@/components/find-me-beacon";
-import { FindMeRequestModal } from "@/components/find-me-request-modal";
-import { MotionShell } from "@/components/motion-shell";
-import { PrimaryButton, SecondaryButton } from "@/components/ui/buttons";
-import { beaconPalette, openerChips } from "@/lib/constants";
-import { demoContactExchange, demoEvent, demoFindMeSession, demoGuests, demoMessages } from "@/lib/demo-data";
+import { BackLink } from "@/components/guest-v7";
+import { PrimaryButton } from "@/components/ui/buttons";
+import { demoEvent, demoGuests, demoMessages } from "@/lib/demo-data";
 import { containsAbusePlaceholder } from "@/lib/safety";
-import { shortTime } from "@/lib/time";
-import { formatVisibleUntil } from "@/lib/ux";
-import type { ChatMessage, FindMeSession } from "@/lib/types";
+import type { ChatMessage } from "@/lib/types";
+
+const chatDurationMs = 10 * 60 * 1000;
 
 export default function ChatPage() {
   const params = useParams<{ eventSlug: string; chatId: string }>();
   const eventSlug = params?.eventSlug ?? demoEvent.slug;
   const other = demoGuests[1];
+  const startedAt = useMemo(() => Date.now(), []);
+  const [now, setNow] = useState(startedAt);
   const [messages, setMessages] = useState<ChatMessage[]>(demoMessages);
   const [body, setBody] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [findMeRequestOpen, setFindMeRequestOpen] = useState(false);
-  const [beacon, setBeacon] = useState<FindMeSession | null>(null);
-  const [showFeedback, setShowFeedback] = useState(false);
+  const [ended, setEnded] = useState(false);
+  const [keepWanted, setKeepWanted] = useState(false);
+  const [bothAgreed, setBothAgreed] = useState(false);
 
-  function sendMessage(text = body) {
-    const trimmed = text.trim();
-    if (!trimmed) return;
+  const elapsed = Math.min(chatDurationMs, now - startedAt);
+  const remainingRatio = Math.max(0, 1 - elapsed / chatDurationMs);
+  const expired = ended || remainingRatio <= 0;
+
+  useEffect(() => {
+    if (expired) return;
+    const timer = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, [expired]);
+
+  useEffect(() => {
+    if (!keepWanted) return;
+    const timer = window.setTimeout(() => setBothAgreed(true), 1600);
+    return () => window.clearTimeout(timer);
+  }, [keepWanted]);
+
+  function sendMessage() {
+    const trimmed = body.trim();
+    if (!trimmed || expired) return;
     if (containsAbusePlaceholder(trimmed)) {
       setError("That message did not go through. Keep it kind and low-pressure.");
       return;
     }
-    setMessages((current) => [
-      ...current,
-      { id: crypto.randomUUID(), sender: "me", body: trimmed, createdAt: new Date().toISOString() }
-    ]);
-    setError(null);
+    setMessages((current) => [...current, { id: crypto.randomUUID(), sender: "me", body: trimmed, createdAt: new Date().toISOString() }]);
     setBody("");
-  }
-
-  function requestFindMe() {
-    if (!demoEvent.findMeEnabled) {
-      setError("Hellos are turned off for tonight. You can still follow the Drop or join a Circle.");
-      return;
-    }
-    setFindMeRequestOpen(true);
-  }
-
-  function acceptFindMe() {
-    const color = beaconPalette[0];
-    setBeacon({
-      ...demoFindMeSession,
-      status: "active",
-      colorToken: color.token,
-      colorName: color.name,
-      expiresAt: new Date(Date.now() + 90 * 1000).toISOString()
-    });
-    setFindMeRequestOpen(false);
-  }
-
-  function reportFindMe() {
-    setError("This Hello was reported. Venue staff can review the session metadata.");
-    setBeacon(null);
-    setFindMeRequestOpen(false);
+    setError(null);
   }
 
   return (
-    <AppShell>
-      <MotionShell className="flex min-h-[calc(100dvh-2.5rem)] flex-col">
-        <header className="sticky top-3 z-20 rounded-[28px] border border-white/[0.08] bg-venue-raised/90 p-4 shadow-soft backdrop-blur">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-venue-amberSoft">Temporary chat</p>
-              <h1 className="mt-1 text-lg font-semibold">{other.alias}</h1>
-              <p className="mt-1 text-xs text-venue-muted">{formatVisibleUntil(demoEvent.endsAt)}</p>
-            </div>
-            <div className="flex gap-2">
-              {demoEvent.findMeEnabled ? (
-                <SecondaryButton className="min-h-10 px-3" onClick={requestFindMe} aria-label="Find each other">
-                  <Lightbulb size={16} />
-                </SecondaryButton>
-              ) : null}
-              <SecondaryButton className="min-h-10 px-3" aria-label="Report chat">
-                <Flag size={16} />
-              </SecondaryButton>
-              <Link
-                className="tap-highlight inline-flex min-h-10 items-center justify-center rounded-full border border-white/[0.08] px-3 text-venue-muted"
-                href={`/e/${eventSlug}/room`}
-                aria-label="Leave chat"
-              >
-                <LogOut size={16} />
-              </Link>
-            </div>
+    <main className="guest-stage flex min-h-dvh flex-col">
+      <div className="fixed inset-x-0 top-0 z-50 h-1 bg-[var(--surface-raised)]">
+        <div
+          className={`h-full transition-transform duration-1000 ${remainingRatio <= 0.2 ? "bg-[var(--primary)]" : "bg-[var(--live)]"}`}
+          style={{ transformOrigin: "left", transform: `scaleX(${remainingRatio})` }}
+        />
+      </div>
+
+      <header className="sticky top-1 z-40 flex items-center justify-between border-b border-white/10 bg-[#080B16]/95 px-4 py-3 backdrop-blur">
+        <div className="flex items-center gap-3">
+          <BackLink href={`/e/${eventSlug}/room`} />
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--secondary)]">Temporary chat</p>
+            <h1 className="text-base font-bold">{other.alias}</h1>
           </div>
-        </header>
-        <section className="mt-4 grid gap-3">
-          <div className="glass-card rounded-[24px] p-4">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-venue-amberSoft">Hello accepted</p>
-                <h2 className="mt-1 font-semibold">You unlocked a 10-minute chat.</h2>
-                <p className="mt-1 text-sm leading-relaxed text-venue-muted">
-                  {demoEvent.findMeEnabled
-                    ? "Keep it easy. No pressure. Both people must choose to keep this open tonight."
-                    : "Hellos are turned off for this event. You can still stay in the Circle."}
-                </p>
-              </div>
-              {demoEvent.findMeEnabled ? (
-                <PrimaryButton className="min-h-10 shrink-0 px-4" onClick={requestFindMe}>
-                  Keep open tonight
-                </PrimaryButton>
-              ) : null}
-            </div>
-          </div>
-          {error ? (
-            <div className="rounded-[20px] border border-venue-danger/35 bg-venue-danger/10 p-3 text-sm text-venue-danger">
-              {error}
-            </div>
-          ) : null}
-        </section>
-        <div className="scrollbar-warm mt-5 flex-1 space-y-3 overflow-y-auto pb-5">
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${message.sender === "me" ? "justify-end" : message.sender === "system" ? "justify-center" : "justify-start"}`}
-            >
-              <div
-                className={`max-w-[82%] rounded-[22px] px-4 py-3 text-sm leading-relaxed ${
-                  message.sender === "me"
-                    ? "bg-venue-amber text-venue-ink"
-                    : message.sender === "system"
-                      ? "border border-white/[0.08] bg-white/[0.04] text-center text-venue-muted"
-                      : "bg-venue-soft text-venue-cream"
-                }`}
-              >
-                <p>{message.body}</p>
-                {message.sender !== "system" ? (
-                  <p className={`mt-1 text-[0.65rem] ${message.sender === "me" ? "text-venue-ink/65" : "text-venue-dim"}`}>
-                    {shortTime(message.createdAt)}
-                  </p>
-                ) : null}
-              </div>
-            </div>
-          ))}
         </div>
-        <div className="mb-3 flex gap-2 overflow-x-auto pb-1">
-          {openerChips.slice(0, 4).map((chip) => (
-            <button
-              key={chip}
-              onClick={() => sendMessage(chip)}
-              type="button"
-              className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.035] px-3 py-2 text-xs text-venue-muted"
-            >
-              {chip}
-            </button>
-          ))}
-        </div>
-        <ContactExchangeCard exchange={demoContactExchange} />
-        {showFeedback ? (
-          <div className="mt-4">
-            <FeedbackSheet onClose={() => setShowFeedback(false)} />
+        <button className="text-sm text-[var(--text-muted)]" onClick={() => setEnded(true)} type="button">End</button>
+      </header>
+
+      <section className={`scrollbar-warm flex-1 space-y-3 overflow-y-auto px-4 py-5 transition duration-700 ${expired ? "grayscale" : ""}`}>
+        <p className="mx-auto max-w-[280px] rounded-[10px] border border-white/10 bg-[var(--surface)] px-3 py-2 text-center text-xs text-[var(--text-muted)]">
+          Hello accepted. Keep it easy. No pressure.
+        </p>
+
+        {messages.map((message) => (
+          <div key={message.id} className={`flex ${message.sender === "me" ? "justify-end" : message.sender === "system" ? "justify-center" : "justify-start"}`}>
+            <p className={`max-w-[82%] rounded-[16px] px-4 py-3 text-sm leading-6 ${
+              message.sender === "me"
+                ? "bg-[var(--primary)] text-[var(--bg-main)]"
+                : message.sender === "system"
+                  ? "border border-white/10 bg-[var(--surface)] text-center text-[var(--text-muted)]"
+                  : "bg-[var(--surface-raised)] text-[var(--text-soft)]"
+            }`}>
+              {message.body}
+            </p>
           </div>
-        ) : (
-          <button
-            className="mt-4 w-full rounded-full border border-white/[0.08] bg-white/[0.035] px-4 py-3 text-sm text-venue-muted"
-            onClick={() => setShowFeedback(true)}
-            type="button"
-          >
-            Leaving soon? Share quick feedback.
-          </button>
-        )}
+        ))}
+
+        {expired ? (
+          <div className="mx-auto mt-8 max-w-[330px] text-center">
+            <h2 className="font-display text-4xl leading-none">That was good.</h2>
+            <p className="mt-3 text-sm text-[var(--text-muted)]">The chat has closed.</p>
+            <div className="mt-7 animate-[sheetIn_500ms_ease-out_both]">
+              {bothAgreed ? (
+                <div className="rounded-[12px] border border-[var(--live)]/35 bg-[rgba(124,255,203,0.08)] p-4">
+                  <p className="font-bold text-[var(--live)]">You both agreed.</p>
+                  <p className="mt-2 text-sm text-[var(--text-muted)]">What happens next is up to you.</p>
+                </div>
+              ) : (
+                <>
+                  <p className="text-sm text-[var(--text-soft)]">Keep in touch? You both need to agree.</p>
+                  <PrimaryButton className="mt-4 w-full" disabled={keepWanted} onClick={() => setKeepWanted(true)}>
+                    {keepWanted ? "Waiting..." : "I'd like that"}
+                  </PrimaryButton>
+                  <p className="mt-3 text-xs text-[var(--text-muted)]">If they tap this too, something happens.</p>
+                </>
+              )}
+            </div>
+          </div>
+        ) : null}
+      </section>
+
+      {error ? <p className="mx-4 mb-3 rounded-[10px] bg-[rgba(255,92,122,0.1)] p-3 text-sm text-[var(--danger)]">{error}</p> : null}
+
+      {!expired ? (
         <form
-          className="mt-4 flex gap-2 rounded-full border border-white/[0.08] bg-venue-raised p-2"
+          className="mx-4 mb-3 flex gap-2 rounded-[10px] border border-white/10 bg-[var(--surface-raised)] p-2"
           onSubmit={(event) => {
             event.preventDefault();
             sendMessage();
@@ -186,28 +128,13 @@ export default function ChatPage() {
             value={body}
             onChange={(event) => setBody(event.target.value)}
             placeholder="Keep it easy..."
-            className="min-w-0 flex-1 bg-transparent px-3 text-sm text-venue-cream outline-none placeholder:text-venue-dim"
+            className="min-w-0 flex-1 bg-transparent px-3 text-sm text-[var(--text-main)] outline-none placeholder:text-[var(--text-muted)]"
           />
-          <button className="grid h-11 w-11 place-items-center rounded-full bg-venue-amber text-venue-ink" type="submit" aria-label="Send">
-            <Send size={17} />
-          </button>
+          <button className="rounded-[6px] bg-[var(--primary)] px-4 text-sm font-bold text-[var(--bg-main)]" type="submit">Send</button>
         </form>
-      </MotionShell>
-      {findMeRequestOpen ? (
-        <FindMeRequestModal
-          guest={other}
-          onAccept={acceptFindMe}
-          onDecline={() => setFindMeRequestOpen(false)}
-          onReport={reportFindMe}
-        />
       ) : null}
-      {beacon ? (
-        <FindMeBeacon
-          session={beacon}
-          onEnd={() => setBeacon(null)}
-          onReport={reportFindMe}
-        />
-      ) : null}
-    </AppShell>
+
+      <button className="mb-5 text-center text-xs text-[var(--danger)]" type="button">Report</button>
+    </main>
   );
 }

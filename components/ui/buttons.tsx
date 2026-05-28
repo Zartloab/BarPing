@@ -11,7 +11,7 @@ type LinkButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 };
 
 const base =
-  "tap-highlight inline-flex min-h-11 items-center justify-center gap-2 rounded-[12px] px-4 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-45";
+  "tap-highlight inline-flex min-h-[52px] items-center justify-center gap-2 rounded-[6px] px-4 text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-45";
 
 export function PrimaryButton({ className = "", ...props }: ButtonProps) {
   return (
