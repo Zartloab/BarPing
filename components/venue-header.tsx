@@ -16,7 +16,7 @@ export function VenueHeader({ venue, event, count }: { venue: Venue; event: Even
         </div>
         <div className="flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-sm text-venue-cream">
           <UsersRound size={16} />
-          {count}
+          {count} Circles
         </div>
       </div>
     </header>

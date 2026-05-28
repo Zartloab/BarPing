@@ -29,7 +29,7 @@ export default function EventSetupPage() {
     const result = await updatePilotLiveStatus(event, "active");
     setEvent(result.event);
     setSocialWindow(result.socialWindow);
-    setMessage("Social Mode is live. Guests can now see tonight's tables from the QR.");
+    setMessage("Signal Night is live. Guests can now draw a Signal from the QR.");
   }
 
   return (
@@ -39,7 +39,7 @@ export default function EventSetupPage() {
           venue={demoVenue}
           event={event}
           status={status}
-          summary="Review the run sheet, print the launch kit, then start Social Mode when the room is ready."
+          summary="Review Signals, Circles, Drops, and the launch kit before the room goes live."
           action={<VenueThemeToggle />}
         />
 
@@ -50,7 +50,7 @@ export default function EventSetupPage() {
 
         <section className="rounded-[12px] border border-venue-soft bg-venue-card p-4">
           <p className="text-xs font-medium text-venue-dim">Simple version</p>
-          <p className="mt-1 text-base font-medium">Review the table plan, print the guest link, then start only when staff and QR signs are ready.</p>
+          <p className="mt-1 text-base font-medium">Review the Circle plan, print the guest link, then start only when staff and QR signs are ready.</p>
         </section>
 
         {step === "Template" ? (
@@ -61,7 +61,7 @@ export default function EventSetupPage() {
               <p className="mt-2 text-sm leading-6 text-venue-muted">{template.description}</p>
               <div className="mt-4 grid grid-cols-3 gap-2">
                 <UtilityPanel><p className="text-xs text-venue-dim">Vibe</p><p className="mt-1 font-medium">{event.vibeLevel}</p></UtilityPanel>
-                <UtilityPanel><p className="text-xs text-venue-dim">Table hellos</p><p className="mt-1 font-medium">{event.findMeEnabled ? "Optional" : "Off"}</p></UtilityPanel>
+                <UtilityPanel><p className="text-xs text-venue-dim">Hellos</p><p className="mt-1 font-medium">{event.findMeEnabled ? "Optional" : "Off"}</p></UtilityPanel>
                 <UtilityPanel><p className="text-xs text-venue-dim">Assets</p><p className="mt-1 font-medium">{local.assets.length}</p></UtilityPanel>
               </div>
               <SecondaryLink className="mt-4" href="/venue/events/new">Change recipe</SecondaryLink>
@@ -71,8 +71,8 @@ export default function EventSetupPage() {
               <div className="flex items-center gap-3">
                 <Table2 className="text-venue-danger" size={19} />
                 <div>
-                  <SectionLabel>Generated tables</SectionLabel>
-                  <h2 className="mt-1 text-xl font-medium">Conversation zones</h2>
+                  <SectionLabel>Generated Circles</SectionLabel>
+                  <h2 className="mt-1 text-xl font-medium">Room zones</h2>
                 </div>
               </div>
               <div className="mt-4 grid gap-2">
@@ -118,17 +118,17 @@ export default function EventSetupPage() {
               </div>
               <h2 className="mt-4 text-2xl font-medium tracking-[-0.01em]">Ready to launch.</h2>
               <p className="mt-2 max-w-xl text-sm leading-6 text-venue-muted">
-                Place the QR cards, brief staff, then press start when the host announces the tables.
+                Place the QR cards, brief staff, then press start when the host opens the room.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 <SecondaryButton onClick={() => setStep("Assets")}><Printer size={16} />Print launch kit</SecondaryButton>
-                <PrimaryButton onClick={startNight}><Play size={16} />Start Social Mode</PrimaryButton>
+                <PrimaryButton onClick={startNight}><Play size={16} />Start Signal Night</PrimaryButton>
               </div>
               {message ? <p className="mt-4 rounded-[10px] bg-venue-olive/10 px-3 py-2 text-sm text-venue-olive">{message}</p> : null}
             </CommandPanel>
             <ConsolePanel>
               <SectionLabel>Guest link</SectionLabel>
-              <h2 className="mt-2 text-xl font-medium">Tonight&apos;s tables link</h2>
+              <h2 className="mt-2 text-xl font-medium">Tonight&apos;s guest link</h2>
               <div className="mt-4">
                 <QRCard event={event} />
               </div>

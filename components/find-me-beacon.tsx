@@ -54,7 +54,7 @@ export function FindMeBeacon({
         </button>
       </div>
       <div className="mx-auto w-full max-w-[430px] text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-black/65">Table hello</p>
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-black/65">Hello signal</p>
         <h1 className="mt-4 font-serif text-6xl leading-none text-black/85">{session.colorName}</h1>
         <p className="mx-auto mt-5 max-w-xs text-lg font-medium leading-relaxed text-black/72">
           Hold your phone up if you want to be found. Stay where you feel comfortable.

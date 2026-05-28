@@ -14,16 +14,18 @@ const assetSizes: Record<EventAsset["kind"], { width: number; height: number }> 
   bar_counter: { width: 1400, height: 900 },
   instagram_story: { width: 1080, height: 1920 },
   safety_card: { width: 1200, height: 900 },
-  run_sheet: { width: 1400, height: 1800 }
+  run_sheet: { width: 1400, height: 1800 },
+  signal_sheet: { width: 1200, height: 900 }
 };
 
 const assetMeta: Record<EventAsset["kind"], { format: string; ratioClass: string; shellClass: string; useQr: boolean; tone: string }> = {
-  table_qr: { format: "Table card - landscape print", ratioClass: "aspect-[4/3]", shellClass: "max-w-[620px]", useQr: true, tone: "bg-[#171D32]" },
+  table_qr: { format: "Signal Night card - landscape print", ratioClass: "aspect-[4/3]", shellClass: "max-w-[620px]", useQr: true, tone: "bg-[#171D32]" },
   entrance_poster: { format: "Entrance poster - portrait print", ratioClass: "aspect-[3/4]", shellClass: "max-w-[520px]", useQr: true, tone: "bg-[#080B16]" },
   bar_counter: { format: "Bar counter sign - wide print", ratioClass: "aspect-[16/9]", shellClass: "max-w-[780px]", useQr: true, tone: "bg-[#101527]" },
   instagram_story: { format: "Instagram story - 9:16 PNG", ratioClass: "aspect-[9/16]", shellClass: "max-w-[330px]", useQr: true, tone: "bg-[#171D32]" },
   safety_card: { format: "Safety card - small print", ratioClass: "aspect-[4/3]", shellClass: "max-w-[620px]", useQr: true, tone: "bg-[#171D32]" },
-  run_sheet: { format: "Staff run sheet - internal print", ratioClass: "aspect-[3/4]", shellClass: "max-w-[560px]", useQr: false, tone: "bg-[#171D32]" }
+  run_sheet: { format: "Staff run sheet - internal print", ratioClass: "aspect-[3/4]", shellClass: "max-w-[560px]", useQr: false, tone: "bg-[#171D32]" },
+  signal_sheet: { format: "Signal coaster/sticker sheet - optional print", ratioClass: "aspect-[4/3]", shellClass: "max-w-[620px]", useQr: false, tone: "bg-[#101527]" }
 };
 
 function slugify(value: string) {
@@ -236,7 +238,7 @@ export function AssetPreview({
               <div className="flex h-full items-center justify-between gap-6">
                 <div className="max-w-[62%]">
                   <p className="text-xs font-medium text-venue-danger">BarPing / at the bar</p>
-                  <h4 className="mt-4 font-serif text-4xl leading-none text-venue-cream">Tables are live.</h4>
+                  <h4 className="mt-4 font-serif text-4xl leading-none text-venue-cream">The room is live.</h4>
                   <CopyLines className="mt-4 text-base" copy={asset.copy} />
                 </div>
                 <div className="text-center">
@@ -248,7 +250,7 @@ export function AssetPreview({
               <div className="flex h-full flex-col justify-between">
                 <div>
                   <p className="text-xs font-medium text-venue-danger">@ {venue.name}</p>
-                  <h4 className="mt-5 font-serif text-5xl leading-[0.9] text-venue-cream">Tables tonight</h4>
+                  <h4 className="mt-5 font-serif text-5xl leading-[0.9] text-venue-cream">Signal Night</h4>
                 </div>
                 <div>
                   <CopyLines className="text-lg" copy={asset.copy} />

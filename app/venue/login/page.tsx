@@ -45,7 +45,7 @@ export default function VenueLoginPage() {
           <ShieldCheck size={22} />
         </div>
         <p className="mt-6 text-xs font-medium text-venue-danger">Venue access</p>
-        <h1 className="mt-4 font-serif text-5xl font-normal leading-none">Run Social Mode tonight.</h1>
+        <h1 className="mt-4 font-serif text-5xl font-normal leading-none">Run Signal Night tonight.</h1>
         <p className="mt-5 leading-6 text-venue-muted">
           Staff sign in with a magic link. In demo mode, this unlocks tonight&apos;s local run sheet on this browser.
         </p>

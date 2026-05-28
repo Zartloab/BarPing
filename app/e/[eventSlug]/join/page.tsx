@@ -27,16 +27,16 @@ export default function JoinPage() {
         pingsAllowedTableIds: []
       })
     );
-    router.push(`/e/${eventSlug}/room`);
+    router.push(`/e/${eventSlug}/signal`);
   }
 
   return (
     <AppShell>
       <MotionShell className="flex min-h-[calc(100dvh-2.5rem)] flex-col justify-center py-4">
-        <p className="text-sm font-medium text-venue-muted">Tonight&apos;s tables</p>
-        <h1 className="mt-4 font-serif text-5xl leading-none">See the conversations first.</h1>
+        <p className="text-sm font-medium text-venue-muted">Signal Night</p>
+        <h1 className="mt-4 font-serif text-5xl leading-none">The room is live.</h1>
         <p className="mt-4 text-base leading-6 text-venue-muted">
-          Browsing is the default. Join a table only when one feels right.
+          Draw a Signal first. Everything fades tonight.
         </p>
 
         <button
@@ -54,7 +54,7 @@ export default function JoinPage() {
 
         <div className="mt-5 grid gap-3">
           <PrimaryButton disabled={!accepted} onClick={seeTables}>
-            See tables
+            Draw my Signal
           </PrimaryButton>
           <SecondaryLink href="/rules">Read safety rules</SecondaryLink>
         </div>

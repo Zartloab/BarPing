@@ -69,7 +69,7 @@ export function SignalCard({
           {onPing ? (
             <PrimaryButton className="min-h-10 px-4" onClick={() => onPing(guest)}>
               <MessageCircle size={16} />
-              Send ping
+              Send Hello
             </PrimaryButton>
           ) : null}
         </div>

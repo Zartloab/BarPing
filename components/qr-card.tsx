@@ -51,7 +51,7 @@ export function QRCard({ event }: { event: Event }) {
             <div class="kicker">BarPing / Guest link</div>
             <h1>${event.title}</h1>
             ${dataUrl ? `<img src="${dataUrl}" alt="QR code" />` : ""}
-            <p>Scan the QR, pick a conversation table, and join when ready.</p>
+            <p>Scan the QR, draw your Signal, follow the Drop, and join a Circle when ready.</p>
             <p class="url">${eventUrl}</p>
           </main>
           <script>window.addEventListener("load", () => window.print());</script>

@@ -29,13 +29,13 @@ export function PingModal({
         className="glass-card w-full max-w-[430px] rounded-[30px] p-5"
       >
         <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">
-          {incoming ? "Table hello" : "Hello sent"}
+          {incoming ? "Incoming Hello" : "Hello sent"}
         </p>
         <h2 className="mt-3 font-serif text-3xl text-venue-cream">{guest.alias}</h2>
         <p className="mt-2 text-sm leading-relaxed text-venue-muted">
           {incoming
-            ? `${guest.alias} wants to start a temporary table chat. You can accept, ignore, or block.`
-            : "A table-scoped hello has been sent. If they accept, a temporary chat opens for tonight."}
+            ? `${guest.alias} sent a Hello. You can accept, ignore, or block.`
+            : "A Circle-scoped Hello has been sent. If they accept, a temporary chat opens for tonight."}
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {guest.topics.slice(0, 4).map((topic) => (
@@ -47,9 +47,9 @@ export function PingModal({
         <div className="mt-6 grid gap-2">
           {incoming ? (
             <>
-              <PrimaryButton onClick={onAccept}>Accept</PrimaryButton>
-              <SecondaryButton onClick={onIgnore}>Ignore</SecondaryButton>
-              <DangerButton onClick={onBlock}>Block</DangerButton>
+              <PrimaryButton onClick={onAccept}>Say hello</PrimaryButton>
+              <SecondaryButton onClick={onIgnore}>Not tonight</SecondaryButton>
+              <DangerButton onClick={onBlock}>Block/report</DangerButton>
             </>
           ) : (
             <PrimaryButton onClick={onClose}>Back to room</PrimaryButton>

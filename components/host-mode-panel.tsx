@@ -29,7 +29,7 @@ export function HostModePanel({
   async function setWindowStatus(nextStatus: "scheduled" | "active" | "ended" | "closed") {
     await updatePilotLiveStatus(event, nextStatus);
     setIsLive(nextStatus === "active");
-    setStatusMessage(nextStatus === "active" ? "Social Mode is live." : nextStatus === "closed" ? "Event closed." : "Social Mode paused.");
+    setStatusMessage(nextStatus === "active" ? "Signal Night is live." : nextStatus === "closed" ? "Night closed." : "Signal Night paused.");
   }
 
   async function sendAnnouncement(kind: HostAnnouncement["kind"] = "announcement", body = message) {
@@ -44,7 +44,7 @@ export function HostModePanel({
     };
 
     setRecentAnnouncements((items) => [announcement, ...items]);
-    setStatusMessage(kind === "last_call" ? "Final call sent." : "Nudge sent.");
+    setStatusMessage(kind === "last_call" ? "Final Drop sent." : "Drop sent.");
 
     const supabase = createClient();
     if (supabase) {
@@ -82,9 +82,9 @@ export function HostModePanel({
               <StatusPill status={isLive ? "Live" : "Paused"} />
               <SectionLabel>Host controls</SectionLabel>
             </div>
-            <h2 className="mt-2 text-2xl font-medium tracking-[-0.01em]">Social Mode {isLive ? "is live" : "is paused"}.</h2>
+            <h2 className="mt-2 text-2xl font-medium tracking-[-0.01em]">Signal Night {isLive ? "is live" : "is paused"}.</h2>
             <p className="mt-1 text-sm text-venue-muted">
-              Guests currently see: join a table, open to pings, or just browse.
+              Guests scan the QR, draw a Signal, follow the Drop, and join a Circle.
             </p>
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -92,7 +92,7 @@ export function HostModePanel({
               <>
                 <SecondaryButton className="px-4" onClick={() => setWindowStatus("ended")}>
                   <Pause size={16} />
-                  Pause Social Mode
+                  Pause room
                 </SecondaryButton>
                 <SecondaryButton className="border-venue-danger/30 text-venue-danger hover:bg-venue-danger/10" onClick={() => setWindowStatus("closed")}>
                   <Square size={16} />
@@ -102,7 +102,7 @@ export function HostModePanel({
             ) : (
               <PrimaryButton className="px-4 sm:col-span-2" onClick={() => setWindowStatus("active")}>
                 <Play size={16} />
-                Start Social Mode
+                Start Signal Night
               </PrimaryButton>
             )}
           </div>
@@ -115,8 +115,8 @@ export function HostModePanel({
           <div className="flex items-center gap-3">
             <Megaphone className="text-venue-danger" size={19} />
             <div>
-              <SectionLabel>Send nudge</SectionLabel>
-              <h3 className="mt-1 text-xl font-medium">Room announcement</h3>
+              <SectionLabel>Send Drop</SectionLabel>
+              <h3 className="mt-1 text-xl font-medium">Room prompt</h3>
             </div>
           </div>
           <label className="mt-4 block text-sm text-venue-muted">
@@ -142,10 +142,10 @@ export function HostModePanel({
           <div className="mt-4 flex flex-wrap gap-2">
             <PrimaryButton onClick={() => sendAnnouncement()}>
               <Radio size={16} />
-              Send nudge
+              Send Drop
             </PrimaryButton>
-            <SecondaryButton onClick={() => sendAnnouncement("last_call", "Final call: Social Mode wraps soon. Join a table or share contact only if both people agree.")}>
-              Final call
+            <SecondaryButton onClick={() => sendAnnouncement("last_call", "Final Drop: send one easy Hello if it feels right. Keep it mutual.")}>
+              Final Drop
             </SecondaryButton>
           </div>
         </ConsolePanel>
@@ -154,8 +154,8 @@ export function HostModePanel({
           <div className="flex items-center gap-3">
             <Star className="text-venue-danger" size={19} />
             <div>
-              <SectionLabel>Feature a table</SectionLabel>
-              <h3 className="mt-1 text-xl font-medium">Featured table</h3>
+              <SectionLabel>Feature a Circle</SectionLabel>
+              <h3 className="mt-1 text-xl font-medium">Featured Circle</h3>
             </div>
           </div>
           <div className="mt-4 grid gap-2">
@@ -182,8 +182,8 @@ export function HostModePanel({
       <ConsolePanel className="p-3 md:p-4">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
-            <SectionLabel>Recent announcements</SectionLabel>
-            <p className="mt-1 text-sm text-venue-muted">{recentAnnouncements[0]?.body ?? "No nudges sent yet."}</p>
+            <SectionLabel>Recent Drops</SectionLabel>
+            <p className="mt-1 text-sm text-venue-muted">{recentAnnouncements[0]?.body ?? "No Drops sent yet."}</p>
           </div>
           <p className="text-xs text-venue-dim">{recentAnnouncements.length} total</p>
         </div>

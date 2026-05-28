@@ -17,12 +17,13 @@ function addMinutes(date: Date, minutes: number) {
 
 export function createAssetsFromTemplate(template: EventTemplate, eventId: string): EventAsset[] {
   return [
-    { id: `${eventId}-asset-table`, eventId, kind: "table_qr", title: "Table QR card", copy: template.assets.tableQr },
+    { id: `${eventId}-asset-table`, eventId, kind: "table_qr", title: "Signal Night QR card", copy: template.assets.tableQr },
     { id: `${eventId}-asset-poster`, eventId, kind: "entrance_poster", title: "Entrance poster", copy: template.assets.entrancePoster },
     { id: `${eventId}-asset-counter`, eventId, kind: "bar_counter", title: "Bar counter sign", copy: template.assets.barCounter },
     { id: `${eventId}-asset-story`, eventId, kind: "instagram_story", title: "Instagram story", copy: template.assets.instagramStory },
     { id: `${eventId}-asset-safety`, eventId, kind: "safety_card", title: "Safety card", copy: template.assets.safetyCard },
-    { id: `${eventId}-asset-run`, eventId, kind: "run_sheet", title: "Staff run sheet", copy: template.assets.runOfShow }
+    { id: `${eventId}-asset-run`, eventId, kind: "run_sheet", title: "Staff run sheet", copy: template.assets.runOfShow },
+    { id: `${eventId}-asset-signals`, eventId, kind: "signal_sheet", title: "Signal coaster sheet", copy: "Optional Signal marks for the bar. Guests can grab one only if they want people to know they are open to Hellos." }
   ];
 }
 

@@ -1,7 +1,7 @@
 import type { VenueVibeLevel, Vibe } from "@/lib/types";
 
 export const communityRules =
-  "Be normal. Be kind. No harassment, pressure, hate, explicit messages, or creepy behaviour. Staff and moderators can remove anyone.";
+  "Be easy. Be kind. No pressure, harassment, hate, explicit messages, threats, or creepy behaviour. Anyone can ignore, block, or report. The room is temporary. Respect it.";
 
 export const safetyNotice =
   "No names, no photos, no exact location. You choose when to respond, ignore, block, or report.";
@@ -53,33 +53,33 @@ export const openerChips = [
 ];
 
 export const launchKit = {
-  tableQr: "Open to meeting people tonight?\n\nScan to join BarPing.\nNo names. No photos. No pressure.",
-  entrancePoster: "Conversation tables are live tonight.\n\nScan the QR, pick a table, and join when you're ready.",
+  tableQr: "The room has a hidden layer tonight.\n\nScan the QR. Draw a Signal. Join a Circle.",
+  entrancePoster: "The room is live tonight.\n\nDraw a Signal. Follow the Drop. Everything fades tonight.",
   staffScript:
-    "We're running BarPing tonight. Guests scan the QR, see tonight's conversation tables, and join when they're ready. No photos or real names.",
+    "We're running BarPing tonight. Guests scan the QR, draw a temporary Signal, follow the Drop, and join a Circle. No photos or real names.",
   safetyCard:
     "Respect the room.\nNo pressure, harassment, hate, or creepy behaviour.\nYou can ignore, block, or report anytime.",
-  instagramStory: "Tonight: conversation tables are live.\n\nScan in at the bar from 7 PM.\nNo swiping. No photos. No pressure.",
+  instagramStory: "Tonight: the room is live.\n\nScan in at the bar.\nNo swiping. No photos. Everything fades tonight.",
   runOfShow:
-    "7:00 PM: QR signs visible, staff briefed.\n7:30 PM: Host announces conversation tables are live.\n7:45 PM: First table prompt.\n8:15 PM: Nudge New Here and Music Table.\n8:45 PM: Optional table hellos stay table-scoped and mutual.\n9:15 PM: Final table prompt.\n9:30 PM: Night closes and feedback opens.",
+    "7:00 PM: QR signs visible, staff briefed.\n7:30 PM: Start room.\n7:45 PM: First Drop.\n8:15 PM: Feature a Circle.\n8:45 PM: Optional Hellos stay contextual and mutual.\n9:15 PM: Final Drop.\n9:30 PM: Close room and open recap.",
   staffIntro:
-    "Conversation tables are live now. Scan the QR, pick a table, and join when you're ready. No photos, no real names.",
+    "The room is live now. Scan the QR, draw a Signal, and join a Circle when you're ready.",
   midwayPrompt:
-    "If you're new here, try the New Here table. If you're here for the set, Music Table is warming up.",
+    "Local Secrets is open. Music Circle is heating up. Follow the Drop if you want an easy start.",
   finalCall:
-    "Conversation tables wrap soon. If you had a good chat, you can share contact only if both people agree.",
+    "Final Drop soon. If you had a good chat, keep it easy and mutual.",
   findMeSafety:
-    "Only use table hellos if both people agree. Keep them inside the same table, rate limited, and easy to end anytime.",
+    "Only send a Hello if it feels right. They can ignore it. No pressure.",
   eventNames: [
-    "Thursday Social Mode",
+    "Thursday Signal Night",
     "New Faces Night",
     "Open Chat Hour",
-    "Singles Without Swiping",
+    "Before Midnight",
     "Creative Social Night",
     "After Work Mixer",
     "Live Music Social",
     "New to Sydney Night",
-    "TableTalk Thursday"
+    "Local Secrets Night"
   ]
 };
 
@@ -92,14 +92,14 @@ export const beaconPalette = [
 ];
 
 export const hostNudges = [
-  "Conversation tables are live. Pick a table and join when you're ready.",
-  "New Here and Music Table both have open seats.",
-  "Last 30 minutes. Keep it kind, temporary, and mutual.",
-  "Optional hellos stay inside the table and only work when both people allow them."
+  "The room is live. Draw a Signal and follow the Drop.",
+  "Music Circle is heating up. Defend the next song.",
+  "Local Secrets needs one good Sydney spot.",
+  "Final Drop: send one easy Hello if it feels right."
 ];
 
 export const vibeLevelDescriptions: Record<VenueVibeLevel, string> = {
-  Calm: "More table prompts, hellos off by default.",
-  Social: "Balanced table prompts with optional table-scoped hellos.",
-  Mixer: "More host nudges and table prompts, optional hellos available."
+  Calm: "More Drops and Circles, Hellos off by default.",
+  Social: "Balanced Drops with optional Circle-scoped Hellos.",
+  Mixer: "More live Drops, featured Circles, and optional Hellos."
 };

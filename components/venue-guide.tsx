@@ -12,28 +12,28 @@ type GuideStep = {
 
 const guideSteps: GuideStep[] = [
   {
-    title: "1. Guests see tables",
-    body: "A guest scans the QR and lands on tonight's conversation tables. Browsing is the default state, not a mode.",
-    action: "If someone is unsure, tell them to read the tables first and join when one feels easy."
+    title: "1. Guests draw Signals",
+    body: "A guest scans the QR, draws a temporary Signal, then sees the live Drop and tonight's Circles.",
+    action: "If someone is unsure, tell them everything fades tonight and Hellos are optional."
   },
   {
     title: "2. Review run sheet",
-    body: "Before the night starts, the venue screen follows the run sheet: recipe, tables, launch kit, staff brief, and start.",
-    action: "Print the launch kit, place QR signs, brief staff, then press Start Social Mode."
+    body: "Before the night starts, the venue screen follows the run sheet: recipe, Circles, Drops, launch kit, staff brief, and start.",
+    action: "Print the launch kit, place QR signs, brief staff, then press Start room."
   },
   {
     title: "3. Host controls",
-    body: "During the night, the host screen shows the next operational action: send a nudge, feature a table, final call, or close.",
+    body: "During the night, the host screen shows the next operational action: send a Drop, feature a Circle, final Drop, or close.",
     action: "Do the next action on the run sheet, then move on."
   },
   {
     title: "4. Guest link",
-    body: "QR tools and printable assets stay in the guest link screen so the host controls remain clean while the night is live.",
+    body: "QR tools, printable assets, and the optional Signal coaster sheet stay in the guest link screen so host controls remain clean.",
     action: "Use the guest link if a sign goes missing or staff need the QR."
   },
   {
     title: "5. Night recap",
-    body: "After the night closes, the screen becomes a simple recap: scans, table joins, optional hellos, reports, best table, and recommendation.",
+    body: "After the night closes, the screen becomes a simple recap: scans, Signals, Circle joins, Drops, Hellos, reports, best Circle, and recommendation.",
     action: "Use Run this again when the format worked."
   }
 ];

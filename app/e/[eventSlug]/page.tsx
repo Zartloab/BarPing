@@ -15,25 +15,22 @@ export default async function EventLandingPage({ params }: { params: Promise<{ e
     <AppShell>
       <MotionShell className="flex min-h-[calc(100dvh-2.5rem)] flex-col justify-center py-4">
         <p className="text-sm font-medium text-venue-muted">{event.title} at {venue.name}</p>
-        <h1 className="mt-4 font-serif text-5xl leading-none text-venue-cream">Pick a conversation table.</h1>
-        <div className="mt-4 inline-flex w-fit rounded-[999px] border border-venue-soft bg-venue-card px-3 py-1 text-xs font-medium text-venue-muted">
+        <h1 className="mt-4 font-serif text-5xl leading-none text-venue-cream">The room is live.</h1>
+        <div className="mt-4 inline-flex w-fit rounded-[999px] border border-venue-olive/40 bg-venue-olive/10 px-3 py-1 text-xs font-medium text-venue-olive">
           {expired ? "Closed" : socialWindowActive ? "Live now" : "Paused"}
         </div>
         <p className="mt-6 text-lg leading-7 text-venue-muted">
-          No photos. No names. No pressure.
+          Draw a Signal. Follow the Drop. Join a Circle. Send a Hello if it feels right.
         </p>
+        <p className="mt-4 text-sm leading-6 text-venue-dim">No names. No photos. Everything fades tonight.</p>
 
         <div className="mt-8 grid gap-3">
-          <PrimaryLink href={isJoinable ? `/e/${event.slug}/room` : "/support"}>
-            {expired ? "Event closed" : socialWindowActive ? "See tonight's tables" : "Tables paused"}
+          <PrimaryLink href={isJoinable ? `/e/${event.slug}/signal` : "/support"}>
+            {expired ? "Room closed" : socialWindowActive ? "Draw my Signal" : "Room paused"}
           </PrimaryLink>
-          <SecondaryLink href="/rules">Community rules</SecondaryLink>
+          <SecondaryLink href={`/e/${event.slug}/room`}>See tonight&apos;s Circles</SecondaryLink>
+          <SecondaryLink href="/rules">Room rules</SecondaryLink>
         </div>
-
-        <section className="mt-8 rounded-[12px] border border-venue-soft bg-venue-card p-4">
-          <p className="text-xs font-medium text-venue-dim">How tonight works</p>
-          <p className="mt-2 text-sm leading-6 text-venue-muted">Start by reading the tables. No names, no photos, no pressure to be available for hellos.</p>
-        </section>
       </MotionShell>
     </AppShell>
   );

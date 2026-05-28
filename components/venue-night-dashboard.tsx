@@ -25,23 +25,23 @@ import type {
   Venue
 } from "@/lib/types";
 
-type HostStep = "nudge" | "feature" | "final" | "close";
+type HostStep = "drop" | "feature" | "final" | "close";
 
 const hostStepCopy: Record<HostStep, { label: string; title: string; body: string }> = {
-  nudge: {
-    label: "Send nudge",
-    title: "Point guests toward a table.",
-    body: "Use one clear announcement. Keep hellos out of the main prompt."
+  drop: {
+    label: "Send next Drop",
+    title: "Release the next Drop.",
+    body: "One prompt. No points, no pressure, no physical dares."
   },
   feature: {
-    label: "Feature a table",
-    title: "Put one table in focus.",
-    body: "Feature the next useful table when the room needs direction."
+    label: "Feature Circle",
+    title: "Put one Circle in focus.",
+    body: "Feature the Circle that gives the room the easiest next move."
   },
   final: {
-    label: "Final call",
+    label: "Final Drop",
     title: "Give guests a clean ending.",
-    body: "Remind everyone the night is wrapping and contact sharing stays mutual."
+    body: "Send one final low-pressure Drop before the room fades."
   },
   close: {
     label: "Close night",
@@ -87,21 +87,21 @@ export function VenueNightDashboard({
   const [recentAnnouncements, setRecentAnnouncements] = useState(announcements);
   const [notice, setNotice] = useState("");
   const [launchKitPrinted, setLaunchKitPrinted] = useState(false);
-  const [hostStep, setHostStep] = useState<HostStep>("nudge");
+  const [hostStep, setHostStep] = useState<HostStep>("drop");
   const activeAssets = pilot.event.id !== event.id ? pilot.assets : assets;
   const activeTemplate = templates.find((template) => template.id === activeEvent.templateId) ?? selectedTemplate;
   const state = getVenueDashboardState(activeEvent, activeWindows);
   const status = state === "after" ? "Closed" : state === "live" ? "Live" : "Set up";
   const featuredTable = activeTables.find((table) => table.isSpotlighted) ?? activeTables[0];
   const activeTableCount = activeTables.filter((table) => table.isActive !== false).length;
-  const bestTable = featuredTable?.name ?? activeTables[0]?.name ?? "Tables";
+  const bestTable = featuredTable?.name ?? activeTables[0]?.name ?? "Circles";
   const nextHostStep = hostStepCopy[hostStep];
 
   async function setNightStatus(nextStatus: "scheduled" | "active" | "ended" | "closed") {
     const result = await updatePilotLiveStatus(activeEvent, nextStatus);
     setActiveEvent(result.event);
     if (result.socialWindow) setActiveWindows([result.socialWindow]);
-    setNotice(nextStatus === "active" ? "Tables are live." : nextStatus === "closed" ? "Night closed." : "Tables paused.");
+    setNotice(nextStatus === "active" ? "Signal Night is live." : nextStatus === "closed" ? "Night closed." : "Room paused.");
   }
 
   async function sendAnnouncement(kind: HostAnnouncement["kind"] = "announcement", body = message) {
@@ -136,7 +136,7 @@ export function VenueNightDashboard({
     setActiveTables(nextTables);
     const local = loadLocalPilotEvent();
     if (local.socialWindow) saveLocalPilotEvent(activeEvent, nextTables, activeAssets, local.socialWindow);
-    setNotice("Featured table updated.");
+    setNotice("Featured Circle updated.");
   }
 
   function featureNextTable() {
@@ -147,7 +147,7 @@ export function VenueNightDashboard({
   }
 
   async function runHostStep() {
-    if (hostStep === "nudge") {
+    if (hostStep === "drop") {
       await sendAnnouncement();
       setHostStep("feature");
       return;
@@ -158,7 +158,7 @@ export function VenueNightDashboard({
       return;
     }
     if (hostStep === "final") {
-      await sendAnnouncement("last_call", "Final call: conversation tables wrap soon. Keep contact sharing mutual and no-pressure.");
+      await sendAnnouncement("last_call", "Final Drop: send one easy Hello if it feels right. Everything fades tonight.");
       setHostStep("close");
       return;
     }
@@ -175,7 +175,7 @@ export function VenueNightDashboard({
           state === "before"
             ? "Tonight's run sheet shows the next launch action."
             : state === "live"
-              ? "Host controls show one operational action at a time."
+              ? "Send Drops, feature Circles, and close the room cleanly."
               : "Night recap is ready."
         }
         action={
@@ -194,12 +194,13 @@ export function VenueNightDashboard({
             <SectionLabel>Tonight&apos;s run sheet</SectionLabel>
             <h2 className="mt-2 font-serif text-4xl leading-none">{activeTemplate.eventTitle}</h2>
             <p className="mt-3 text-sm leading-6 text-venue-muted">
-              Choose recipe, review run sheet, print launch kit, then start Social Mode.
+              Choose recipe, print kit, start room, send Drops, feature Circles, final Drop, close room.
             </p>
             <div className="mt-5 grid gap-2">
               {[
                 "Recipe selected",
-                "Conversation tables generated",
+                "Circles ready",
+                "Drops ready",
                 "Safety rules ready",
                 launchKitPrinted ? "Launch kit printed" : "Print launch kit next"
               ].map((item, index) => (
@@ -212,12 +213,12 @@ export function VenueNightDashboard({
             {launchKitPrinted ? (
               <PrimaryButton className="mt-5 w-full" onClick={() => setNightStatus("active")}>
                 <Play size={16} />
-                Start Social Mode
+                Start room
               </PrimaryButton>
             ) : (
               <PrimaryButton className="mt-5 w-full" onClick={() => {
                 setLaunchKitPrinted(true);
-                setNotice("Launch kit marked printed. Place QR signs, then start Social Mode.");
+                setNotice("Launch kit marked printed. Place QR signs, then start the room.");
               }}>
                 Print launch kit
               </PrimaryButton>
@@ -237,10 +238,10 @@ export function VenueNightDashboard({
             <h2 className="mt-2 font-serif text-4xl leading-none">{nextHostStep.title}</h2>
             <p className="mt-3 text-sm leading-6 text-venue-muted">{nextHostStep.body}</p>
 
-            {hostStep === "nudge" ? (
+            {hostStep === "drop" ? (
               <>
                 <label className="mt-5 block text-sm text-venue-muted">
-                  Nudge text
+                  Drop text
                   <textarea
                     value={message}
                     onChange={(event) => setMessage(event.target.value)}
@@ -265,7 +266,7 @@ export function VenueNightDashboard({
             {hostStep === "feature" ? (
               <div className="mt-5 rounded-[10px] border border-venue-soft bg-venue-raised p-3">
                 <p className="text-xs text-venue-dim">Currently featured</p>
-                <p className="mt-1 font-medium text-venue-cream">{featuredTable?.name ?? "No table yet"}</p>
+                <p className="mt-1 font-medium text-venue-cream">{featuredTable?.name ?? "No Circle yet"}</p>
               </div>
             ) : null}
 
@@ -276,7 +277,7 @@ export function VenueNightDashboard({
             ) : null}
 
             <PrimaryButton className="mt-5 w-full" onClick={runHostStep}>
-              {hostStep === "nudge" ? <Megaphone size={16} /> : hostStep === "feature" ? <Star size={16} /> : hostStep === "close" ? <Square size={16} /> : <Megaphone size={16} />}
+              {hostStep === "drop" ? <Megaphone size={16} /> : hostStep === "feature" ? <Star size={16} /> : hostStep === "close" ? <Square size={16} /> : <Megaphone size={16} />}
               {nextHostStep.label}
             </PrimaryButton>
           </ConsolePanel>
@@ -286,13 +287,13 @@ export function VenueNightDashboard({
               <SectionLabel>Live run sheet</SectionLabel>
               <div className="mt-4 grid gap-3">
                 <p className="rounded-[10px] bg-venue-raised p-3 text-sm text-venue-muted">
-                  Recent nudge: {recentAnnouncements[0]?.body ?? "No nudges sent yet."}
+                  Current Drop: {recentAnnouncements[0]?.body ?? "No Drops sent yet."}
                 </p>
                 <p className="rounded-[10px] bg-venue-raised p-3 text-sm text-venue-muted">
-                  Featured table: {featuredTable?.name ?? "None yet"}
+                  Featured Circle: {featuredTable?.name ?? "None yet"}
                 </p>
                 <p className="rounded-[10px] bg-venue-raised p-3 text-sm text-venue-muted">
-                  {activeTableCount} tables active. {guests.length} guests have checked in.
+                  {activeTableCount} Circles active. {guests.length} Signals checked in.
                 </p>
               </div>
             </ConsolePanel>
@@ -306,7 +307,7 @@ export function VenueNightDashboard({
                 </div>
               </div>
               <p className="mt-4 rounded-[10px] bg-venue-card p-3 text-sm text-venue-muted">
-                Hellos are table-scoped, mutual, rate limited, and reportable.
+                Hellos are contextual, mutual, rate limited, and reportable.
               </p>
             </SafetyPanel>
           </section>
@@ -319,17 +320,17 @@ export function VenueNightDashboard({
             <SectionLabel>Night recap</SectionLabel>
             <h2 className="mt-2 font-serif text-4xl leading-none">{recommendation}</h2>
             <p className="mt-3 text-sm leading-6 text-venue-muted">
-              {feedback.length} feedback responses. Best table: {bestTable}.
+              {feedback.length} feedback responses. Best Circle: {bestTable}.
             </p>
             <div className="mt-5 grid gap-3 md:grid-cols-4">
               <UtilityPanel><p className="text-2xl font-medium">{metrics.qrScans}</p><p className="text-sm text-venue-muted">scans</p></UtilityPanel>
               <UtilityPanel><p className="text-2xl font-medium">{metrics.checkIns}</p><p className="text-sm text-venue-muted">joins</p></UtilityPanel>
-              <UtilityPanel><p className="text-2xl font-medium">{metrics.tableJoins}</p><p className="text-sm text-venue-muted">table joins</p></UtilityPanel>
+              <UtilityPanel><p className="text-2xl font-medium">{metrics.tableJoins}</p><p className="text-sm text-venue-muted">Circle joins</p></UtilityPanel>
               <UtilityPanel><p className="text-2xl font-medium">{metrics.reports}</p><p className="text-sm text-venue-muted">reports</p></UtilityPanel>
             </div>
             <div className="mt-3 grid gap-3 md:grid-cols-2">
               <UtilityPanel><p className="text-2xl font-medium">{metrics.pingsSent}</p><p className="text-sm text-venue-muted">optional hellos</p></UtilityPanel>
-              <UtilityPanel><p className="text-2xl font-medium">{metrics.chatsCreated}</p><p className="text-sm text-venue-muted">table chats</p></UtilityPanel>
+              <UtilityPanel><p className="text-2xl font-medium">{metrics.chatsCreated}</p><p className="text-sm text-venue-muted">chats unlocked</p></UtilityPanel>
             </div>
             <PrimaryLink className="mt-5 w-full" href="/venue/events/new">
               <RotateCcw size={16} />

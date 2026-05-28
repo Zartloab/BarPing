@@ -12,7 +12,7 @@ export function FeedbackSheet({ onClose }: { onClose?: () => void }) {
     return (
       <section className="glass-card rounded-[28px] p-5 text-center">
         <h2 className="font-serif text-3xl">Thanks for helping tune the room.</h2>
-        <p className="mt-3 text-sm text-venue-muted">Your feedback helps the venue decide whether to run another Social Mode night.</p>
+        <p className="mt-3 text-sm text-venue-muted">Your feedback helps the venue decide whether to run another Signal Night.</p>
         <SecondaryButton className="mt-5 w-full" onClick={onClose}>Done</SecondaryButton>
       </section>
     );
@@ -23,7 +23,7 @@ export function FeedbackSheet({ onClose }: { onClose?: () => void }) {
       <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-venue-amberSoft">Event feedback</p>
       <h2 className="mt-2 font-serif text-3xl">How did tonight feel?</h2>
       <div className="mt-5 grid gap-3">
-        {["I felt safe", "I would use BarPing again", "I met someone", "A table felt easier than 1:1"].map((label) => (
+        {["I felt safe", "I would use BarPing again", "I met someone", "A Circle felt easier than 1:1"].map((label) => (
           <label key={label} className="flex min-h-12 items-center gap-3 rounded-[20px] border border-white/[0.08] bg-white/[0.035] px-4 text-sm text-venue-muted">
             <input className="h-4 w-4 accent-venue-amber" type="checkbox" defaultChecked />
             {label}

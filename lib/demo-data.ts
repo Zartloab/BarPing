@@ -41,13 +41,13 @@ export const demoVenue: Venue = {
 export const demoEvent: Event = {
   id: "event-demo",
   venueId: demoVenue.id,
-  title: "Thursday Social Mode",
+  title: "Signal Night",
   slug: "thursday-social-mode",
   eventType: "Social Night",
   startsAt: start.toISOString(),
   endsAt: end.toISOString(),
   houseRules:
-    "Be normal. Be kind. No harassment, pressure, hate, explicit messages, or creepy behaviour. Staff and moderators can remove anyone.",
+    "Be easy. Be kind. No pressure, harassment, hate, explicit messages, threats, or creepy behaviour. Anyone can ignore, block, or report. The room is temporary. Respect it.",
   isLive: true,
   isClosed: false,
   qrScans: 38,
@@ -59,7 +59,7 @@ export const demoEvent: Event = {
 export const demoGuests: Guest[] = [
   {
     id: "guest-quiet-tiger",
-    alias: "Quiet Tiger",
+    alias: "The Cassette",
     vibe: "Chill",
     topics: ["Music", "Travel", "Food"],
     mode: "Open to 1:1 chat",
@@ -71,7 +71,7 @@ export const demoGuests: Guest[] = [
   },
   {
     id: "guest-blue-vinyl",
-    alias: "Blue Vinyl",
+    alias: "The Moth",
     vibe: "Music",
     topics: ["Music", "Film", "Random"],
     mode: "Join a table",
@@ -83,7 +83,7 @@ export const demoGuests: Guest[] = [
   },
   {
     id: "guest-amber-signal",
-    alias: "Amber Signal",
+    alias: "The Back Booth",
     vibe: "New Here",
     topics: ["Art", "Design", "Books"],
     mode: "Open to 1:1 chat",
@@ -95,7 +95,7 @@ export const demoGuests: Guest[] = [
   },
   {
     id: "guest-olive-moon",
-    alias: "Olive Moon",
+    alias: "The Matchbook",
     vibe: "Creative",
     topics: ["Art", "Startups", "Design"],
     mode: "With a friend",
@@ -107,7 +107,7 @@ export const demoGuests: Guest[] = [
   },
   {
     id: "guest-soft-static",
-    alias: "Soft Static",
+    alias: "The Broken Amp",
     vibe: "Deep Chat",
     topics: ["Life", "Books", "Film"],
     mode: "Open to 1:1 chat",
@@ -118,7 +118,7 @@ export const demoGuests: Guest[] = [
   },
   {
     id: "guest-velvet-echo",
-    alias: "Velvet Echo",
+    alias: "The Last Song",
     vibe: "Social",
     topics: ["Travel", "Food", "Random"],
     mode: "Join a table",
@@ -129,7 +129,7 @@ export const demoGuests: Guest[] = [
   },
   {
     id: "guest-neon-sparrow",
-    alias: "Neon Sparrow",
+    alias: "The Flicker",
     vibe: "Just Curious",
     topics: ["Games", "Music", "Life"],
     mode: "Open to 1:1 chat",
@@ -143,7 +143,7 @@ export const demoGuests: Guest[] = [
 export const demoTables: EventTable[] = [
   {
     id: "table-music",
-    name: "Music Table",
+    name: "Music Circle",
     description: "Live set reactions and new recommendations.",
     maxMembers: 10,
     memberCount: 6,
@@ -157,7 +157,7 @@ export const demoTables: EventTable[] = [
   },
   {
     id: "table-new",
-    name: "New to Sydney",
+    name: "Local Secrets",
     description: "Fresh faces, local tips, easy hellos.",
     maxMembers: 8,
     memberCount: 4,
@@ -183,48 +183,50 @@ export const demoTables: EventTable[] = [
   },
   {
     id: "table-random",
-    name: "Random Table",
-    description: "No theme. Just a low-pressure chat.",
+    name: "Wild Card",
+    description: "No theme. Just strange, easy questions.",
     maxMembers: 12,
     memberCount: 3,
     prompt: "What is your safest controversial opinion?",
     suggestedTopics: ["Random", "Games", "Life"],
     isActive: true,
     energyLevel: "Quiet",
-    hostPrompt: "Use this table when you do not know what table you want.",
+    hostPrompt: "Use this Circle when you do not know where to start.",
     isTemplateGenerated: true
   }
 ];
 
 const sharedAssetCopy = {
-  tableQr: "Open to meeting people tonight?\n\nScan to join BarPing.\nNo names. No photos. No pressure.",
-  entrancePoster: "Conversation tables are live tonight.\n\nScan the QR, pick a table, and join when you're ready.",
-  barCounter: "Ask the bar about tonight's tables.\nScan in, read the table prompts, and join when ready.",
-  instagramStory: "Tonight: conversation tables are live.\n\nScan in at the bar from 7 PM.\nNo swiping. No photos. No pressure.",
+  tableQr: "The room has a hidden layer tonight.\n\nScan the QR. Draw a Signal. Join a Circle.",
+  entrancePoster: "The room is live tonight.\n\nDraw a Signal. Follow the Drop. Everything fades tonight.",
+  barCounter: "Ask the bar about Signal Night.\nScan in, draw a Signal, follow the Drop.",
+  instagramStory: "Tonight: the room is live.\n\nScan in at the bar.\nNo swiping. No photos. Everything fades tonight.",
   safetyCard: "Respect the room.\nNo pressure, harassment, hate, or creepy behaviour.\nYou can ignore, block, or report anytime.",
   staffScript:
-    "We're running BarPing tonight. Guests scan the QR, see tonight's conversation tables, and join when they're ready. No photos or real names.",
+    "We're running BarPing tonight. Guests scan the QR, draw a temporary Signal, follow the Drop, and join a Circle. No photos or real names.",
   runOfShow:
-    "7:00 PM: QR signs visible, staff briefed.\n7:30 PM: Conversation tables open.\n7:45 PM: First table prompt.\n8:15 PM: Host nudge.\n8:45 PM: Optional table hellos stay table-scoped and mutual.\n9:15 PM: Final prompt.\n9:30 PM: Feedback opens."
+    "7:00 PM: QR signs visible, staff briefed.\n7:30 PM: Start room.\n7:45 PM: First Drop.\n8:15 PM: Feature a Circle.\n8:45 PM: Optional Hellos stay contextual and mutual.\n9:15 PM: Final Drop.\n9:30 PM: Close room and recap."
 };
 
 export const demoEventTemplates: EventTemplate[] = [
   {
-    id: "after-work-mixer",
-    name: "After Work Mixer",
-    eventTitle: "After Work Social",
-    eventType: "Coworking Mixer",
-    description: "A simple social hour for people arriving in ones and twos.",
+    id: "signal-night",
+    name: "Signal Night",
+    eventTitle: "Signal Night",
+    eventType: "QR Social Ritual",
+    description: "The default hidden social layer: Signals, Drops, Circles, and optional Hellos.",
     recommendedDurationMinutes: 120,
     socialWindowOffsetMinutes: 30,
     socialWindowDurationMinutes: 105,
     defaultVibeLevel: "Social",
     findMeDefault: true,
     tables: [
-      { name: "First Drink", description: "Easy openings and venue recommendations.", prompt: "What should someone order here first?", suggestedTopics: ["Food", "Travel", "Random"], maxMembers: 10, energyLevel: "Warming up" },
-      { name: "Work Stories", description: "Low-stakes chat after the laptop closes.", prompt: "What was the least boring part of your week?", suggestedTopics: ["Life", "Startups"], maxMembers: 10, energyLevel: "Quiet" }
+      { name: "Music Circle", description: "Songs, sets, and strong opinions.", prompt: "What track should the room hear next?", suggestedTopics: ["Music", "Film"], maxMembers: 10, energyLevel: "Active" },
+      { name: "Local Secrets", description: "Places people actually rate.", prompt: "What hidden Sydney spot would you defend?", suggestedTopics: ["Food", "Music", "Random"], maxMembers: 10, energyLevel: "Warming up" },
+      { name: "Wild Card", description: "Loose prompts and odd questions.", prompt: "What fake band name would you start?", suggestedTopics: ["Random", "Life"], maxMembers: 10, energyLevel: "Quiet" },
+      { name: "Before Midnight", description: "Easy final-round conversation.", prompt: "What song should end the night?", suggestedTopics: ["Music", "Life"], maxMembers: 10, energyLevel: "Warming up" }
     ],
-    hostNudges: ["After Work Social is live. Join First Drink if you want an easy start.", "Last call for new table joins in 30 minutes."],
+    hostNudges: ["The room is live. Draw a Signal and follow the Drop.", "Final 20 minutes: send one easy Hello if it feels right."],
     assets: sharedAssetCopy
   },
   {
@@ -242,13 +244,13 @@ export const demoEventTemplates: EventTemplate[] = [
       { name: "New Here", description: "Fresh faces and easy introductions.", prompt: "What brought you to this part of town?", suggestedTopics: ["Travel", "Life", "Food"], maxMembers: 12, energyLevel: "Active" },
       { name: "Local Tips", description: "Recommendations from people who know the area.", prompt: "What place should everyone try once?", suggestedTopics: ["Food", "Music", "Random"], maxMembers: 10, energyLevel: "Warming up" }
     ],
-    hostNudges: ["New Here has open seats. Perfect if you just arrived.", "Ask someone for one local tip before the next round."],
+    hostNudges: ["New Here is open. Perfect if you just arrived.", "Drop: ask someone for one local tip before the next round."],
     assets: sharedAssetCopy
   },
   {
     id: "live-music-social",
     name: "Live Music Social",
-    eventTitle: "Thursday Social Mode",
+    eventTitle: "Live Music Signal Night",
     eventType: "Live Music",
     description: "Turns a live set into a low-pressure shared conversation.",
     recommendedDurationMinutes: 150,
@@ -257,34 +259,35 @@ export const demoEventTemplates: EventTemplate[] = [
     defaultVibeLevel: "Social",
     findMeDefault: true,
     tables: [
-      { name: "Music Table", description: "Live set reactions and recommendations.", prompt: "What track should the room hear next?", suggestedTopics: ["Music", "Film"], maxMembers: 10, energyLevel: "Active" },
+      { name: "Music Circle", description: "Live set reactions and recommendations.", prompt: "What track should the room hear next?", suggestedTopics: ["Music", "Film"], maxMembers: 10, energyLevel: "Active" },
       { name: "First Time Here", description: "For anyone new to the venue or band.", prompt: "What made you come out tonight?", suggestedTopics: ["Music", "Life", "Random"], maxMembers: 8, energyLevel: "Warming up" },
       { name: "After The Set", description: "Keep the chat going after the last song.", prompt: "What was the best moment of the set?", suggestedTopics: ["Music", "Travel"], maxMembers: 12, energyLevel: "Quiet" }
     ],
-    hostNudges: ["Music Table is active. Share your read on the set.", "First Time Here is the easiest place to start.", "Optional hellos stay inside the table and only work if both people allow them."],
+    hostNudges: ["Music Circle is heating up. Share your read on the set.", "First Time Here is the easiest Circle to start.", "Optional Hellos stay inside the Circle and only work if both people allow them."],
     assets: sharedAssetCopy
   },
   {
-    id: "singles-without-swiping",
-    name: "Singles Without Swiping",
-    eventTitle: "Singles Without Swiping",
-    eventType: "Singles Social",
-    description: "A safer singles night where tables lead and hellos stay mutual.",
+    id: "dive-bar-night",
+    name: "Dive Bar Night",
+    eventTitle: "Dive Bar Signal Night",
+    eventType: "Bar Night",
+    description: "Back booth energy, local secrets, and optional Hellos that stay mutual.",
     recommendedDurationMinutes: 120,
     socialWindowOffsetMinutes: 20,
     socialWindowDurationMinutes: 100,
     defaultVibeLevel: "Calm",
     findMeDefault: false,
     tables: [
-      { name: "No Pressure Table", description: "Group chat before any 1:1.", prompt: "What is your ideal low-pressure night out?", suggestedTopics: ["Life", "Food", "Travel"], maxMembers: 10, energyLevel: "Active" },
-      { name: "Conversation Starters", description: "Prompts that are not dating-app coded.", prompt: "What topic can you talk about for too long?", suggestedTopics: ["Books", "Film", "Music"], maxMembers: 10, energyLevel: "Warming up" }
+      { name: "Back Booth", description: "Low light, easy starts.", prompt: "What venue should never close?", suggestedTopics: ["Life", "Music"], maxMembers: 10, energyLevel: "Active" },
+      { name: "Smoke Break Stories", description: "Stories without needing the smoke break.", prompt: "What is your fake band name?", suggestedTopics: ["Random", "Music"], maxMembers: 10, energyLevel: "Warming up" },
+      { name: "Bad Opinions", description: "Friendly arguments only.", prompt: "What harmless opinion will you defend?", suggestedTopics: ["Film", "Food", "Music"], maxMembers: 10, energyLevel: "Quiet" }
     ],
-    hostNudges: ["Start with tables. Hellos are optional, table-scoped, and mutual.", "No pressure is the rule tonight."],
+    hostNudges: ["Start with a Circle. Hellos are optional, Circle-scoped, and mutual.", "No pressure is the rule tonight."],
     assets: sharedAssetCopy
   },
   {
-    id: "creative-table-night",
-    name: "Creative Table Night",
+    id: "creative-night",
+    name: "Creative Night",
     eventTitle: "Artists & Makers Social",
     eventType: "Creative Meetup",
     description: "For artists, designers, musicians, and project people.",
@@ -297,7 +300,7 @@ export const demoEventTemplates: EventTemplate[] = [
       { name: "Artists & Makers", description: "Projects, ideas, and almost-finished things.", prompt: "What are you making right now?", suggestedTopics: ["Art", "Design", "Music"], maxMembers: 12, energyLevel: "Active" },
       { name: "Collab Corner", description: "Find people for projects without pitching hard.", prompt: "What skill would you love to trade?", suggestedTopics: ["Startups", "Design", "Art"], maxMembers: 8, energyLevel: "Warming up" }
     ],
-    hostNudges: ["Artists & Makers is active. Bring a project, not a pitch.", "Collab Corner has open seats."],
+    hostNudges: ["Artists & Makers is active. Bring a project, not a pitch.", "Half-Finished Ideas is open."],
     assets: sharedAssetCopy
   },
   {
@@ -313,9 +316,9 @@ export const demoEventTemplates: EventTemplate[] = [
     findMeDefault: true,
     tables: [
       { name: "Travel Stories", description: "Where people have been and where they are going.", prompt: "What city surprised you most?", suggestedTopics: ["Travel", "Food", "Life"], maxMembers: 12, energyLevel: "Active" },
-      { name: "Games Table", description: "Light conversation and silly questions.", prompt: "What game should this table play verbally?", suggestedTopics: ["Games", "Random"], maxMembers: 10, energyLevel: "Warming up" }
+      { name: "Wild Card", description: "Light conversation and silly questions.", prompt: "What fake game would this room invent?", suggestedTopics: ["Games", "Random"], maxMembers: 10, energyLevel: "Warming up" }
     ],
-    hostNudges: ["Travel Stories is filling up.", "Games Table is the easiest start if you came alone."],
+    hostNudges: ["Travel Stories is filling up.", "Wild Card is the easiest start if you came alone."],
     assets: sharedAssetCopy
   },
   {
@@ -333,7 +336,7 @@ export const demoEventTemplates: EventTemplate[] = [
       { name: "Slow Chat", description: "No rush, no performance.", prompt: "What made today decent?", suggestedTopics: ["Life", "Books", "Food"], maxMembers: 8, energyLevel: "Quiet" },
       { name: "Regulars & New Faces", description: "A soft landing for first-timers.", prompt: "What should someone know about this venue?", suggestedTopics: ["Random", "Music"], maxMembers: 10, energyLevel: "Warming up" }
     ],
-    hostNudges: ["Slow Chat is open if you want a gentle start.", "No pressure tonight. Tables first."],
+    hostNudges: ["Slow Chat is open if you want a gentle start.", "No pressure tonight. Circles first."],
     assets: sharedAssetCopy
   },
   {
@@ -349,9 +352,9 @@ export const demoEventTemplates: EventTemplate[] = [
     findMeDefault: true,
     tables: [
       { name: "Introductions", description: "Easy names-free starts for the group.", prompt: "What brought you into the room tonight?", suggestedTopics: ["Life", "Startups", "Random"], maxMembers: 12, energyLevel: "Active" },
-      { name: "Topic Table", description: "A flexible table for the event theme.", prompt: "What question should this event answer?", suggestedTopics: ["Design", "Startups", "Art"], maxMembers: 12, energyLevel: "Warming up" }
+      { name: "Topic Circle", description: "A flexible Circle for the event theme.", prompt: "What question should this event answer?", suggestedTopics: ["Design", "Startups", "Art"], maxMembers: 12, energyLevel: "Warming up" }
     ],
-    hostNudges: ["Introductions is open for anyone arriving solo.", "Topic Table is live now."],
+    hostNudges: ["Introductions is open for anyone arriving solo.", "Topic Circle is live now."],
     assets: sharedAssetCopy
   }
 ];
@@ -359,12 +362,13 @@ export const demoEventTemplates: EventTemplate[] = [
 export const selectedDemoTemplate = demoEventTemplates.find((template) => template.id === demoEvent.templateId) ?? demoEventTemplates[2];
 
 export const demoEventAssets: EventAsset[] = [
-  { id: "asset-table", eventId: demoEvent.id, kind: "table_qr", title: "Table QR card", copy: selectedDemoTemplate.assets.tableQr },
+  { id: "asset-table", eventId: demoEvent.id, kind: "table_qr", title: "Signal Night QR card", copy: selectedDemoTemplate.assets.tableQr },
   { id: "asset-poster", eventId: demoEvent.id, kind: "entrance_poster", title: "Entrance poster", copy: selectedDemoTemplate.assets.entrancePoster },
   { id: "asset-counter", eventId: demoEvent.id, kind: "bar_counter", title: "Bar counter sign", copy: selectedDemoTemplate.assets.barCounter },
   { id: "asset-story", eventId: demoEvent.id, kind: "instagram_story", title: "Instagram story", copy: selectedDemoTemplate.assets.instagramStory },
   { id: "asset-safety", eventId: demoEvent.id, kind: "safety_card", title: "Safety card", copy: selectedDemoTemplate.assets.safetyCard },
-  { id: "asset-run", eventId: demoEvent.id, kind: "run_sheet", title: "Staff run sheet", copy: selectedDemoTemplate.assets.runOfShow }
+  { id: "asset-run", eventId: demoEvent.id, kind: "run_sheet", title: "Staff run sheet", copy: selectedDemoTemplate.assets.runOfShow },
+  { id: "asset-signals", eventId: demoEvent.id, kind: "signal_sheet", title: "Signal coaster sheet", copy: "You're The Cassette tonight.\n\nWant people to know you're open to Hellos? Grab the Cassette mark at the bar.\n\nOptional. No real names. No pressure." }
 ];
 
 export const demoRecommendation: EventRecommendation = "Good pilot signal";
@@ -436,7 +440,7 @@ export const demoAnnouncements: HostAnnouncement[] = [
     id: "announcement-live",
     eventId: demoEvent.id,
     venueId: demoVenue.id,
-    body: "Social Mode is live. Music Table and New to Sydney both have open seats.",
+    body: "Signal Night is live. Music Circle and Local Secrets are open.",
     kind: "announcement",
     expiresAt: end.toISOString(),
     createdAt: new Date(now.getTime() - 10 * 60 * 1000).toISOString()
@@ -445,7 +449,7 @@ export const demoAnnouncements: HostAnnouncement[] = [
     id: "announcement-find-me",
     eventId: demoEvent.id,
     venueId: demoVenue.id,
-    body: "Optional table hellos only work inside the same table when both people agree.",
+    body: "Optional Hellos work inside the same Circle when both people agree.",
     kind: "safety",
     expiresAt: end.toISOString(),
     createdAt: new Date(now.getTime() - 5 * 60 * 1000).toISOString()
@@ -453,7 +457,7 @@ export const demoAnnouncements: HostAnnouncement[] = [
 ];
 
 export const demoFeedback: FeedbackResponse[] = [
-  { id: "feedback-1", feltSafe: true, wouldUseAgain: true, metSomeone: true, tableFeltEasier: true, rating: 5, comment: "Tables made it easier to start." },
+  { id: "feedback-1", feltSafe: true, wouldUseAgain: true, metSomeone: true, tableFeltEasier: true, rating: 5, comment: "Circles made it easier to start." },
   { id: "feedback-2", feltSafe: true, wouldUseAgain: true, metSomeone: false, tableFeltEasier: true, rating: 4 },
   { id: "feedback-3", feltSafe: true, wouldUseAgain: false, metSomeone: false, tableFeltEasier: false, rating: 3 }
 ];

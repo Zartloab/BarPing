@@ -10,14 +10,14 @@ export default function HomePage() {
       <MotionShell className="flex min-h-[calc(100dvh-2.5rem)] flex-col justify-between">
         <div className="pt-10">
           <p className="text-sm font-medium text-venue-muted">{demoVenue.name}</p>
-          <h1 className="mt-4 font-serif text-5xl leading-none text-venue-cream">{demoEvent.title}</h1>
+          <h1 className="mt-4 font-serif text-5xl leading-none text-venue-cream">The room has a hidden layer.</h1>
           <p className="mt-5 text-lg leading-7 text-venue-muted">
-            Scan the QR, pick a conversation table, and join when you&apos;re ready.
+            Scan the QR, draw your Signal, follow the Drop, join a Circle, and send a Hello if it feels right.
           </p>
 
           <div className="mt-8 grid gap-3">
-            <PrimaryLink href={`/e/${demoEvent.slug}`}>See tables</PrimaryLink>
-            <SecondaryLink href="/rules">Community rules</SecondaryLink>
+            <PrimaryLink href={`/e/${demoEvent.slug}`}>Open Signal Night</PrimaryLink>
+            <SecondaryLink href="/rules">Room rules</SecondaryLink>
           </div>
 
           <p className="mt-5 text-center text-sm text-venue-dim">No names. No photos. No exact location.</p>

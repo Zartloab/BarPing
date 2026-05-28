@@ -46,7 +46,7 @@ export default function ChatPage() {
 
   function requestFindMe() {
     if (!demoEvent.findMeEnabled) {
-      setError("Table hellos are turned off for tonight. You can still chat or meet through a table.");
+      setError("Hellos are turned off for tonight. You can still follow the Drop or join a Circle.");
       return;
     }
     setFindMeRequestOpen(true);
@@ -65,7 +65,7 @@ export default function ChatPage() {
   }
 
   function reportFindMe() {
-    setError("This table hello was reported. Venue staff can review the session metadata.");
+    setError("This Hello was reported. Venue staff can review the session metadata.");
     setBeacon(null);
     setFindMeRequestOpen(false);
   }
@@ -103,17 +103,17 @@ export default function ChatPage() {
           <div className="glass-card rounded-[24px] p-4">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-venue-amberSoft">Table hello</p>
-                <h2 className="mt-1 font-semibold">Ready to find each other?</h2>
+                <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-venue-amberSoft">Hello accepted</p>
+                <h2 className="mt-1 font-semibold">You unlocked a 10-minute chat.</h2>
                 <p className="mt-1 text-sm leading-relaxed text-venue-muted">
                   {demoEvent.findMeEnabled
-                    ? "This only starts after both people from the same table agree. Both phones show the same color for 90 seconds."
-                    : "Table hellos are turned off for this event. You can still meet through a table or keep chatting."}
+                    ? "Keep it easy. No pressure. Both people must choose to keep this open tonight."
+                    : "Hellos are turned off for this event. You can still stay in the Circle."}
                 </p>
               </div>
               {demoEvent.findMeEnabled ? (
                 <PrimaryButton className="min-h-10 shrink-0 px-4" onClick={requestFindMe}>
-                  Find each other
+                  Keep open tonight
                 </PrimaryButton>
               ) : null}
             </div>
@@ -185,7 +185,7 @@ export default function ChatPage() {
           <input
             value={body}
             onChange={(event) => setBody(event.target.value)}
-            placeholder="Message for tonight..."
+            placeholder="Keep it easy..."
             className="min-w-0 flex-1 bg-transparent px-3 text-sm text-venue-cream outline-none placeholder:text-venue-dim"
           />
           <button className="grid h-11 w-11 place-items-center rounded-full bg-venue-amber text-venue-ink" type="submit" aria-label="Send">

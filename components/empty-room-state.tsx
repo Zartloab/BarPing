@@ -8,10 +8,10 @@ export function EmptyRoomState() {
       </div>
       <h3 className="text-lg font-semibold text-venue-cream">You&apos;re early.</h3>
       <p className="mt-2 text-sm leading-relaxed text-venue-muted">
-        Social Mode has started, but the room is still warming up.
+        Signal Night has started, but the room is still warming up.
       </p>
       <p className="mt-4 rounded-2xl bg-white/[0.04] px-4 py-3 text-sm text-venue-muted">
-        Tonight&apos;s icebreaker: What song should play next?
+        Tonight&apos;s Drop: What song should play next?
       </p>
     </div>
   );

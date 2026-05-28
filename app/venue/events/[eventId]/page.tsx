@@ -25,7 +25,7 @@ export default function VenueEventPage() {
         </div>
         <section className="mt-6 grid gap-6 lg:grid-cols-2">
           <div className="glass-card rounded-[28px] p-5">
-            <h2 className="text-xl font-semibold">Active guests</h2>
+            <h2 className="text-xl font-semibold">Signals checked in</h2>
             <div className="mt-4 grid gap-3">
               {demoGuests.map((guest) => (
                 <div key={guest.id} className="rounded-[20px] bg-white/[0.035] p-3">
@@ -36,7 +36,7 @@ export default function VenueEventPage() {
             </div>
           </div>
           <div className="glass-card rounded-[28px] p-5">
-            <h2 className="text-xl font-semibold">Create group table</h2>
+            <h2 className="text-xl font-semibold">Circles tonight</h2>
             <div className="mt-4 grid gap-3">
               {demoTables.map((table) => (
                 <div key={table.id} className="rounded-[20px] bg-white/[0.035] p-3">

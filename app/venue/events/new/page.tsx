@@ -50,7 +50,7 @@ export default function NewVenueEventPage() {
           venue={demoVenue}
           event={{ ...demoEvent, title: template.eventTitle }}
           status="Set up"
-          summary="Choose recipe, review run sheet, then generate the launch kit."
+          summary="Choose recipe, review Drops and Circles, then generate the launch kit."
           action={<VenueThemeToggle />}
         />
 
@@ -61,7 +61,7 @@ export default function NewVenueEventPage() {
 
         <section className="rounded-[12px] border border-venue-soft bg-venue-card p-4">
           <p className="text-xs font-medium text-venue-dim">Simple version</p>
-          <p className="mt-1 text-base font-medium">Pick a recipe. BarPing turns it into tables, signs, nudges, and a run sheet.</p>
+          <p className="mt-1 text-base font-medium">Pick a recipe. BarPing turns it into Signals, Circles, Drops, signs, and a run sheet.</p>
         </section>
 
         <section className="grid gap-5 lg:grid-cols-[1fr_0.82fr]">
@@ -95,7 +95,7 @@ export default function NewVenueEventPage() {
                   </div>
                   <p className="mt-2 flex items-center gap-2 text-xs text-venue-dim">
                     <Clock size={13} />
-                    {item.recommendedDurationMinutes} min / {item.tables.length} tables / {item.defaultVibeLevel}
+                    {item.recommendedDurationMinutes} min / {item.tables.length} Circles / {item.defaultVibeLevel}
                   </p>
                 </button>
               ))}
@@ -108,8 +108,8 @@ export default function NewVenueEventPage() {
               <h2 className="mt-2 text-2xl font-medium tracking-[-0.01em]">{template.eventTitle}</h2>
               <p className="mt-1 text-sm text-venue-muted">{demoVenue.name} / {template.eventType}</p>
               <div className="mt-4 grid grid-cols-3 gap-2">
-                <UtilityPanel><Table2 size={16} /><p className="mt-2 text-lg font-medium">{template.tables.length}</p><p className="text-xs text-venue-muted">tables</p></UtilityPanel>
-                <UtilityPanel><Printer size={16} /><p className="mt-2 text-lg font-medium">6</p><p className="text-xs text-venue-muted">assets</p></UtilityPanel>
+                <UtilityPanel><Table2 size={16} /><p className="mt-2 text-lg font-medium">{template.tables.length}</p><p className="text-xs text-venue-muted">Circles</p></UtilityPanel>
+                <UtilityPanel><Printer size={16} /><p className="mt-2 text-lg font-medium">7</p><p className="text-xs text-venue-muted">assets</p></UtilityPanel>
                 <UtilityPanel><FileText size={16} /><p className="mt-2 text-lg font-medium">{template.recommendedDurationMinutes}</p><p className="text-xs text-venue-muted">minutes</p></UtilityPanel>
               </div>
             </CommandPanel>
@@ -137,7 +137,7 @@ export default function NewVenueEventPage() {
                 className="mt-3 flex min-h-11 w-full items-center justify-between rounded-[10px] border border-venue-soft bg-white px-3 text-left"
                 type="button"
               >
-                <span className="text-sm font-medium">Optional table hellos</span>
+                <span className="text-sm font-medium">Optional Hellos</span>
                 <span className={`rounded-[999px] px-2.5 py-1 text-xs ${findMeEnabled ? "bg-venue-olive/10 text-venue-olive" : "bg-venue-raised text-venue-muted"}`}>
                   {findMeEnabled ? "On" : "Off"}
                 </span>
@@ -145,7 +145,7 @@ export default function NewVenueEventPage() {
             </ConsolePanel>
 
             <ConsolePanel>
-              <SectionLabel>Generated prompts</SectionLabel>
+              <SectionLabel>Generated Drops</SectionLabel>
               <div className="mt-3 grid gap-2">
                 {template.tables.slice(0, 3).map((table) => (
                   <p key={table.name} className="rounded-[10px] bg-venue-raised px-3 py-2 text-sm text-venue-muted">

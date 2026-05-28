@@ -70,6 +70,53 @@ export type EventTable = {
   isTemplateGenerated?: boolean;
 };
 
+export type EventSignal = {
+  id: string;
+  eventId: string;
+  userId: string;
+  signalName: string;
+  signalSlug: string;
+  symbol: string;
+  vibe: string;
+  suggestedCircles: string[];
+  suggestedHelloTemplates: string[];
+  redrawUsed: boolean;
+  createdAt: string;
+  expiresAt: string;
+};
+
+export type DropStatus = "draft" | "live" | "expired";
+
+export type EventDrop = {
+  id: string;
+  eventId: string;
+  title: string;
+  body: string;
+  actionLabels: string[];
+  relatedCircleId?: string;
+  status: DropStatus;
+  startsAt: string;
+  expiresAt: string;
+  createdAt: string;
+};
+
+export type HelloStatus = "pending" | "accepted" | "declined" | "blocked" | "expired";
+
+export type EventHello = {
+  id: string;
+  eventId: string;
+  fromUserId: string;
+  toUserId?: string;
+  toCircleId?: string;
+  contextType: "circle" | "drop" | "open_hello";
+  contextId?: string;
+  templateText: string;
+  customLine?: string;
+  status: HelloStatus;
+  createdAt: string;
+  expiresAt: string;
+};
+
 export type Ping = {
   id: string;
   fromUserId: string;
@@ -203,7 +250,7 @@ export type EventTemplate = {
   assets: TemplateAssetCopy;
 };
 
-export type EventAssetKind = "table_qr" | "entrance_poster" | "bar_counter" | "instagram_story" | "safety_card" | "run_sheet";
+export type EventAssetKind = "table_qr" | "entrance_poster" | "bar_counter" | "instagram_story" | "safety_card" | "run_sheet" | "signal_sheet";
 
 export type EventAsset = {
   id: string;

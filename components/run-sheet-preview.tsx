@@ -17,7 +17,7 @@ export function RunSheetPreview({ template }: { template: EventTemplate }) {
         <div className="rounded-[24px] border border-white/[0.08] bg-white/[0.035] p-4">
           <div className="mb-3 flex items-center gap-2 text-venue-amberSoft">
             <Megaphone size={17} />
-            <h3 className="font-semibold text-venue-cream">One-tap nudges</h3>
+            <h3 className="font-semibold text-venue-cream">Drop queue</h3>
           </div>
           <div className="grid gap-2">
             {template.hostNudges.map((nudge) => (
